@@ -1,0 +1,94 @@
+/* ==============================
+   🔔 Alertas – Agroplaga AI
+   ============================== */
+
+/* Fondo general */
+body {
+  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) fixed;
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* 🌿 Contenedor principal */
+.alerta-container {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 245, 0.9);
+  border: 2px solid #ffd166;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.25);
+  color: #2b2b2b;
+  max-width: 900px;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(6px);
+}
+
+.alerta-container:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(255, 165, 0, 0.4);
+}
+
+/* 🔔 Título */
+.alerta-container h3 {
+  color: #285430;
+  font-weight: 800;
+  text-shadow: 0 0 8px #fff, 0 0 15px #ffe166;
+  animation: glow 2s ease-in-out infinite alternate;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 6px #ffe166, 0 0 10px #ffba08; }
+  to { text-shadow: 0 0 15px #ffba08, 0 0 30px #ffa500; }
+}
+
+/* ✅ Mensaje sin alertas */
+.alerta-container p {
+  color: #2f855a;
+  font-weight: 600;
+  font-size: 1rem;
+  background: #f0fdf4;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 128, 0, 0.1);
+  text-align: center;
+}
+
+/* ⚠️ Lista de alertas activas */
+.alerta-container ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.alerta-container li {
+  background: #fffbea;
+  border-left: 5px solid #f59e0b;
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  color: #553c09;
+  transition: all 0.3s ease;
+}
+
+.alerta-container li:hover {
+  background: #fff0c2;
+  transform: translateX(6px);
+}
+
+/* 📱 Responsivo */
+@media (max-width: 768px) {
+  .alerta-container {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .alerta-container h3 {
+    font-size: 1.3rem;
+  }
+
+  .alerta-container p, .alerta-container li {
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,26 @@
+/* ==============================
+   🧱 Layout – Agroplaga AI
+   ============================== */
+
+.layout-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) fixed;
+  background-size: cover;
+  color: #1f2937;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Poppins', sans-serif;
+}
+
+.layout-main {
+  flex: 1;
+  padding: 2rem;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+@media (max-width: 768px) {
+  .layout-main {
+    padding: 1rem;
+  }
+}

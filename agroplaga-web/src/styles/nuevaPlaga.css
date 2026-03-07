@@ -1,0 +1,169 @@
+/* ==============================
+   🪴 Nueva Plaga – Formulario
+   ============================== */
+
+body {
+  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) fixed;
+  background-size: cover;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+/* Contenedor principal */
+.plaga-container {
+  position: relative;
+  max-width: 700px;
+  margin: 3rem auto;
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.9);
+  border: 2px solid #ffd166;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(255, 193, 7, 0.25);
+  backdrop-filter: blur(8px);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeInPop 0.8s ease-out forwards;
+}
+
+.plaga-container:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(255, 165, 0, 0.35);
+}
+
+/* Efecto brillante ambiental */
+.plaga-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #c0f8a1, #fffac2, #ffe49a);
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;
+}
+
+.plaga-container:hover::before {
+  opacity: 1;
+}
+
+/* Título */
+.plaga-titulo {
+  text-align: center;
+  color: #285430;
+  font-weight: 800;
+  text-shadow: 0 0 8px #fff, 0 0 15px #ffe166;
+  margin-bottom: 1.5rem;
+}
+
+/* Formulario */
+.plaga-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  animation: fadeInPop 1s ease-in-out;
+}
+
+.plaga-field label {
+  font-weight: 600;
+  color: #3e7c17;
+}
+
+.plaga-input {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 0.7rem 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.plaga-input:focus {
+  border-color: #52b788;
+  box-shadow: 0 0 8px rgba(82, 183, 136, 0.5);
+  outline: none;
+}
+
+/* Imagen previa */
+.plaga-preview {
+  text-align: center;
+  margin-top: 1rem;
+}
+
+.plaga-img {
+  max-width: 240px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+  transition: transform 0.3s ease;
+}
+
+.plaga-img:hover {
+  transform: scale(1.05);
+}
+
+/* Botón */
+.plaga-button {
+  background: linear-gradient(135deg, #2d6a4f, #52b788);
+  border: none;
+  color: white;
+  font-weight: 700;
+  padding: 0.8rem;
+  border-radius: 10px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: background 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 6px 15px rgba(45, 106, 79, 0.3);
+}
+
+.plaga-button:hover {
+  background: linear-gradient(135deg, #1b4332, #40916c);
+  transform: translateY(-3px);
+}
+
+/* Reflejo solar al pasar el mouse */
+.plaga-button::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+  transition: all 0.6s ease;
+}
+
+.plaga-button:hover::after {
+  left: 100%;
+}
+
+/* Animación de entrada */
+@keyframes fadeInPop {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(10px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    filter: blur(0);
+  }
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .plaga-container {
+    width: 90%;
+    padding: 1.2rem;
+  }
+
+  .plaga-img {
+    max-width: 160px;
+  }
+}

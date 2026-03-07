@@ -1,0 +1,189 @@
+/* Contenedor principal */
+.chat {
+  --radius: 12px;
+  --gap: 12px;
+
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: clamp(10px, 2.5vw, 24px);
+  display: grid;
+  grid-template-rows: auto 1fr auto auto;
+  row-gap: var(--gap);
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: var(--radius);
+  box-shadow: 0 1px 2px rgba(0,0,0,.06);
+}
+
+/* Cabecera */
+.chat__header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: var(--gap);
+}
+.chat__title {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.chat__subtitle {
+  font-size: clamp(12px, 1.6vw, 14px);
+  color: #6b7280;
+}
+.chat__plot {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.chat__inputMini {
+  width: clamp(64px, 10vw, 90px);
+  padding: 6px 8px;
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+}
+
+/* Historial */
+.chat__history {
+  min-height: 240px;
+  max-height: min(65vh, 700px);
+  overflow: auto;
+  padding: 6px;
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: var(--radius);
+}
+
+.chat__bubble {
+  margin: 8px 0;
+  padding: clamp(10px, 2vw, 14px);
+  border-radius: 14px;
+  border: 1px solid #e5e7eb;
+  background: #fff;
+}
+
+.chat__bubble--user {
+  background: #eef2ff;
+  border-color: #c7d2fe;
+}
+
+.chat__meta {
+  font-size: clamp(11px, 1.5vw, 12px);
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+.chat__text {
+  font-size: clamp(14px, 1.9vw, 16px);
+  line-height: 1.45;
+  white-space: pre-wrap;
+}
+
+/* Input & acciones */
+.chat__composer,
+.chat__vision {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--gap);
+}
+
+.chat__input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  outline: none;
+  font-size: clamp(14px, 1.9vw, 16px);
+  background: #fff;
+}
+
+.chat__btn {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #2563eb;
+  background: #2563eb;
+  color: #fff;
+  cursor: pointer;
+  font-size: clamp(14px, 1.9vw, 16px);
+}
+.chat__btn:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+.chat__btn--ghost {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  color: #111827;
+}
+
+/* Feedback */
+.chat__error {
+  margin-top: 6px;
+  color: #dc2626;
+  font-size: clamp(12px, 1.6vw, 13px);
+}
+.chat__typing {
+  font-size: clamp(12px, 1.6vw, 13px);
+  color: #6b7280;
+  padding: 6px 8px;
+}
+
+/* ===================== Breakpoints ===================== */
+
+/* XS: teléfonos muy pequeños / relojes grandes (<=360px) */
+@media (max-width: 360px) {
+  .chat {
+    border: none;
+    border-radius: 0;
+    padding: 8px;
+    box-shadow: none;
+  }
+  .chat__header {
+    grid-template-columns: 1fr;
+  }
+  .chat__composer, .chat__vision {
+    grid-template-columns: 1fr auto;
+  }
+  .chat__history {
+    max-height: 55vh;
+  }
+}
+
+/* SM: teléfonos comunes (361–640px) */
+@media (max-width: 640px) {
+  .chat__history {
+    max-height: 60vh;
+  }
+}
+
+/* MD: tablets (641–1024px) – layout ya funciona, sin cambios grandes */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .chat {
+    max-width: 900px;
+  }
+}
+
+/* LG/XL: desktop y TV (>=1025px) */
+@media (min-width: 1025px) {
+  .chat {
+    max-width: min(1200px, 92vw);
+  }
+  .chat__history {
+    max-height: min(70vh, 800px);
+  }
+}
+
+/* TVs muy grandes: aumenta paddings y ancho de burbujas para legibilidad */
+@media (min-width: 1600px) {
+  .chat {
+    max-width: min(1400px, 80vw);
+    padding: 24px 28px;
+  }
+  .chat__bubble {
+    margin: 12px 0;
+  }
+}
+
+/* Accesibilidad: usuarios que prefieren menos animación */
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; }
+}

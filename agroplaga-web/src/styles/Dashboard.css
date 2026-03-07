@@ -1,0 +1,201 @@
+/* ===== Tipografías ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Raleway:wght@500;700&family=Roboto+Mono:wght@400;700&display=swap');
+
+/* ===== RESETEO GLOBAL ===== */
+html, body, #root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  font-family: 'Poppins', sans-serif;
+  color: #2b1e12;
+  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) !important; /* 🌿 Degradado verde-lima y dorado */
+  overflow-x: hidden;
+}
+
+/* ===== CORRIGE FONDO DE CONTENEDORES PADRES ===== */
+.App, .layout, .main-container, .page-wrapper {
+  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) !important;
+}
+
+
+/* ===== CONTENEDOR PRINCIPAL ===== */
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100%;
+  min-height: calc(100vh - 60px);
+  padding: 3rem 1rem;
+  box-sizing: border-box;
+  background: transparent;
+}
+
+/* ===== CONTENIDO INTERNO ===== */
+.dashboard-container {
+  background-color: transparent;
+  max-width: 1100px;
+  width: 100%;
+  text-align: center;
+}
+
+/* ===== TÍTULO ===== */
+.title {
+  font-family: 'Raleway', sans-serif;
+  color: #285430;
+  font-size: 2rem;
+  font-weight: 800;
+  text-shadow: 0 0 8px #fff, 0 0 15px #ffe166;
+  margin-bottom: 1.5rem;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px #ffe166, 0 0 10px #ffba08;
+  }
+  to {
+    text-shadow: 0 0 15px #ffba08, 0 0 30px #ffa500;
+  }
+}
+
+/* ===== SELECTOR DE PARCELA ===== */
+.selector {
+  border: 2px solid #ffa500;
+  border-radius: 10px;
+  padding: 0.6rem 1rem;
+  background: #fffdf3;
+  color: #6b4000;
+  font-weight: 600;
+  font-family: 'Poppins';
+  transition: all 0.25s ease;
+  cursor: pointer;
+  box-shadow: 0 3px 6px rgba(255, 193, 7, 0.3);
+}
+.selector:hover {
+  background: #fff4d9;
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.5);
+  transform: scale(1.05);
+}
+
+/* ===== TEXTO DE ACTUALIZACIÓN ===== */
+.update-text {
+  text-align: center;
+  color: #3d1308;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+/* ===== GRID DE SENSORES ===== */
+.sensor-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+/* ===== TARJETA DE SENSOR ===== */
+.sensor-card {
+  border-radius: 18px;
+  padding: 1.5rem;
+  width: 260px;
+  background-color: #fffdf0;
+  box-shadow: 0 6px 15px rgba(255, 193, 7, 0.25);
+  color: #3d1308;
+  transition: all 0.25s ease;
+  border: 2px solid #ffb703;
+}
+.sensor-card:hover {
+  transform: scale(1.05);
+  background-color: #fff5d1;
+  box-shadow: 0 10px 25px rgba(255, 165, 0, 0.4);
+}
+
+/* Colores de borde por tipo */
+.card-1 { border-top: 4px solid #ff8c42; }
+.card-2 { border-top: 4px solid #f4a261; }
+.card-3 { border-top: 4px solid #ffb703; }
+
+/* ===== CONTENIDO TARJETA ===== */
+.sensor-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  color: #285430;
+}
+.sensor-header h3 {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.icon {
+  font-size: 1.8rem;
+  color: #f77f00;
+}
+.sensor-value {
+  font-family: 'Roboto Mono', monospace;
+  font-size: 2.3rem;
+  font-weight: 700;
+  color: #3d1308;
+  margin-top: 0.6rem;
+}
+.sensor-time {
+  font-size: 0.85rem;
+  color: #6d5b4b;
+  margin-top: 0.3rem;
+}
+
+/* ===== BOTÓN REFRESCAR ===== */
+.btn-refresh {
+  background: linear-gradient(145deg, #00c853, #81c784);
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 0.9rem 2rem;
+  margin-top: 2rem;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Raleway';
+  box-shadow: 0 6px 15px rgba(100, 180, 120, 0.35);
+  transition: all 0.3s ease;
+}
+.btn-refresh:hover {
+  background: linear-gradient(145deg, #81c784, #00c853);
+  transform: scale(1.08);
+}
+.btn-refresh:active {
+  transform: scale(0.97);
+}
+
+/* ===== ALERTAS ===== */
+.alertas {
+  margin-top: 2.5rem;
+  background: #fff3cd;
+  border-radius: 14px;
+  padding: 1.2rem;
+  color: #7a5c00;
+  font-weight: 500;
+  font-family: 'Poppins';
+  box-shadow: 0 5px 18px rgba(255, 193, 7, 0.25);
+  width: 90%;
+  max-width: 800px;
+  text-align: left;
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  .dashboard {
+    padding: 2rem 1rem;
+  }
+  .sensor-grid {
+    flex-direction: column;
+    align-items: center;
+  }
+  .sensor-card {
+    width: 90%;
+  }
+}

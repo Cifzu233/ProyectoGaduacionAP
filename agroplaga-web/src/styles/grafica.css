@@ -1,0 +1,46 @@
+/* ==============================
+   📊 Gráfica – Agroplaga AI
+   ============================== */
+
+body {
+  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) fixed;
+  background-size: cover;
+}
+
+.grafica-contenedor {
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background: rgba(255, 255, 245, 0.9);
+  border: 2px solid #ffd166;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(255, 193, 7, 0.25);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
+  max-width: 1000px;
+}
+
+.grafica-contenedor:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(255, 165, 0, 0.4);
+}
+
+.grafica-titulo {
+  text-align: center;
+  font-weight: 800;
+  color: #285430;
+  text-shadow: 0 0 8px #fff, 0 0 15px #ffe166;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+/* 📱 Responsivo */
+@media (max-width: 768px) {
+  .grafica-contenedor {
+    width: 90%;
+    padding: 1rem;
+  }
+
+  .grafica-titulo {
+    font-size: 1.2rem;
+  }
+}
