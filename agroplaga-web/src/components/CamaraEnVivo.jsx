@@ -98,7 +98,6 @@ function ResultadoCard({ deteccion, onCerrar }) {
       <div className="camara__resultadoMeta">
         {ORIGEN_ICONO[deteccion.origen] || ""} {ORIGEN_LABEL[deteccion.origen] || deteccion.origen} ·{" "}
         {fechaCorta(deteccion.created_at)}
-        {deteccion.modelo ? ` · ${deteccion.modelo}` : ""}
       </div>
     </div>
   );
@@ -182,7 +181,7 @@ function CamaraForm({ inicial, parcelas, plots, onGuardar, onEliminar, onCancela
         <>
           <label>
             URL base del ESP32-CAM
-            <input value={form.base_url} onChange={(e) => set("base_url", e.target.value)} placeholder="http://192.168.1.50  (simulador: http://localhost:8081)" />
+            <input value={form.base_url} onChange={(e) => set("base_url", e.target.value)} placeholder="http://192.168.1.50" />
           </label>
           <label>
             URL de stream (opcional, si no es :81/stream)
@@ -520,7 +519,7 @@ export default function CamaraEnVivo() {
           </select>
           {camara && (
             <span className={`camara__badge ${online ? "camara__badge--online" : "camara__badge--offline"}`}>
-              {online ? "● En línea" : "○ Sin señal"}
+              {online ? "● Captura en vivo" : "○ Sin señal"}
               {online && estado?.fps ? ` · ${estado.fps} fps` : ""}
               {estado?.ultimo_frame_at ? ` · ${haceSegundos(estado.ultimo_frame_at)}` : ""}
             </span>
@@ -577,8 +576,7 @@ export default function CamaraEnVivo() {
           <p>Todavía no hay cámaras registradas.</p>
           {esAdmin ? (
             <p>
-              Pulsa <strong>➕ Nueva</strong> y apunta a tu ESP32-CAM (por ejemplo <code>http://192.168.1.50</code>) o al
-              simulador (<code>http://localhost:8081</code>).
+              Pulsa <strong>➕ Nueva</strong> y apunta a tu ESP32-CAM (por ejemplo <code>http://192.168.1.50</code>).
             </p>
           ) : (
             <p>Pide a un administrador que registre una cámara.</p>
@@ -660,7 +658,7 @@ export default function CamaraEnVivo() {
                 </span>
               )}
               <span className="camara__autoInfo">
-                Modo {camara.modo === "pull" ? "pull (servidor → cámara)" : "push (cámara → servidor)"}
+                Captura en vivo
                 {camara.parcela_nombre ? ` · ${camara.parcela_nombre}` : ""}
               </span>
             </div>

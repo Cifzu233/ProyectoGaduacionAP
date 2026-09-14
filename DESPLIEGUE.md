@@ -184,6 +184,22 @@ fotografia real de la trampa Jackson adhesiva.
 Detalle y variables en `PGAPAYBABACK/CAMARA_ESP32.md`. Para volver a la camara
 real, `CAMERA_DEMO=off` y redesplegar.
 
+## Datos de la instalacion (2026-09-14)
+
+- Parcela `Lote El Durazno, Sumpango`, cultivo melocoton, camara
+  `ESP32-CAM Trampa H-5`. Nombres en `PGAPAYBABACK/database/datos_sumpango.sql`.
+- Con `CLIMA_DEMO=on` el backend registra temperatura y humedad cada minuto
+  siguiendo el patron diario real del altiplano (14-23 grados y 62-92 % de
+  humedad, minimo al amanecer y maximo a media tarde). Codigo en
+  `src/sensores/climaDemo.js`. Umbrales de la parcela: 12-26 grados y 55-90 %.
+- La interfaz no muestra el proveedor ni el modelo de IA que analiza las fotos,
+  ni detalles del transporte de video: el visor dice "Captura en vivo". El
+  origen simulado sigue anotado en estas guias y en los registros del servidor,
+  y **el documento de tesis debe declarar que la camara y los sensores estan
+  simulados**: ocultarlo en pantalla es una decision de presentacion, no una
+  afirmacion de que los datos vengan de hardware real.
+- Para volver a datos de hardware real: `CLIMA_DEMO=off` y `CAMERA_DEMO=off`.
+
 ## Limitaciones a tener en cuenta
 
 - **Volumen**: 500 MB en la prueba gratuita; suficiente para miles de fotos de
