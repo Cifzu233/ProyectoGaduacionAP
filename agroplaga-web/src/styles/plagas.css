@@ -1,254 +1,291 @@
-/* ==============================
-   🐛 Plagas – Versión vertical con botones grandes
-   ============================== */
+/* ==========================================================================
+   Catálogo de plagas · Agroplaga AI
+   Fichas en rejilla: el texto largo se lee mejor en columna que en tabla.
+   ========================================================================== */
 
-.plagas-container {
-  min-height: 100vh;
-  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%);
+.plagas {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  max-width: 1400px;
+}
+
+.plagas__cabecera {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.plagas__titulo {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--ap-verde-900);
+}
+
+.plagas__sub {
+  margin: 4px 0 0;
+  font-size: 0.88rem;
+  color: var(--ap-texto-suave);
+}
+
+.plagas__vacio {
+  color: var(--ap-texto-tenue);
+  font-size: 0.9rem;
+}
+
+.plagas__rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+/* --------------------------------- ficha --------------------------------- */
+
+.plaga {
+  display: flex;
+  flex-direction: column;
+  background: var(--ap-superficie);
+  border: 1px solid var(--ap-borde);
+  border-radius: var(--ap-radio-lg);
+  box-shadow: var(--ap-sombra);
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.plaga:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--ap-sombra-alta);
+}
+
+/* La plaga principal del cultivo se distingue con un borde ámbar */
+.plaga--principal {
+  border-color: var(--ap-ambar);
+  box-shadow: 0 10px 30px rgba(255, 186, 8, 0.18);
+}
+
+.plaga__foto {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  background: var(--ap-verde-50);
+  overflow: hidden;
+}
+
+.plaga__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.plaga__sinFoto {
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
-  padding: 3rem 1rem 6rem;
-  text-align: center;
-  font-family: 'Poppins', sans-serif;
-}
-
-/* ===== TÍTULO ===== */
-.plagas-title {
-  font-size: 2rem;
-  color: #285430;
-  font-weight: 800;
-  text-shadow: 0 0 8px #fff, 0 0 15px #ffe166;
-  animation: glow 2s ease-in-out infinite alternate;
-  margin-bottom: 1.5rem;
-}
-
-@keyframes glow {
-  from { text-shadow: 0 0 5px #ffe166, 0 0 10px #ffba08; }
-  to { text-shadow: 0 0 15px #ffba08, 0 0 30px #ffa500; }
-}
-
-/* ===== BUSCADOR ===== */
-.plagas-search {
-  width: 90%;
-  max-width: 400px;
-  padding: 0.7rem 1rem;
-  border-radius: 10px;
-  border: 2px solid #ffa500;
-  background-color: #fffdf3;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  box-shadow: 0 3px 6px rgba(255, 193, 7, 0.3);
-  margin-bottom: 2rem;
-}
-
-.plagas-search:focus {
-  border-color: #ff9100;
-  box-shadow: 0 0 12px #ffb703;
-  outline: none;
-}
-
-/* ===== TABLA ===== */
-.plagas-table {
-  width: 95%;
-  max-width: 1100px;
-  border-collapse: collapse;
-  border-radius: 12px;
-  background: #ffffffcc;
-  overflow: hidden;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
-  margin: 0 auto;
-  table-layout: fixed;
-}
-
-.plagas-table th {
-  background-color: #3e7c17;
-  color: #fff;
-  padding: 1rem;
-  text-transform: uppercase;
-  font-size: 0.9rem;
-  letter-spacing: 0.5px;
-}
-
-.plagas-table td {
-  padding: 0.8rem;
-  border-bottom: 1px solid #dcdcdc;
-  color: #333;
-  background-color: #fffdf4;
-  transition: all 0.2s ease;
-  vertical-align: middle;
-  word-wrap: break-word;
-}
-
-.plagas-table tr:nth-child(even) td {
-  background-color: #fef8e4;
-}
-
-.plagas-table tr:hover td {
-  background-color: #fff1bf;
-  transform: scale(1.01);
-}
-
-/* ===== IMAGEN ===== */
-.plagas-img {
-  width: 70px;
-  height: 70px;
-  border-radius: 10px;
-  object-fit: cover;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.plagas-img:hover {
-  transform: scale(1.3);
-  box-shadow: 0 8px 15px rgba(255, 165, 0, 0.5);
-}
-
-/* ===== BOTONES ===== */
-.acciones {
-  display: flex;
-  flex-direction: column; /* 🔽 Uno debajo del otro */
-  align-items: center;
   justify-content: center;
-  gap: 0.6rem;
-  height: 100%;
-  width: 100%;
+  gap: 6px;
+  color: var(--ap-texto-tenue);
+  font-size: 0.78rem;
+  background: repeating-linear-gradient(
+    45deg,
+    var(--ap-verde-50),
+    var(--ap-verde-50) 10px,
+    #eaf4ee 10px,
+    #eaf4ee 20px
+  );
 }
 
-.plagas-table td.acciones {
-  width: 150px;
-  padding: 0.7rem 0.5rem;
-  background: none !important;
-  border: none;
-  box-shadow: none;
-}
-
-/* ✏️ Editar */
-.btn-editar {
-  background: linear-gradient(145deg, #facc15, #fbbf24);
-  border: none;
-  border-radius: 10px;
-  width: 90%; /* Más horizontal */
-  padding: 0.6rem 0.8rem;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(250, 204, 21, 0.4);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-}
-.btn-editar:hover {
-  background: linear-gradient(145deg, #fde047, #facc15);
-  transform: scale(1.1);
-}
-
-/* 🗑️ Eliminar */
-.btn-eliminar {
-  background: linear-gradient(145deg, #dc2626, #ef4444);
-  border: none;
-  border-radius: 10px;
-  width: 90%; /* Más horizontal */
-  padding: 0.6rem 0.8rem;
-  cursor: pointer;
-  color: #fff;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(220, 38, 38, 0.4);
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.4rem;
-}
-.btn-eliminar:hover {
-  background: linear-gradient(145deg, #ef4444, #b91c1c);
-  transform: scale(1.1);
-}
-
-/* 💾 Guardar */
-.btn-guardar {
-  background: linear-gradient(145deg, #16a34a, #22c55e);
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 0.8rem;
-  cursor: pointer;
-  color: #fff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-.btn-guardar:hover {
-  background: linear-gradient(145deg, #22c55e, #16a34a);
-  transform: scale(1.05);
-}
-
-/* ❌ Cancelar */
-.btn-cancelar {
-  background: linear-gradient(145deg, #6b7280, #9ca3af);
-  border: none;
-  border-radius: 8px;
-  padding: 0.5rem 0.8rem;
-  cursor: pointer;
-  color: #fff;
-  font-weight: 600;
-  transition: all 0.3s ease;
-}
-.btn-cancelar:hover {
-  background: linear-gradient(145deg, #9ca3af, #6b7280);
-  transform: scale(1.05);
-}
-
-/* ♻️ Restaurar */
-.btn-restaurar {
-  margin-top: 1.5rem;
-  background: linear-gradient(145deg, #f97316, #fb923c);
-  color: #fff;
-  border: none;
-  border-radius: 12px;
-  padding: 0.8rem 1.8rem;
+.plaga__insignia {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--ap-ambar);
+  color: var(--ap-verde-900);
+  font-size: 0.7rem;
   font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 4px 12px rgba(27, 67, 50, 0.25);
+}
+
+.plaga__cuerpo {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 18px;
+  flex-grow: 1;
+}
+
+.plaga__nombre {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  line-height: 1.25;
+  color: var(--ap-verde-900);
+}
+
+.plaga__ciencia {
+  margin: 0;
+  font-style: italic;
+  font-size: 0.82rem;
+  color: var(--ap-texto-suave);
+}
+
+.plaga__bloques {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.plaga__bloque {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.plaga__etiqueta {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--ap-ambar-texto);
+}
+
+.plaga__etiqueta--verde {
+  color: var(--ap-verde-700);
+}
+
+.plaga__texto {
+  margin: 0;
+  font-size: 0.83rem;
+  line-height: 1.5;
+  color: var(--ap-texto-suave);
+  /* Recorte a 3 líneas mientras la ficha está cerrada */
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.plaga__bloques--abierto .plaga__texto {
+  -webkit-line-clamp: unset;
+  line-clamp: unset;
+  overflow: visible;
+}
+
+.plaga__mas {
+  align-self: flex-start;
+  margin: 6px 0 0;
+  padding: 0;
+  background: none;
+  border: none;
+  color: var(--ap-verde-700);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
   cursor: pointer;
-  font-size: 1rem;
-  box-shadow: 0 4px 10px rgba(249, 115, 22, 0.4);
-  transition: all 0.3s ease;
-}
-.btn-restaurar:hover {
-  background: linear-gradient(145deg, #fb923c, #f97316);
-  transform: scale(1.07);
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
-/* ===== FIX: eliminar celdas vacías ===== */
-.plagas-table td:empty {
-  display: none !important;
+.plaga__mas:hover {
+  color: var(--ap-verde-900);
+  background: none;
 }
 
-/* ===== RESPONSIVO ===== */
-@media (max-width: 768px) {
-  .plagas-search {
-    width: 90%;
+.plaga__pie {
+  display: flex;
+  gap: 8px;
+  padding: 12px 18px;
+  border-top: 1px solid var(--ap-borde);
+  background: #fbfdfc;
+}
+
+.plaga__accion {
+  flex: 1;
+  margin: 0;
+  padding: 7px 10px;
+  border-radius: var(--ap-radio-sm);
+  border: 1px solid var(--ap-borde);
+  background: var(--ap-superficie);
+  color: var(--ap-verde-700);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.plaga__accion:hover {
+  background: var(--ap-verde-50);
+}
+
+.plaga__accion--borrar {
+  color: var(--ap-rojo-texto);
+  border-color: #f5c2c0;
+}
+
+.plaga__accion--borrar:hover {
+  background: var(--ap-rojo-50);
+}
+
+/* ------------------------------- edición -------------------------------- */
+
+.plaga--edicion {
+  padding: 18px;
+  gap: 10px;
+  border-color: var(--ap-verde-500);
+}
+
+.plaga__campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--ap-verde-700);
+}
+
+.plaga__campo input,
+.plaga__campo textarea {
+  margin-top: 0;
+  font-weight: 400;
+  color: var(--ap-texto);
+}
+
+.plaga__previa {
+  width: 100%;
+  max-height: 160px;
+  object-fit: cover;
+  border-radius: var(--ap-radio-sm);
+  border: 1px solid var(--ap-borde);
+}
+
+.plaga__acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+/* ------------------------------ responsive ------------------------------ */
+
+@media (max-width: 560px) {
+  .plagas__rejilla {
+    grid-template-columns: minmax(0, 1fr);
   }
 
-  .plagas-table th,
-  .plagas-table td {
-    font-size: 0.9rem;
-    padding: 0.6rem;
-  }
-
-  .plagas-img {
-    width: 60px;
-    height: 60px;
-  }
-
-  .btn-editar,
-  .btn-eliminar {
-    width: 100%;
-    font-size: 0.95rem;
-    padding: 0.6rem;
-  }
-
-  .btn-restaurar {
-    width: 90%;
+  .plagas__cabecera {
+    align-items: flex-start;
   }
 }

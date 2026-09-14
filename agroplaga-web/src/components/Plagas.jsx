@@ -1,8 +1,17 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom"; // 👈 para navegación
+import { useNavigate } from "react-router-dom";
 import "../styles/plagas.css";
 import { apiUrl, get, put, del, upload } from "../lib/api";
 import { useAuth } from "../context/auth";
+import Icono from "./Icono";
+
+const FORM_VACIO = {
+  nombre: "",
+  nombre_cientifico: "",
+  sintomas: "",
+  tratamiento: "",
+  imagen: "",
+};
 
 export default function Plagas() {
   const navigate = useNavigate();
@@ -10,13 +19,8 @@ export default function Plagas() {
   const [plagas, setPlagas] = useState([]);
   const [loading, setLoading] = useState(false);
   const [editingId, setEditingId] = useState(null);
-  const [formData, setFormData] = useState({
-    nombre: "",
-    nombre_cientifico: "",
-    sintomas: "",
-    tratamiento: "",
-    imagen: "",
-  });
+  const [expandidas, setExpandidas] = useState(() => new Set());
+  const [formData, setFormData] = useState(FORM_VACIO);
 
   /* =============================== CARGAR PLAGAS =============================== */
   const fetchPlagas = async () => {
@@ -49,7 +53,7 @@ export default function Plagas() {
     }
   };
 
-  /* =============================== EDITAR PLAGA =============================== */
+  /* ============================== EDITAR / BORRAR ============================== */
   const handleEdit = (plaga) => {
     setEditingId(plaga.id);
     setFormData({
@@ -65,11 +69,10 @@ export default function Plagas() {
     try {
       const data = await put(`/api/plagas/${id}`, formData);
       if (data?.ok) {
-        alert("✅ Plaga actualizada correctamente");
         setEditingId(null);
         fetchPlagas();
       } else {
-        alert("❌ Error al actualizar plaga");
+        alert("No se pudo actualizar la plaga.");
       }
     } catch (err) {
       console.error(err);
@@ -77,12 +80,10 @@ export default function Plagas() {
     }
   };
 
-  /* =============================== ELIMINAR PLAGA =============================== */
-  const handleDelete = async (id) => {
-    if (!window.confirm("¿Seguro que quieres eliminar esta plaga?")) return;
+  const handleDelete = async (plaga) => {
+    if (!window.confirm(`¿Eliminar "${plaga.nombre}" del catálogo?`)) return;
     try {
-      await del(`/api/plagas/${id}`);
-      alert("🗑️ Plaga eliminada correctamente");
+      await del(`/api/plagas/${plaga.id}`);
       fetchPlagas();
     } catch (err) {
       console.error(err);
@@ -90,105 +91,189 @@ export default function Plagas() {
     }
   };
 
-  /* =============================== FORMULARIO DE EDICIÓN =============================== */
-  const renderFormRow = (plaga) => {
-    const isEditing = esAdmin && editingId === plaga.id;
-    if (!isEditing) {
-      return (
-        <tr key={plaga.id}>
-          <td>{plaga.id}</td>
-          <td>{plaga.nombre}</td>
-          <td><em>{plaga.nombre_cientifico}</em></td>
-          <td>{plaga.sintomas}</td>
-          <td>{plaga.tratamiento}</td>
-          <td>
-            {plaga.imagen ? (
-              <img src={apiUrl(plaga.imagen)} alt="img" className="plagas-img" />
-            ) : (
-              "—"
-            )}
-          </td>
-          {esAdmin && (
-            <td className="acciones">
-              <button className="btn-editar" onClick={() => handleEdit(plaga)}>✏️ Editar</button>
-              <button className="btn-eliminar" onClick={() => handleDelete(plaga.id)}>🗑️ Eliminar</button>
-            </td>
-          )}
-        </tr>
-      );
-    }
-
-    return (
-      <tr key={plaga.id} style={{ background: "#f0fff0" }}>
-        <td>{plaga.id}</td>
-        <td><input value={formData.nombre} onChange={(e) => setFormData({ ...formData, nombre: e.target.value })} /></td>
-        <td><input value={formData.nombre_cientifico} onChange={(e) => setFormData({ ...formData, nombre_cientifico: e.target.value })} /></td>
-        <td><textarea value={formData.sintomas} onChange={(e) => setFormData({ ...formData, sintomas: e.target.value })} /></td>
-        <td><textarea value={formData.tratamiento} onChange={(e) => setFormData({ ...formData, tratamiento: e.target.value })} /></td>
-        <td>
-          <input
-            type="file"
-            accept="image/*"
-            onChange={async (e) => {
-              const file = e.target.files[0];
-              if (file) {
-                const url = await subirImagen(file);
-                if (url) setFormData({ ...formData, imagen: url });
-              }
-            }}
-          />
-          {formData.imagen && <img src={apiUrl(formData.imagen)} alt="preview" className="plagas-img" />}
-        </td>
-        <td className="acciones">
-          <button className="btn-guardar" onClick={() => handleSave(plaga.id)}>💾 Guardar</button>
-          <button className="btn-cancelar" onClick={() => setEditingId(null)}>❌ Cancelar</button>
-        </td>
-      </tr>
-    );
+  const alternarTexto = (id) => {
+    setExpandidas((actual) => {
+      const copia = new Set(actual);
+      if (copia.has(id)) copia.delete(id);
+      else copia.add(id);
+      return copia;
+    });
   };
 
-  /* =============================== RENDER PRINCIPAL =============================== */
-  const columnas = esAdmin ? 7 : 6;
-
+  /* ================================= RENDER ================================== */
   return (
-    <div className="plagas-container">
-      <h2 className="plagas-title">🌿 Gestión de Plagas</h2>
-
-      {/* Botón para ir a la pantalla de nueva plaga (solo administradores) */}
-      {esAdmin && (
-        <div style={{ textAlign: "center", marginBottom: "20px" }}>
+    <div className="plagas ap-entra">
+      <header className="plagas__cabecera">
+        <div>
+          <h1 className="plagas__titulo">Catálogo de plagas del duraznero</h1>
+          <p className="plagas__sub">
+            {plagas.length > 0
+              ? `${plagas.length} plagas registradas para el melocotón en el altiplano de Guatemala.`
+              : "Fichas de identificación y manejo integrado."}
+          </p>
+        </div>
+        {esAdmin && (
           <button
-            className="btn-guardar"
-            style={{ padding: "10px 20px", fontSize: "1rem" }}
+            type="button"
+            className="ap-btn ap-btn--primario"
             onClick={() => navigate("/nueva-plaga")}
           >
-            ➕ Registrar nueva plaga
+            <Icono nombre="plaga" size={16} />
+            Registrar nueva plaga
           </button>
-        </div>
+        )}
+      </header>
+
+      {loading && <p className="plagas__vacio">Cargando catálogo…</p>}
+      {!loading && plagas.length === 0 && (
+        <p className="plagas__vacio">Todavía no hay plagas registradas.</p>
       )}
 
-      <table className="plagas-table">
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Nombre</th>
-            <th>Nombre Científico</th>
-            <th>Síntomas</th>
-            <th>Tratamiento</th>
-            <th>Imagen</th>
-            {esAdmin && <th>Acciones</th>}
-          </tr>
-        </thead>
-        <tbody>
-          {loading ? (
-            <tr><td colSpan={columnas} align="center">Cargando...</td></tr>
-          ) : plagas.length > 0 ? (
-            plagas.map((p) => renderFormRow(p))
-          ) : (
-            <tr><td colSpan={columnas} align="center">No hay registros.</td></tr>
-          )}
-        </tbody>
-      </table>
+      <div className="plagas__rejilla">
+        {plagas.map((plaga, indice) => {
+          const enEdicion = esAdmin && editingId === plaga.id;
+          // El catálogo está ordenado: la primera ficha es la plaga principal.
+          const esPrincipal = indice === 0 && !enEdicion;
+          const abierta = expandidas.has(plaga.id);
+
+          if (enEdicion) {
+            return (
+              <article className="plaga plaga--edicion" key={plaga.id}>
+                <label className="plaga__campo">
+                  Nombre común
+                  <input
+                    value={formData.nombre}
+                    onChange={(e) => setFormData({ ...formData, nombre: e.target.value })}
+                  />
+                </label>
+                <label className="plaga__campo">
+                  Nombre científico
+                  <input
+                    value={formData.nombre_cientifico}
+                    onChange={(e) =>
+                      setFormData({ ...formData, nombre_cientifico: e.target.value })
+                    }
+                  />
+                </label>
+                <label className="plaga__campo">
+                  Síntomas
+                  <textarea
+                    rows="4"
+                    value={formData.sintomas}
+                    onChange={(e) => setFormData({ ...formData, sintomas: e.target.value })}
+                  />
+                </label>
+                <label className="plaga__campo">
+                  Tratamiento
+                  <textarea
+                    rows="4"
+                    value={formData.tratamiento}
+                    onChange={(e) => setFormData({ ...formData, tratamiento: e.target.value })}
+                  />
+                </label>
+                <label className="plaga__campo">
+                  Fotografía
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={async (e) => {
+                      const file = e.target.files[0];
+                      if (file) {
+                        const url = await subirImagen(file);
+                        if (url) setFormData({ ...formData, imagen: url });
+                      }
+                    }}
+                  />
+                </label>
+                {formData.imagen && (
+                  <img className="plaga__previa" src={apiUrl(formData.imagen)} alt="Vista previa" />
+                )}
+                <div className="plaga__acciones">
+                  <button
+                    type="button"
+                    className="ap-btn ap-btn--primario"
+                    onClick={() => handleSave(plaga.id)}
+                  >
+                    Guardar
+                  </button>
+                  <button
+                    type="button"
+                    className="ap-btn ap-btn--suave"
+                    onClick={() => setEditingId(null)}
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </article>
+            );
+          }
+
+          return (
+            <article className={`plaga${esPrincipal ? " plaga--principal" : ""}`} key={plaga.id}>
+              <div className="plaga__foto">
+                {plaga.imagen ? (
+                  <img src={apiUrl(plaga.imagen)} alt={plaga.nombre} loading="lazy" />
+                ) : (
+                  <div className="plaga__sinFoto">
+                    <Icono nombre="camara" size={26} />
+                    <span>Sin fotografía</span>
+                  </div>
+                )}
+                {esPrincipal && <span className="plaga__insignia">Plaga principal</span>}
+              </div>
+
+              <div className="plaga__cuerpo">
+                <h2 className="plaga__nombre">{plaga.nombre}</h2>
+                <p className="plaga__ciencia">{plaga.nombre_cientifico}</p>
+
+                <div className={`plaga__bloques${abierta ? " plaga__bloques--abierto" : ""}`}>
+                  <section className="plaga__bloque">
+                    <span className="plaga__etiqueta">
+                      <Icono nombre="aviso" size={14} />
+                      Síntomas
+                    </span>
+                    <p className="plaga__texto">{plaga.sintomas}</p>
+                  </section>
+                  <section className="plaga__bloque">
+                    <span className="plaga__etiqueta plaga__etiqueta--verde">
+                      <Icono nombre="check" size={14} strokeWidth={2.4} />
+                      Manejo
+                    </span>
+                    <p className="plaga__texto">{plaga.tratamiento}</p>
+                  </section>
+                </div>
+
+                <button
+                  type="button"
+                  className="plaga__mas"
+                  onClick={() => alternarTexto(plaga.id)}
+                >
+                  {abierta ? "Ver menos" : "Ver ficha completa"}
+                </button>
+              </div>
+
+              {esAdmin && (
+                <footer className="plaga__pie">
+                  <button
+                    type="button"
+                    className="plaga__accion"
+                    onClick={() => handleEdit(plaga)}
+                  >
+                    Editar
+                  </button>
+                  <button
+                    type="button"
+                    className="plaga__accion plaga__accion--borrar"
+                    onClick={() => handleDelete(plaga)}
+                  >
+                    Eliminar
+                  </button>
+                </footer>
+              )}
+            </article>
+          );
+        })}
+      </div>
     </div>
   );
 }
