@@ -175,6 +175,14 @@ Toda la web y toda la API (`/api/*`) exigen sesion. Hay dos roles:
 - El ESP32 debe enviar `X-Camera-Token` tambien en las lecturas del DHT22 (firmware actualizado);
   usar el mismo valor en `CAMERA_TOKEN` (firmware), `DEVICE_TOKEN` y `CAMERA_PUSH_TOKEN` (backend).
 
+## Camara simulada en la nube (2026-09-14)
+
+El video en vivo no depende del hardware ni de la PC encendida: el backend
+publica imagenes de `scripts/frames` en la camara 2 (modo push) con
+`CAMERA_DEMO=on`. Un frame por segundo, cambiando de imagen cada 15 segundos.
+Detalle y variables en `PGAPAYBABACK/CAMARA_ESP32.md`. Para volver a la camara
+real, `CAMERA_DEMO=off` y redesplegar.
+
 ## Limitaciones a tener en cuenta
 
 - **Volumen**: 500 MB en la prueba gratuita; suficiente para miles de fotos de
