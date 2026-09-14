@@ -3,6 +3,8 @@ export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
 
 export function apiUrl(path = '') {
   if (!path) return API_BASE;
+  // URLs ya absolutas (http, https, data:, blob:) se devuelven tal cual.
+  if (/^(https?:)?\/\/|^(data|blob):/i.test(path)) return path;
   return `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`;
 }
 

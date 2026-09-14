@@ -113,7 +113,7 @@ export default function Plagas() {
           <td>{plaga.tratamiento}</td>
           <td>
             {plaga.imagen ? (
-              <img src={plaga.imagen} alt="img" className="plagas-img" />
+              <img src={apiUrl(plaga.imagen)} alt="img" className="plagas-img" />
             ) : (
               "—"
             )}
@@ -145,7 +145,7 @@ export default function Plagas() {
               }
             }}
           />
-          {formData.imagen && <img src={formData.imagen} alt="preview" className="plagas-img" />}
+          {formData.imagen && <img src={apiUrl(formData.imagen)} alt="preview" className="plagas-img" />}
         </td>
         <td className="acciones">
           <button className="btn-guardar" onClick={() => handleSave(plaga.id)}>💾 Guardar</button>

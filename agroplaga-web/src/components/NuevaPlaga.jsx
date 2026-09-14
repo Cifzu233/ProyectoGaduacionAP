@@ -153,7 +153,7 @@ function NuevaPlaga() {
         {imagen && (
           <div className="plaga-preview">
             <strong>📷 Vista previa:</strong>
-            <img src={imagen} alt="Vista previa" className="plaga-img" />
+            <img src={apiUrl(imagen)} alt="Vista previa" className="plaga-img" />
           </div>
         )}
 
