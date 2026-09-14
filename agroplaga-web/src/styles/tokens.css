@@ -1,0 +1,194 @@
+/* ==========================================================================
+   Agroplaga AI · Tokens y piezas compartidas
+   Paleta verde del proyecto + ambar para avisos y rojo para severidad alta.
+   Todo lo demas (pantallas) se apoya en estas variables.
+   ========================================================================== */
+
+:root {
+  /* Verdes del cultivo */
+  --ap-verde-900: #1b4332;
+  --ap-verde-700: #2d6a4f;
+  --ap-verde-600: #40916c;
+  --ap-verde-500: #52b788;
+  --ap-verde-200: #b7e4c7;
+  --ap-verde-100: #d8f3dc;
+  --ap-verde-50: #f1fdf5;
+
+  /* Acentos */
+  --ap-ambar: #ffba08;
+  --ap-ambar-100: #ffe6a9;
+  --ap-ambar-50: #fff8e1;
+  --ap-ambar-texto: #6b4e00;
+  --ap-rojo: #e63946;
+  --ap-rojo-50: #fdecea;
+  --ap-rojo-texto: #9b2226;
+  --ap-crema: #fefae0;
+
+  /* Superficies y texto */
+  --ap-fondo: #f4f7f2;
+  --ap-superficie: #ffffff;
+  --ap-borde: #e3ece6;
+  --ap-texto: #1b4332;
+  --ap-texto-suave: #52705f;
+  --ap-texto-tenue: #8a9a90;
+
+  /* Formas */
+  --ap-radio-sm: 8px;
+  --ap-radio: 12px;
+  --ap-radio-lg: 16px;
+  --ap-sombra: 0 8px 24px rgba(27, 67, 50, 0.06);
+  --ap-sombra-alta: 0 16px 40px rgba(27, 67, 50, 0.14);
+
+  /* Medidas del armazon */
+  --ap-barra: 236px;
+  --ap-barra-movil: 56px;
+}
+
+/* ------------------------------- tarjetas ------------------------------- */
+
+.ap-tarjeta {
+  background: var(--ap-superficie);
+  border: 1px solid var(--ap-borde);
+  border-radius: var(--ap-radio-lg);
+  box-shadow: var(--ap-sombra);
+  padding: 20px 22px;
+  box-sizing: border-box;
+}
+
+.ap-tarjeta__cabecera {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+
+.ap-tarjeta__titulo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--ap-texto);
+}
+
+.ap-tarjeta__etiqueta {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ap-texto-suave);
+}
+
+/* -------------------------------- chips --------------------------------- */
+
+.ap-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1.6;
+  white-space: nowrap;
+}
+
+.ap-chip--ok {
+  background: var(--ap-verde-100);
+  color: var(--ap-verde-900);
+}
+
+.ap-chip--aviso {
+  background: var(--ap-ambar-100);
+  color: var(--ap-ambar-texto);
+}
+
+.ap-chip--alerta {
+  background: var(--ap-rojo-50);
+  color: var(--ap-rojo-texto);
+}
+
+.ap-chip--neutro {
+  background: var(--ap-verde-50);
+  color: var(--ap-texto-suave);
+}
+
+/* ------------------------------- botones -------------------------------- */
+
+.ap-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border: 1px solid transparent;
+  border-radius: var(--ap-radio-sm);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ap-btn--primario {
+  background: var(--ap-verde-700);
+  color: #ffffff;
+}
+
+.ap-btn--primario:hover:not(:disabled) {
+  background: var(--ap-verde-900);
+  transform: translateY(-1px);
+}
+
+.ap-btn--suave {
+  background: var(--ap-superficie);
+  border-color: var(--ap-borde);
+  color: var(--ap-verde-700);
+}
+
+.ap-btn--suave:hover:not(:disabled) {
+  background: var(--ap-verde-50);
+  border-color: var(--ap-verde-200);
+}
+
+.ap-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ------------------------- punto de estado en vivo ----------------------- */
+
+@keyframes ap-latido {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(82, 183, 136, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(82, 183, 136, 0); }
+}
+
+.ap-punto {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ap-verde-500);
+  flex-shrink: 0;
+}
+
+.ap-punto--vivo {
+  animation: ap-latido 2s ease-out infinite;
+}
+
+.ap-punto--frio {
+  background: var(--ap-texto-tenue);
+}
+
+/* --------------------------- entrada de la vista ------------------------- */
+
+@keyframes ap-entrada {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ap-entra {
+  animation: ap-entrada 0.4s ease-out both;
+}

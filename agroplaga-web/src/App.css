@@ -1,11 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+@import './styles/tokens.css';
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Poppins', sans-serif;
-  background-color: #fefae0;
-  color: #1b4332;
+  font-family: 'Poppins', 'Segoe UI', system-ui, sans-serif;
+  background-color: var(--ap-fondo);
+  color: var(--ap-texto);
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4 {
+  color: var(--ap-verde-900);
 }
 
 .container {
@@ -14,131 +26,130 @@ body {
   margin: auto;
 }
 
-.navbar {
-  background-color: #1b4332;
-  color: white;
-  padding: 1rem 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.navbar a {
-  color: white;
-  text-decoration: none;
-  margin-left: 1.5rem;
-  font-weight: 500;
-}
-
-.navbar a:hover {
-  text-decoration: underline;
-}
-
 .card {
-  background-color: #e0f2f1;
+  background-color: var(--ap-superficie);
+  border: 1px solid var(--ap-borde);
   padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: var(--ap-radio-lg);
+  box-shadow: var(--ap-sombra);
   margin-bottom: 2rem;
 }
 
-/* Inputs */
+/* --------------------------------- Inputs -------------------------------- */
+
 .input,
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
 textarea,
 select {
   width: 100%;
-  padding: 0.6rem;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  padding: 0.6rem 0.75rem;
+  border-radius: var(--ap-radio-sm);
+  border: 1px solid var(--ap-borde);
+  background: var(--ap-superficie);
+  color: var(--ap-texto);
   margin-top: 0.3rem;
-  font-size: 1rem;
+  font-family: inherit;
+  font-size: 0.95rem;
   box-sizing: border-box;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
 }
 
 .input:focus,
+input:focus,
 textarea:focus,
 select:focus {
-  border-color: #40916c;
+  border-color: var(--ap-verde-500);
   outline: none;
-  background-color: #f1fff5;
+  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.22);
 }
 
-/* Botones */
+/* -------------------------------- Botones -------------------------------- */
+
 .button,
 button {
-  background-color: #40916c;
+  background-color: var(--ap-verde-600);
   color: white;
-  padding: 0.6rem 1.2rem;
+  padding: 0.55rem 1.1rem;
   border: none;
-  border-radius: 8px;
-  font-weight: bold;
+  border-radius: var(--ap-radio-sm);
+  font-family: inherit;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-size: 1rem;
+  transition: background-color 0.18s ease, transform 0.18s ease;
+  font-size: 0.92rem;
   margin-right: 0.5rem;
   margin-top: 0.5rem;
 }
 
-.button:hover,
-button:hover {
-  background-color: #2d6a4f;
+.button:hover:not(:disabled),
+button:hover:not(:disabled) {
+  background-color: var(--ap-verde-700);
 }
 
-/* Tablas */
+button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Los botones con su propio diseño no heredan el verde plano */
+.ap-btn,
+.barra__salir,
+.armazon__menuBtn {
+  margin: 0;
+}
+
+/* -------------------------------- Tablas --------------------------------- */
+
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  font-size: 0.95rem;
-  background-color: white;
+  font-size: 0.92rem;
+  background-color: var(--ap-superficie);
+  border-radius: var(--ap-radio);
+  overflow: hidden;
 }
 
 th, td {
-  border: 1px solid #c8c8c8;
-  padding: 0.8rem;
+  border-bottom: 1px solid var(--ap-borde);
+  padding: 0.75rem 0.85rem;
   text-align: left;
   vertical-align: top;
 }
 
 thead {
-  background-color: #d8f3dc;
+  background-color: var(--ap-verde-50);
+}
+
+thead th {
+  color: var(--ap-verde-900);
+  font-weight: 700;
+  font-size: 0.85rem;
 }
 
 tbody tr:hover {
-  background-color: #f1fdf5;
+  background-color: var(--ap-verde-50);
 }
 
-/* Imagenes en tabla */
 table img {
   max-width: 100px;
   height: auto;
-  border-radius: 6px;
+  border-radius: var(--ap-radio-sm);
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .navbar {
-    flex-direction: column;
-    align-items: flex-start;
-  }
+/* ------------------------------- Responsive ------------------------------ */
 
+@media (max-width: 768px) {
   .card {
     width: 100%;
     padding: 1rem;
   }
 
   table, th, td {
-    font-size: 0.9rem;
-  }
-
-  .navbar a {
-    margin: 0.5rem 0;
-  }
-
-  .button,
-  button {
-    width: 100%;
-    margin-bottom: 0.5rem;
+    font-size: 0.88rem;
   }
 }

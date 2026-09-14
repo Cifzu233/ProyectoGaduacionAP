@@ -1,0 +1,184 @@
+/* ==============================
+   Barra lateral · Agroplaga AI
+   ============================== */
+
+.barra {
+  width: var(--ap-barra);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 22px 16px;
+  box-sizing: border-box;
+  background: linear-gradient(180deg, var(--ap-verde-900) 0%, var(--ap-verde-700) 100%);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 40;
+}
+
+/* ------------------------------- marca ------------------------------- */
+
+.barra__marca {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+}
+
+.barra__hoja {
+  color: var(--ap-verde-200);
+  flex-shrink: 0;
+}
+
+.barra__marcaTexto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.barra__nombre {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.barra__lema {
+  font-size: 0.7rem;
+  color: var(--ap-verde-200);
+}
+
+/* ---------------------------- navegacion ----------------------------- */
+
+.barra__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.barra__enlace {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 12px;
+  border-radius: var(--ap-radio);
+  color: var(--ap-verde-100);
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  position: relative;
+  transition: background-color 0.18s ease, color 0.18s ease, transform 0.18s ease;
+}
+
+.barra__enlace:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.barra__enlace--activo {
+  background: rgba(255, 255, 255, 0.16);
+  color: #ffffff;
+  font-weight: 600;
+}
+
+/* Marca de seccion activa, en ambar */
+.barra__enlace--activo::before {
+  content: "";
+  position: absolute;
+  left: -16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 22px;
+  border-radius: 0 3px 3px 0;
+  background: var(--ap-ambar);
+}
+
+/* ------------------------------ usuario ------------------------------ */
+
+.barra__usuario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--ap-radio);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.barra__avatar {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--ap-verde-500);
+  color: var(--ap-verde-900);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.barra__datos {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.barra__usuarioNombre {
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.barra__rol {
+  font-size: 0.7rem;
+  color: var(--ap-verde-200);
+}
+
+.barra__salir {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--ap-radio-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  transition: background-color 0.18s ease;
+}
+
+.barra__salir:hover {
+  background: rgba(255, 255, 255, 0.26);
+}
+
+/* ---------------------------- responsive ----------------------------- */
+
+@media (max-width: 900px) {
+  .barra {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.3);
+  }
+
+  .armazon--menu .barra {
+    transform: translateX(0);
+  }
+}

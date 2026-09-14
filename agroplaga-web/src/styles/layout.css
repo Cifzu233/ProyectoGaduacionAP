@@ -1,49 +1,115 @@
 /* ==============================
-   🧱 Layout – Agroplaga AI
+   Armazon · Agroplaga AI
    ============================== */
 
-.layout-container {
+.armazon {
   min-height: 100vh;
-  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) fixed;
-  background-size: cover;
-  color: #1f2937;
   display: flex;
-  flex-direction: column;
-  font-family: 'Poppins', sans-serif;
+  background: var(--ap-fondo);
+  color: var(--ap-texto);
 }
 
-.layout-main {
-  flex: 1;
-  padding: 2rem;
-  background: transparent;
-  transition: all 0.3s ease;
+.armazon__cuerpo {
+  flex-grow: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
 }
+
+.armazon__main {
+  flex: 1;
+  padding: 26px 32px 36px;
+  min-width: 0;
+}
+
+/* Velo oscuro tras el menu en movil */
+.armazon__velo {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  background: rgba(27, 67, 50, 0.45);
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+/* Barra superior, solo en pantallas estrechas */
+.armazon__barraMovil {
+  display: none;
+  align-items: center;
+  gap: 12px;
+  height: var(--ap-barra-movil);
+  padding: 0 14px;
+  background: var(--ap-verde-900);
+  color: #ffffff;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+
+.armazon__menuBtn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  color: #ffffff;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--ap-radio-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.armazon__marcaMovil {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+
+/* ------------------------------ 404 ------------------------------ */
 
 .notfound {
   max-width: 480px;
   margin: 4rem auto;
   text-align: center;
-  background: #ffffffcc;
-  border-radius: 16px;
+  background: var(--ap-superficie);
+  border: 1px solid var(--ap-borde);
+  border-radius: var(--ap-radio-lg);
   padding: 2rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--ap-sombra);
 }
 
 .notfound h2 {
   font-size: 3rem;
   margin: 0;
-  color: #2d6a4f;
+  color: var(--ap-verde-700);
 }
 
 .notfound a {
   display: inline-block;
   margin-top: 1rem;
-  color: #40916c;
+  color: var(--ap-verde-600);
   font-weight: 600;
 }
 
-@media (max-width: 768px) {
-  .layout-main {
-    padding: 1rem;
+/* --------------------------- responsive --------------------------- */
+
+@media (max-width: 900px) {
+  .armazon__barraMovil {
+    display: flex;
+  }
+
+  .armazon__main {
+    padding: 18px 16px 28px;
+  }
+
+  .armazon--menu .armazon__velo {
+    display: block;
   }
 }

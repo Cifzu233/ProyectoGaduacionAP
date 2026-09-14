@@ -1,105 +1,121 @@
 /* ==============================
-   🔔 Alertas – Agroplaga AI
+   Alertas del panel · Agroplaga AI
    ============================== */
 
-/* Fondo general */
-body {
-  background: linear-gradient(180deg, #f7fbc6 0%, #c4f7c2 60%, #ffe6a9 100%) fixed;
-  background-size: cover;
-  font-family: 'Poppins', sans-serif;
+.alertas {
+  display: flex;
+  flex-direction: column;
 }
 
-/* 🌿 Contenedor principal */
-.alerta-container {
-  margin: 2rem auto;
-  padding: 1.5rem;
-  background: rgba(255, 255, 245, 0.9);
-  border: 2px solid #ffd166;
-  border-radius: 14px;
-  box-shadow: 0 6px 18px rgba(255, 193, 7, 0.25);
-  color: #2b2b2b;
-  max-width: 900px;
-  transition: all 0.3s ease;
-  backdrop-filter: blur(6px);
+.alertas__contador {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.alerta-container:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 10px 25px rgba(255, 165, 0, 0.4);
+.alertas__numero {
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--ap-rojo);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* 🔔 Título */
-.alerta-container h3 {
-  color: #285430;
-  font-weight: 800;
-  text-shadow: 0 0 8px #fff, 0 0 15px #ffe166;
-  animation: glow 2s ease-in-out infinite alternate;
-  margin-bottom: 1rem;
-  text-align: center;
+.alertas__icono {
+  color: var(--ap-rojo);
 }
 
-@keyframes glow {
-  from { text-shadow: 0 0 6px #ffe166, 0 0 10px #ffba08; }
-  to { text-shadow: 0 0 15px #ffba08, 0 0 30px #ffa500; }
-}
-
-/* ✅ Mensaje sin alertas */
-.alerta-container p {
-  color: #2f855a;
-  font-weight: 600;
-  font-size: 1rem;
-  background: #f0fdf4;
-  padding: 0.8rem 1rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 128, 0, 0.1);
-  text-align: center;
-}
-
-/* ⚠️ Lista de alertas activas */
-.alerta-container ul {
+.alertas__lista {
   list-style: none;
-  padding-left: 0;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 168px;
+  overflow-y: auto;
 }
 
-.alerta-container li {
-  background: #fffbea;
-  border-left: 5px solid #f59e0b;
-  margin-bottom: 0.6rem;
-  padding: 0.7rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  color: #553c09;
-  transition: all 0.3s ease;
+.alertas__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--ap-radio);
 }
 
-.alerta-container li:hover {
-  background: #fff0c2;
-  transform: translateX(6px);
+.alertas__item--aviso {
+  background: var(--ap-ambar-50);
 }
 
-/* 📹 Alertas originadas por la camara */
-.alerta-container li.alerta-camara {
-  background: #fde8e8;
-  border-left-color: #e63946;
-  color: #6a040f;
+.alertas__item--alerta {
+  background: var(--ap-rojo-50);
 }
 
-.alerta-container li.alerta-camara:hover {
-  background: #fbd3d3;
+.alertas__punto {
+  width: 8px;
+  height: 8px;
+  margin-top: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
 }
 
-/* 📱 Responsivo */
-@media (max-width: 768px) {
-  .alerta-container {
-    width: 90%;
-    padding: 1rem;
-  }
+.alertas__item--aviso .alertas__punto {
+  background: var(--ap-ambar);
+}
 
-  .alerta-container h3 {
-    font-size: 1.3rem;
-  }
+.alertas__item--alerta .alertas__punto {
+  background: var(--ap-rojo);
+}
 
-  .alerta-container p, .alerta-container li {
-    font-size: 0.95rem;
-  }
+.alertas__texto {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.alertas__titulo {
+  font-size: 0.83rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.alertas__item--aviso .alertas__titulo {
+  color: var(--ap-ambar-texto);
+}
+
+.alertas__item--alerta .alertas__titulo {
+  color: #7f1d1d;
+}
+
+.alertas__detalle {
+  font-size: 0.73rem;
+  line-height: 1.4;
+}
+
+.alertas__item--aviso .alertas__detalle {
+  color: #7a5b00;
+}
+
+.alertas__item--alerta .alertas__detalle {
+  color: var(--ap-rojo-texto);
+}
+
+.alertas__limpio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 12px;
+  border-radius: var(--ap-radio);
+  background: var(--ap-verde-50);
+  color: var(--ap-verde-700);
+  font-size: 0.85rem;
+  font-weight: 600;
 }
