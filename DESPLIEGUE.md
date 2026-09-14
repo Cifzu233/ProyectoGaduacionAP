@@ -1,5 +1,21 @@
 # Poner Agroplaga AI en linea
 
+## Estado actual (desplegado el 2026-09-13)
+
+| Pieza | Donde | URL |
+|---|---|---|
+| Frontend | Vercel, proyecto `agroplaga-ai` (cuenta ingenieros0901) | <https://agroplaga-ai.vercel.app> |
+| Backend | Railway, proyecto `agroplaga-ai`, servicio `agroplaga-backend` | <https://agroplaga-backend-production.up.railway.app> |
+| MySQL | Railway, servicio `MySQL` (base `railway`) | solo red privada |
+
+- Salud del backend: <https://agroplaga-backend-production.up.railway.app/api/debug/health>
+- El backend se subio con `railway up` desde la carpeta local (no desde GitHub).
+  Para publicar cambios del backend: `cd PGAPAYBABACK && railway up`.
+- El frontend se subio con `vercel --prod` desde `agroplaga-web`. Para publicar
+  cambios: `cd agroplaga-web && vercel --prod`.
+- La base se cargo con la variable temporal `IMPORTAR_SQL` (ver seccion 2, paso 6).
+- Costo: prueba gratuita de Railway (credito unico de 5 USD, 30 dias); Vercel Hobby gratis.
+
 Arquitectura en la nube (todo con plan gratuito o de pocos dolares):
 
 ```
@@ -70,13 +86,19 @@ git add -A && git commit -m "mensaje" && git push
    No definas `PORT`: Railway lo inyecta y el servidor ya lo lee.
 5. **Settings → Networking → Generate Domain**. Anota la URL, por ejemplo
    `https://agroplaga-backend-production.up.railway.app`.
-6. Cargar la base de datos. En el servicio MySQL → pestana **Data** → **Query**
-   pega el contenido de `database/agroplaga_v2_completo.sql`. Alternativa desde
-   tu PC con la URL publica que muestra la pestana **Connect** del MySQL:
+6. Cargar la base de datos. El MySQL de Railway no es accesible desde fuera, asi
+   que el propio backend la carga al arrancar si existe la variable
+   `IMPORTAR_SQL`:
 
    ```bat
-   docker run --rm -i mysql:8.0 mysql "mysql://root:PASS@HOST:PUERTO/railway" < PGAPAYBABACK\database\agroplaga_v2_completo.sql
+   cd PGAPAYBABACK
+   railway variable set IMPORTAR_SQL=database/agroplaga_v2_completo.sql --service agroplaga-backend --skip-deploys
+   railway up --service agroplaga-backend
+   railway variable delete IMPORTAR_SQL --service agroplaga-backend
    ```
+
+   El ultimo paso es obligatorio: el volcado hace `DROP TABLE` + `CREATE TABLE`,
+   asi que si la variable se queda, cada reinicio borraria los datos de la nube.
 
 7. Comprueba `https://TU-BACKEND.up.railway.app/api/debug/health`. Debe
    devolver `{"ok":true,...}`.
