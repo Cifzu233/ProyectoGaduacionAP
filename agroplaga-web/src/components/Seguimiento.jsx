@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import GraficaActividades from "./GraficaActividades";
-import { apiUrl } from "../lib/api";
+import { apiUrl, get, del, upload } from "../lib/api";
+import { useAuth } from "../context/auth";
 import "../styles/seguimiento.css";
 
-const API_URL = apiUrl("/api/actividades");
-const API_PARCELAS = apiUrl("/api/parcelas");
-
 function Seguimiento() {
+  const { esAdmin } = useAuth();
   const [actividad, setActividad] = useState("");
   const [observaciones, setObservaciones] = useState("");
   const [fecha, setFecha] = useState("");
@@ -20,9 +19,7 @@ function Seguimiento() {
   useEffect(() => {
     const cargarParcelas = async () => {
       try {
-        const res = await fetch(API_PARCELAS);
-        const data = await res.json();
-        setParcelas(data);
+        setParcelas(await get("/api/parcelas"));
       } catch (error) {
         console.error("❌ Error al cargar parcelas:", error);
       }
@@ -30,9 +27,7 @@ function Seguimiento() {
 
     const cargarActividades = async () => {
       try {
-        const res = await fetch(API_URL);
-        const data = await res.json();
-        setRegistros(data);
+        setRegistros(await get("/api/actividades"));
       } catch (error) {
         console.error("❌ Error al cargar actividades:", error);
       }
@@ -65,10 +60,7 @@ function Seguimiento() {
     if (imagen) formData.append("imagen", imagen);
 
     try {
-      const res = await fetch(API_URL, { method: "POST", body: formData });
-      const data = await res.json();
-
-      if (!res.ok) throw new Error(data.error || "Error al guardar actividad");
+      await upload("/api/actividades", formData);
 
       setActividad("");
       setObservaciones("");
@@ -77,11 +69,10 @@ function Seguimiento() {
       setParcelaSeleccionada("");
       alert("✅ Actividad registrada correctamente.");
 
-      const recargar = await fetch(API_URL);
-      setRegistros(await recargar.json());
+      setRegistros(await get("/api/actividades"));
     } catch (error) {
       console.error("❌ Error al guardar:", error);
-      alert("Error al conectar con el servidor.");
+      alert(`Error al guardar: ${error.message}`);
     }
   };
 
@@ -89,16 +80,12 @@ function Seguimiento() {
   const eliminarRegistro = async (id) => {
     if (!window.confirm("¿Eliminar este registro permanentemente?")) return;
     try {
-      const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (res.ok) {
-        alert("🗑️ Registro eliminado.");
-        setRegistros(registros.filter((r) => r.id !== id));
-      } else {
-        alert(data.error || "Error al eliminar.");
-      }
+      await del(`/api/actividades/${id}`);
+      alert("🗑️ Registro eliminado.");
+      setRegistros(registros.filter((r) => r.id !== id));
     } catch (error) {
       console.error("❌ Error al eliminar:", error);
+      alert(error.message || "Error al eliminar.");
     }
   };
 
@@ -148,63 +135,65 @@ function Seguimiento() {
     <div className="seguimiento-container">
       <h2 className="seguimiento-title">📘 Registro de Actividades</h2>
 
-      <form onSubmit={guardarRegistro} className="seguimiento-form">
-        <div className="form-group">
-          <label>📅 Fecha:</label>
-          <input
-            type="date"
-            value={fecha}
-            onChange={(e) => setFecha(e.target.value)}
-            required
-          />
-        </div>
+      {esAdmin && (
+        <form onSubmit={guardarRegistro} className="seguimiento-form">
+          <div className="form-group">
+            <label>📅 Fecha:</label>
+            <input
+              type="date"
+              value={fecha}
+              onChange={(e) => setFecha(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>📍 Parcela:</label>
-          <select
-            value={parcelaSeleccionada}
-            onChange={(e) => setParcelaSeleccionada(e.target.value)}
-            required
-          >
-            <option value="">Seleccionar parcela</option>
-            {parcelas.map((p) => (
-              <option key={p.id} value={p.id}>
-                {p.nombre}
-              </option>
-            ))}
-          </select>
-        </div>
+          <div className="form-group">
+            <label>📍 Parcela:</label>
+            <select
+              value={parcelaSeleccionada}
+              onChange={(e) => setParcelaSeleccionada(e.target.value)}
+              required
+            >
+              <option value="">Seleccionar parcela</option>
+              {parcelas.map((p) => (
+                <option key={p.id} value={p.id}>
+                  {p.nombre}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="form-group">
-          <label>🧪 Actividad:</label>
-          <input
-            type="text"
-            placeholder="Ej. Fumigación"
-            value={actividad}
-            onChange={(e) => setActividad(e.target.value)}
-            required
-          />
-        </div>
+          <div className="form-group">
+            <label>🧪 Actividad:</label>
+            <input
+              type="text"
+              placeholder="Ej. Fumigación"
+              value={actividad}
+              onChange={(e) => setActividad(e.target.value)}
+              required
+            />
+          </div>
 
-        <div className="form-group">
-          <label>📝 Observaciones:</label>
-          <textarea
-            placeholder="Detalles..."
-            value={observaciones}
-            onChange={(e) => setObservaciones(e.target.value)}
-            rows="3"
-          />
-        </div>
+          <div className="form-group">
+            <label>📝 Observaciones:</label>
+            <textarea
+              placeholder="Detalles..."
+              value={observaciones}
+              onChange={(e) => setObservaciones(e.target.value)}
+              rows="3"
+            />
+          </div>
 
-        <div className="form-group">
-          <label>📷 Fotografía (opcional):</label>
-          <input type="file" accept="image/*" onChange={manejarImagen} />
-        </div>
+          <div className="form-group">
+            <label>📷 Fotografía (opcional):</label>
+            <input type="file" accept="image/*" onChange={manejarImagen} />
+          </div>
 
-        <button type="submit" className="btn btn-primary">
-          Guardar Registro
-        </button>
-      </form>
+          <button type="submit" className="btn btn-primary">
+            Guardar Registro
+          </button>
+        </form>
+      )}
 
       <h3 className="seguimiento-subtitle">📋 Historial</h3>
 
@@ -237,7 +226,7 @@ function Seguimiento() {
                 <th>Actividad</th>
                 <th>Observaciones</th>
                 <th>Foto</th>
-                <th>Acción</th>
+                {esAdmin && <th>Acción</th>}
               </tr>
             </thead>
             <tbody>
@@ -258,14 +247,16 @@ function Seguimiento() {
                       "—"
                     )}
                   </td>
-                  <td>
-                    <button
-                      onClick={() => eliminarRegistro(item.id)}
-                      className="btn btn-danger"
-                    >
-                      🗑️ Eliminar
-                    </button>
-                  </td>
+                  {esAdmin && (
+                    <td>
+                      <button
+                        onClick={() => eliminarRegistro(item.id)}
+                        className="btn btn-danger"
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>

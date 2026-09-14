@@ -124,6 +124,58 @@
 }
 
 /* ==============================
+   👤 Usuario en sesion
+   ============================== */
+.navbar__user {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.navbar__nombre {
+  font-weight: 600;
+  font-size: 0.9rem;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar__rol {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.navbar__rol--admin {
+  background: rgba(253, 255, 182, 0.35);
+  color: #fffbe6;
+}
+
+.navbar__logout {
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #fff;
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 0.3rem 0.75rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.navbar__logout:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+}
+
+/* ==============================
    📱 Responsividad
    ============================== */
 @media (max-width: 992px) {
@@ -146,5 +198,13 @@
     width: 100%;
     padding: 0.3rem 0;
     font-size: 1rem;
+  }
+
+  .navbar__user {
+    width: 100%;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
 }

@@ -16,6 +16,9 @@
  * temperatura y humedad cada SENSOR_INTERVAL_MS a:
  *   POST <BACKEND_URL>/api/readings  {"plotId":PLOT_ID,"sensorKey":"temperature","value":..}
  *   POST <BACKEND_URL>/api/readings  {"plotId":PLOT_ID,"sensorKey":"humidity","value":..}
+ * tambien con cabecera X-Camera-Token: el backend exige el token de dispositivo
+ * (DEVICE_TOKEN o CAMERA_PUSH_TOKEN en el servidor) porque el resto de la API
+ * esta protegida por inicio de sesion de usuario.
  *
  * Alimentacion: panel solar 6 V -> modulo de carga TP4056 -> bateria Li-ion
  * 18650 -> elevador (boost) 5 V -> pin 5V del ESP32-CAM.
@@ -264,6 +267,8 @@ bool sendReading(const char* sensorKey, float value, const char* unit) {
   http.setTimeout(8000);
   http.begin(url);
   http.addHeader("Content-Type", "application/json");
+  // Token de dispositivo: debe coincidir con DEVICE_TOKEN (o CAMERA_PUSH_TOKEN) del backend.
+  if (strlen(CAMERA_TOKEN) > 0) http.addHeader("X-Camera-Token", CAMERA_TOKEN);
   int code = http.POST(body);
   Serial.printf("🌡️  %s=%.1f%s -> HTTP %d\n", sensorKey, value, unit, code);
   http.end();

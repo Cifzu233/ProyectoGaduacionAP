@@ -1,5 +1,32 @@
 // src/lib/api.js
+// Cliente HTTP unico del frontend: resuelve la URL del backend, adjunta el token
+// de sesion (JWT) y, si el backend responde 401, cierra la sesion local y avisa
+// al AuthProvider mediante el evento "agroplaga:unauthorized".
 export const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:4000';
+
+const TOKEN_KEY = 'agroplaga.token';
+export const UNAUTHORIZED_EVENT = 'agroplaga:unauthorized';
+
+export function getToken() {
+  try {
+    return localStorage.getItem(TOKEN_KEY) || '';
+  } catch {
+    return '';
+  }
+}
+
+export function setToken(token) {
+  try {
+    if (token) localStorage.setItem(TOKEN_KEY, token);
+    else localStorage.removeItem(TOKEN_KEY);
+  } catch {
+    // almacenamiento no disponible (modo privado, etc.)
+  }
+}
+
+export function clearToken() {
+  setToken('');
+}
 
 export function apiUrl(path = '') {
   if (!path) return API_BASE;
@@ -8,12 +35,21 @@ export function apiUrl(path = '') {
   return `${API_BASE}${path.startsWith('/') ? path : `/${path}`}`;
 }
 
+/** Anade el token como ?token= para recursos cargados por <img> (stream, snapshot). */
+export function withToken(url) {
+  const token = getToken();
+  if (!token) return url;
+  return `${url}${url.includes('?') ? '&' : '?'}token=${encodeURIComponent(token)}`;
+}
+
 async function http(path, opts = {}) {
   const isForm = typeof FormData !== 'undefined' && opts.body instanceof FormData;
+  const token = getToken();
   const res = await fetch(apiUrl(path), {
     ...opts,
     headers: {
       ...(isForm ? {} : { 'Content-Type': 'application/json' }),
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
       ...(opts.headers || {}),
     },
   });
@@ -32,12 +68,33 @@ async function http(path, opts = {}) {
       // La respuesta no era JSON: dejamos msg por defecto
     }
 
-    throw new Error(msg);
+    // Sesion invalida o expirada (no en el propio login): cerrar sesion local.
+    if (res.status === 401 && !path.startsWith('/api/auth/login')) {
+      clearToken();
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent(UNAUTHORIZED_EVENT, { detail: { message: msg } }));
+      }
+    }
+
+    const error = new Error(msg);
+    error.status = res.status;
+    throw error;
   }
 
   if (res.status === 204) return null;
   return res.json();
 }
+
+/* ------------------------------ helpers genericos ----------------------------- */
+
+export const get = (path) => http(path);
+export const post = (path, body) =>
+  http(path, { method: 'POST', body: body === undefined ? undefined : JSON.stringify(body) });
+export const put = (path, body) =>
+  http(path, { method: 'PUT', body: body === undefined ? undefined : JSON.stringify(body) });
+export const del = (path) => http(path, { method: 'DELETE' });
+/** Envia un FormData (imagenes); el navegador fija el Content-Type multipart. */
+export const upload = (path, formData, method = 'POST') => http(path, { method, body: formData });
 
 function cleanParams(obj) {
   const out = {};
@@ -47,6 +104,24 @@ function cleanParams(obj) {
   }
   return out;
 }
+
+/* ================================== Sesion ================================== */
+
+export const authApi = {
+  login: (email, password) => post('/api/auth/login', { email, password }),
+  me: () => get('/api/auth/me'),
+  cambiarPassword: (actual, nueva) => put('/api/auth/password', { actual, nueva }),
+};
+
+export const usuariosApi = {
+  list: () => get('/api/usuarios'),
+  create: (data) => post('/api/usuarios', data),
+  update: (id, data) => put(`/api/usuarios/${id}`, data),
+  resetPassword: (id, nueva) => put(`/api/usuarios/${id}/password`, { nueva }),
+  remove: (id) => del(`/api/usuarios/${id}`),
+};
+
+/* =============================== Sensores/alertas ============================= */
 
 export const api = {
   lastByPlot:   (plotId)                => http(`/api/plots/${plotId}/last`),
@@ -72,9 +147,10 @@ export const camarasApi = {
       body: JSON.stringify({ intervalo_seg }),
     }),
   nuevoToken: (id) => http(`/api/camaras/${id}/token`, { method: 'POST' }),
-  streamUrl: (id, key = 0) => apiUrl(`/api/camaras/${id}/stream?k=${key}`),
+  // stream y snapshot los carga un <img>, que no envia cabeceras: token en la URL.
+  streamUrl: (id, key = 0) => withToken(apiUrl(`/api/camaras/${id}/stream?k=${key}`)),
   snapshotUrl: (id, fresh = false) =>
-    apiUrl(`/api/camaras/${id}/snapshot?${fresh ? 'fresh=1&' : ''}t=${Date.now()}`),
+    withToken(apiUrl(`/api/camaras/${id}/snapshot?${fresh ? 'fresh=1&' : ''}t=${Date.now()}`)),
   frameUrl: (id) => apiUrl(`/api/camaras/${id}/frame`),
 };
 

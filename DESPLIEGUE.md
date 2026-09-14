@@ -149,6 +149,32 @@ las resuelve con `apiUrl()` contra `VITE_API_URL`. Si alguna fila antigua tiene
 `http://localhost:4000/...`, ejecuta `database/corregir_urls_imagenes.sql`
 (en la nube, con el mecanismo `IMPORTAR_SQL` de la seccion 2).
 
+## Inicio de sesion y roles (desde 2026-09-13)
+
+Toda la web y toda la API (`/api/*`) exigen sesion. Hay dos roles:
+
+| Rol | Puede |
+|---|---|
+| `admin` | Todo: crear/editar/borrar plagas, parcelas, actividades, camaras, detecciones; gestionar usuarios (pantalla **Usuarios**). |
+| `lector` | Solo consultar. Ademas puede usar el chat, el diagnostico por imagen y "Analizar con IA" en camara, y cambiar su propia contrasena. |
+
+- Sesion: JWT (12 h) en `Authorization: Bearer`; el frontend lo guarda en localStorage y
+  lo anade como `?token=` solo al stream y snapshot de camara (los carga un `<img>`).
+- Excepciones sin sesion: `POST /api/auth/login`, `GET /api/debug/health` y las rutas de
+  dispositivo `POST /api/readings` (cabecera `X-Camera-Token` = `DEVICE_TOKEN`) y
+  `POST /api/camaras/:id/frame` (token propio de la camara o `CAMERA_PUSH_TOKEN`).
+- Tabla `usuarios`: la crea el backend al arrancar (`src/auth/bootstrap.js`). Si esta vacia y
+  existen `ADMIN_EMAIL` / `ADMIN_PASSWORD`, crea el administrador inicial.
+- Variables en Railway: `JWT_SECRET` (obligatoria), `JWT_EXPIRES`, `ADMIN_EMAIL`,
+  `ADMIN_PASSWORD` (borrarla tras el primer arranque), `DEVICE_TOKEN`, `NODE_ENV=production`.
+- Admin inicial en produccion: `admin@agroplaga.local`. Cambia la contrasena desde
+  **Usuarios -> Mi contrasena** y luego `railway variable delete ADMIN_PASSWORD --service agroplaga-backend`.
+- Si se pierde la unica cuenta admin: crear otra con `POST /api/usuarios` no es posible sin
+  sesion; la salida es borrar todas las filas de `usuarios` (por ejemplo con un .sql via
+  `IMPORTAR_SQL`) y reiniciar con `ADMIN_EMAIL/ADMIN_PASSWORD` definidas.
+- El ESP32 debe enviar `X-Camera-Token` tambien en las lecturas del DHT22 (firmware actualizado);
+  usar el mismo valor en `CAMERA_TOKEN` (firmware), `DEVICE_TOKEN` y `CAMERA_PUSH_TOKEN` (backend).
+
 ## Limitaciones a tener en cuenta
 
 - **Volumen**: 500 MB en la prueba gratuita; suficiente para miles de fotos de

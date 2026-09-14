@@ -1,10 +1,9 @@
 // src/components/Chatbot.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { FiImage, FiSend, FiX } from "react-icons/fi";
-import { API_BASE } from "../lib/api";
+import { post } from "../lib/api";
 import "../styles/chat.css";
 
-const API = API_BASE;
 const IMAGE_URL_PATTERN =
   /(https?:\/\/\S+\.(?:png|jpe?g|webp|gif)(?:\?\S*)?)/i;
 const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
@@ -102,29 +101,18 @@ export default function Chatbot({ initialPlotId = 4 }) {
         const imagePayload = snapshotAttachment
           ? await readFileAsDataUrl(snapshotAttachment.file)
           : pastedImageUrl;
-        const response = await fetch(`${API}/api/ai/vision-diagnose`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            plotId: Number(plotId),
-            imageUrl: imagePayload,
-            note: promptText,
-          }),
+        // post() adjunta el token de sesion y lanza Error(mensaje) si el backend falla
+        const data = await post("/api/ai/vision-diagnose", {
+          plotId: Number(plotId),
+          imageUrl: imagePayload,
+          note: promptText,
         });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data?.error || "Error de vision");
         answer = data.diagnosis || "(sin respuesta)";
       } else {
-        const response = await fetch(`${API}/api/ai/chat`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            plotId: Number(plotId),
-            message: promptText,
-          }),
+        const data = await post("/api/ai/chat", {
+          plotId: Number(plotId),
+          message: promptText,
         });
-        const data = await response.json();
-        if (!response.ok) throw new Error(data?.error || "Error de chat");
         answer = data.answer || "(sin respuesta)";
       }
 

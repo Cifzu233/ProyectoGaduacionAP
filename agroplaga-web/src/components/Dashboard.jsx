@@ -2,10 +2,8 @@ import React, { useState, useEffect, useMemo } from "react";
 import { Link } from "react-router-dom";
 import AlertaPlagas from "./AlertaPlagas";
 import { FaThermometerHalf, FaTint } from "react-icons/fa";
-import { API_BASE, apiUrl, deteccionesApi } from "../lib/api";
+import { get, apiUrl, deteccionesApi } from "../lib/api";
 import "../styles/Dashboard.css";
-
-const API = API_BASE;
 
 // Sensores del nodo de campo: ESP32-CAM + DHT22 (temperatura y humedad).
 const LABELS = {
@@ -28,9 +26,7 @@ function Dashboard({ plotId: plotIdProp }) {
     if (plotIdProp != null) return;
     (async () => {
       try {
-        const res = await fetch(`${API}/api/plots`);
-        if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
-        const data = await res.json();
+        const data = await get("/api/plots");
         setPlots(data || []);
         if (data?.length) setPlotId(data[0].id);
       } catch (e) {
@@ -45,9 +41,7 @@ function Dashboard({ plotId: plotIdProp }) {
     try {
       setLoading(true);
       setError("");
-      const res = await fetch(`${API}/api/plots/${id}/last`);
-      if (!res.ok) throw new Error("Error obteniendo datos del servidor");
-      const data = await res.json();
+      const data = await get(`/api/plots/${id}/last`);
 
       setPlotName(data.plot?.name || `Parcela ${id}`);
 

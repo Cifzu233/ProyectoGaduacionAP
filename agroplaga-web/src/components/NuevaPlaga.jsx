@@ -1,10 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { apiUrl } from "../lib/api";
+import { apiUrl, post, upload } from "../lib/api";
 import "../styles/nuevaPlaga.css";
-
-const API_URL = apiUrl("/api/plagas");
-const UPLOAD_URL = apiUrl("/api/upload");
 
 function NuevaPlaga() {
   const [nombre, setNombre] = useState("");
@@ -21,19 +18,15 @@ function NuevaPlaga() {
     form.append("imagen", file);
     try {
       setSubiendo(true);
-      const res = await fetch(UPLOAD_URL, {
-        method: "POST",
-        body: form,
-      });
-      const data = await res.json();
-      if (data.ok && data.url) {
+      const data = await upload("/api/upload", form);
+      if (data?.ok && data.url) {
         setImagen(data.url);
       } else {
         alert("⚠️ No se pudo subir la imagen.");
       }
     } catch (error) {
       console.error("Error al subir imagen:", error);
-      alert("❌ Error de conexión al subir la imagen.");
+      alert(`❌ No se pudo subir la imagen: ${error.message}`);
     } finally {
       setSubiendo(false);
     }
@@ -57,15 +50,9 @@ function NuevaPlaga() {
         imagen,
       };
 
-      const res = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(nuevaPlaga),
-      });
+      const data = await post("/api/plagas", nuevaPlaga);
 
-      const data = await res.json();
-
-      if (data.ok) {
+      if (data?.ok) {
         alert("✅ Nueva plaga registrada en la base de datos");
         setNombre("");
         setClase("");
@@ -78,8 +65,8 @@ function NuevaPlaga() {
         alert("❌ No se pudo guardar la plaga.");
       }
     } catch (error) {
-      console.error("Error al conectar:", error);
-      alert("⚠️ No se pudo conectar con el servidor.");
+      console.error("Error al guardar:", error);
+      alert(`⚠️ No se pudo guardar la plaga: ${error.message}`);
     }
   };
 

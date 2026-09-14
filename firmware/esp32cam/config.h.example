@@ -11,7 +11,10 @@
 #define BACKEND_URL      "http://192.168.1.10:4000"
 // id de la camara registrada en la web (Camara -> Nueva -> modo push)
 #define CAMERA_ID        2
-// token generado en la web (boton "Generar token"); vacio si la camara no tiene token
+// Token de dispositivo. Se envia como cabecera X-Camera-Token en los frames
+// (POST /api/camaras/<id>/frame) y en las lecturas del DHT22 (POST /api/readings).
+// Lo mas simple: usar el MISMO valor en DEVICE_TOKEN y CAMERA_PUSH_TOKEN del backend
+// y no asignar token propio a la camara en la web. Vacio solo si el backend no exige token.
 #define CAMERA_TOKEN     "demo-token-esp32"
 
 // ---------------- Modo de trabajo ----------------

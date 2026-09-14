@@ -4,7 +4,8 @@
 // gestion de camaras.
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { apiUrl, camarasApi, deteccionesApi } from "../lib/api";
+import { apiUrl, get, camarasApi, deteccionesApi } from "../lib/api";
+import { useAuth } from "../context/auth";
 import "../styles/camara.css";
 
 const STORAGE_KEY = "agroplaga.camaraId";
@@ -274,6 +275,7 @@ function CamaraForm({ inicial, parcelas, plots, onGuardar, onEliminar, onCancela
 /* --------------------------------- pagina --------------------------------- */
 
 export default function CamaraEnVivo() {
+  const { esAdmin } = useAuth();
   const [camaras, setCamaras] = useState([]);
   const [camaraId, setCamaraId] = useState(() => readStoredCamara());
   const [estado, setEstado] = useState(null);
@@ -329,12 +331,10 @@ export default function CamaraEnVivo() {
   // Carga inicial: camaras, parcelas y plots
   useEffect(() => {
     cargarCamaras();
-    fetch(apiUrl("/api/parcelas"))
-      .then((r) => (r.ok ? r.json() : []))
+    get("/api/parcelas")
       .then((d) => setParcelas(Array.isArray(d) ? d : []))
       .catch(() => {});
-    fetch(apiUrl("/api/plots"))
-      .then((r) => (r.ok ? r.json() : []))
+    get("/api/plots")
       .then((d) => setPlots(Array.isArray(d) ? d : []))
       .catch(() => {});
   }, [cargarCamaras]);
@@ -525,34 +525,38 @@ export default function CamaraEnVivo() {
               {estado?.ultimo_frame_at ? ` · ${haceSegundos(estado.ultimo_frame_at)}` : ""}
             </span>
           )}
-          <button
-            type="button"
-            className="camara__btn camara__btn--ghost"
-            onClick={() => {
-              setEditando(camara);
-              setMostrarForm(true);
-            }}
-            disabled={!camara}
-          >
-            ⚙️ Configurar
-          </button>
-          <button
-            type="button"
-            className="camara__btn"
-            onClick={() => {
-              setEditando(null);
-              setMostrarForm(true);
-            }}
-          >
-            ➕ Nueva
-          </button>
+          {esAdmin && (
+            <>
+              <button
+                type="button"
+                className="camara__btn camara__btn--ghost"
+                onClick={() => {
+                  setEditando(camara);
+                  setMostrarForm(true);
+                }}
+                disabled={!camara}
+              >
+                ⚙️ Configurar
+              </button>
+              <button
+                type="button"
+                className="camara__btn"
+                onClick={() => {
+                  setEditando(null);
+                  setMostrarForm(true);
+                }}
+              >
+                ➕ Nueva
+              </button>
+            </>
+          )}
         </div>
       </header>
 
       {error && <div className="camara__error">Error: {error}</div>}
       {aviso && !error && <div className="camara__aviso">{aviso}</div>}
 
-      {mostrarForm && (
+      {mostrarForm && esAdmin && (
         <CamaraForm
           key={editando?.id || "nueva"}
           inicial={editando}
@@ -571,10 +575,14 @@ export default function CamaraEnVivo() {
       {!cargando && !camaras.length && !mostrarForm && (
         <div className="camara__vacio">
           <p>Todavía no hay cámaras registradas.</p>
-          <p>
-            Pulsa <strong>➕ Nueva</strong> y apunta a tu ESP32-CAM (por ejemplo <code>http://192.168.1.50</code>) o al
-            simulador (<code>http://localhost:8081</code>).
-          </p>
+          {esAdmin ? (
+            <p>
+              Pulsa <strong>➕ Nueva</strong> y apunta a tu ESP32-CAM (por ejemplo <code>http://192.168.1.50</code>) o al
+              simulador (<code>http://localhost:8081</code>).
+            </p>
+          ) : (
+            <p>Pide a un administrador que registre una cámara.</p>
+          )}
         </div>
       )}
 
@@ -628,7 +636,12 @@ export default function CamaraEnVivo() {
             <div className="camara__auto">
               <label>
                 ⏱️ Análisis automático
-                <select value={autoActual} onChange={(e) => cambiarAuto(Number(e.target.value))}>
+                <select
+                  value={autoActual}
+                  onChange={(e) => cambiarAuto(Number(e.target.value))}
+                  disabled={!esAdmin}
+                  title={esAdmin ? "" : "Solo un administrador puede cambiarlo"}
+                >
                   {AUTO_OPCIONES.map((o) => (
                     <option key={o.value} value={o.value}>
                       {o.label}
@@ -699,17 +712,19 @@ export default function CamaraEnVivo() {
                       {fechaCorta(d.created_at)}
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    className="camara__cardDelete"
-                    title="Eliminar detección"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      eliminarDeteccion(d.id);
-                    }}
-                  >
-                    🗑️
-                  </button>
+                  {esAdmin && (
+                    <button
+                      type="button"
+                      className="camara__cardDelete"
+                      title="Eliminar detección"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        eliminarDeteccion(d.id);
+                      }}
+                    >
+                      🗑️
+                    </button>
+                  )}
                 </article>
               ))}
             </div>

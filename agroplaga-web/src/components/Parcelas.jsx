@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { apiUrl } from "../lib/api";
+import { apiUrl, get, del, upload } from "../lib/api";
+import { useAuth } from "../context/auth";
 import "../styles/parcelas.css";
 
-const API_URL = apiUrl("/api/parcelas");
-
 function Parcelas() {
+  const { esAdmin } = useAuth();
   const [parcelas, setParcelas] = useState([]);
   const [nombre, setNombre] = useState("");
   const [ubicacion, setUbicacion] = useState("");
@@ -20,12 +20,10 @@ function Parcelas() {
   // Cargar las parcelas desde el backend
   const cargarParcelas = async () => {
     try {
-      const res = await fetch(API_URL);
-      const data = await res.json();
-      setParcelas(data);
+      setParcelas(await get("/api/parcelas"));
     } catch (error) {
       console.error("❌ Error al cargar parcelas:", error);
-      setMensaje("Error al conectar con el backend.");
+      setMensaje(`Error al cargar parcelas: ${error.message}`);
     }
   };
 
@@ -52,20 +50,11 @@ function Parcelas() {
     if (imagen) formData.append("imagen", imagen);
 
     try {
-      const res = await fetch(
-        editando ? `${API_URL}/${idEdit}` : API_URL,
-        {
-          method: editando ? "PUT" : "POST",
-          body: formData,
-        }
+      await upload(
+        editando ? `/api/parcelas/${idEdit}` : "/api/parcelas",
+        formData,
+        editando ? "PUT" : "POST"
       );
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setMensaje(data.error || "Error al guardar la parcela.");
-        return;
-      }
 
       setMensaje(editando ? "✅ Parcela actualizada." : "🌾 Parcela registrada.");
       setNombre("");
@@ -81,7 +70,7 @@ function Parcelas() {
       await cargarParcelas();
     } catch (error) {
       console.error("❌ Error al guardar:", error);
-      setMensaje("Error al conectar con el servidor.");
+      setMensaje(error.message || "Error al guardar la parcela.");
     }
   };
 
@@ -89,16 +78,12 @@ function Parcelas() {
   const eliminarParcela = async (id) => {
     if (!window.confirm("¿Seguro que deseas eliminar esta parcela?")) return;
     try {
-      const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
-      const data = await res.json();
-      if (res.ok) {
-        setMensaje("🗑️ Parcela eliminada.");
-        await cargarParcelas();
-      } else {
-        setMensaje(data.error || "Error al eliminar.");
-      }
+      await del(`/api/parcelas/${id}`);
+      setMensaje("🗑️ Parcela eliminada.");
+      await cargarParcelas();
     } catch (error) {
       console.error("❌ Error al eliminar:", error);
+      setMensaje(error.message || "Error al eliminar.");
     }
   };
 
@@ -122,64 +107,66 @@ function Parcelas() {
 
       {mensaje && <div className="parcelas-msg">{mensaje}</div>}
 
-      <form onSubmit={guardarParcela} className="parcelas-form">
-        <label>📍 Nombre del lote:</label>
-        <input
-          type="text"
-          value={nombre}
-          onChange={(e) => setNombre(e.target.value)}
-          required
-        />
+      {esAdmin && (
+        <form onSubmit={guardarParcela} className="parcelas-form">
+          <label>📍 Nombre del lote:</label>
+          <input
+            type="text"
+            value={nombre}
+            onChange={(e) => setNombre(e.target.value)}
+            required
+          />
 
-        <label>📌 Ubicación:</label>
-        <input
-          type="text"
-          value={ubicacion}
-          onChange={(e) => setUbicacion(e.target.value)}
-          required
-        />
+          <label>📌 Ubicación:</label>
+          <input
+            type="text"
+            value={ubicacion}
+            onChange={(e) => setUbicacion(e.target.value)}
+            required
+          />
 
-        <label>🌱 Cultivo:</label>
-        <input
-          type="text"
-          value={cultivo}
-          onChange={(e) => setCultivo(e.target.value)}
-          required
-        />
+          <label>🌱 Cultivo:</label>
+          <input
+            type="text"
+            value={cultivo}
+            onChange={(e) => setCultivo(e.target.value)}
+            required
+          />
 
-        <label>📏 Superficie (m²):</label>
-        <input
-          type="number"
-          step="0.01"
-          value={superficie}
-          onChange={(e) => setSuperficie(e.target.value)}
-        />
+          <label>📏 Superficie (m²):</label>
+          <input
+            type="number"
+            step="0.01"
+            value={superficie}
+            onChange={(e) => setSuperficie(e.target.value)}
+          />
 
-        <label>📅 Fecha de siembra:</label>
-        <input
-          type="date"
-          value={fechaSiembra}
-          onChange={(e) => setFechaSiembra(e.target.value)}
-        />
+          <label>📅 Fecha de siembra:</label>
+          <input
+            type="date"
+            value={fechaSiembra}
+            onChange={(e) => setFechaSiembra(e.target.value)}
+          />
 
-        <label>📝 Observaciones:</label>
-        <textarea
-          value={observaciones}
-          onChange={(e) => setObservaciones(e.target.value)}
-          placeholder="Notas sobre el cultivo, plagas, clima, etc."
-        />
+          <label>📝 Observaciones:</label>
+          <textarea
+            value={observaciones}
+            onChange={(e) => setObservaciones(e.target.value)}
+            placeholder="Notas sobre el cultivo, plagas, clima, etc."
+          />
 
-        <label>🖼️ Imagen (opcional):</label>
-        <input
-          type="file"
-          accept="image/*"
-          onChange={(e) => setImagen(e.target.files[0])}
-        />
+          <label>🖼️ Imagen (opcional):</label>
+          <input
+            type="file"
+            accept="image/*"
+            onChange={(e) => setImagen(e.target.files[0])}
+          />
 
-        <button type="submit" className="parcelas-btn">
-          {editando ? "💾 Actualizar Parcela" : "➕ Guardar Parcela"}
-        </button>
-      </form>
+          <button type="submit" className="parcelas-btn">
+            {editando ? "💾 Actualizar Parcela" : "➕ Guardar Parcela"}
+          </button>
+        </form>
+      )}
 
       <h3 className="parcelas-subtitle">📋 Parcelas Registradas</h3>
 
@@ -197,7 +184,7 @@ function Parcelas() {
                 <th>Fecha Siembra</th>
                 <th>Observaciones</th>
                 <th>Imagen</th>
-                <th>Acciones</th>
+                {esAdmin && <th>Acciones</th>}
               </tr>
             </thead>
             <tbody>
@@ -220,20 +207,22 @@ function Parcelas() {
                       "Sin imagen"
                     )}
                   </td>
-                  <td>
-                    <button
-                      onClick={() => editarParcela(p)}
-                      className="parcelas-edit"
-                    >
-                      ✏️ Editar
-                    </button>
-                    <button
-                      onClick={() => eliminarParcela(p.id)}
-                      className="parcelas-delete"
-                    >
-                      🗑️ Eliminar
-                    </button>
-                  </td>
+                  {esAdmin && (
+                    <td>
+                      <button
+                        onClick={() => editarParcela(p)}
+                        className="parcelas-edit"
+                      >
+                        ✏️ Editar
+                      </button>
+                      <button
+                        onClick={() => eliminarParcela(p.id)}
+                        className="parcelas-delete"
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </td>
+                  )}
                 </tr>
               ))}
             </tbody>
