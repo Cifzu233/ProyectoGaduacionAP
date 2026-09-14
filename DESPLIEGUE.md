@@ -177,9 +177,10 @@ Toda la web y toda la API (`/api/*`) exigen sesion. Hay dos roles:
 
 ## Camara simulada en la nube (2026-09-14)
 
-El video en vivo no depende del hardware ni de la PC encendida: el backend
-publica imagenes de `scripts/frames` en la camara 2 (modo push) con
-`CAMERA_DEMO=on`. Un frame por segundo, cambiando de imagen cada 15 segundos.
+El video en vivo no depende del hardware ni de la PC encendida: con
+`CAMERA_DEMO=on` el backend emite en la camara 2 (modo push) un video en bucle
+de 6 segundos a 8 cuadros por segundo, generado al arrancar a partir de la
+fotografia real de la trampa Jackson adhesiva.
 Detalle y variables en `PGAPAYBABACK/CAMARA_ESP32.md`. Para volver a la camara
 real, `CAMERA_DEMO=off` y redesplegar.
 
