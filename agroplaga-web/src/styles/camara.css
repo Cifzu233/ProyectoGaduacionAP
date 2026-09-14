@@ -1,0 +1,583 @@
+/* ==============================
+   📹 Cámara en vivo – Agroplaga AI
+   ============================== */
+
+.camara {
+  max-width: 1200px;
+  margin: 0 auto;
+  font-family: 'Poppins', sans-serif;
+  color: #1f2937;
+}
+
+/* ---------- cabecera ---------- */
+.camara__header {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.camara__titulo h2 {
+  margin: 0;
+  color: #1b4332;
+  font-size: 1.7rem;
+}
+
+.camara__subtitulo {
+  display: block;
+  color: #2d6a4f;
+  font-size: 0.9rem;
+}
+
+.camara__controles {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.camara__select {
+  padding: 0.55rem 0.8rem;
+  border: 2px solid #52b788;
+  border-radius: 10px;
+  background: #fff;
+  color: #1b4332;
+  font-weight: 600;
+  min-width: 220px;
+}
+
+.camara__badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+}
+
+.camara__badge--online {
+  background: #52b788;
+}
+
+.camara__badge--offline {
+  background: #b23a48;
+}
+
+/* ---------- botones ---------- */
+.camara__btn {
+  background: #40916c;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 0.55rem 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.15s ease;
+  font-family: inherit;
+}
+
+.camara__btn:hover:not(:disabled) {
+  background: #2d6a4f;
+  transform: translateY(-1px);
+}
+
+.camara__btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.camara__btn--primary {
+  background: linear-gradient(135deg, #2d6a4f, #52b788);
+}
+
+.camara__btn--ghost {
+  background: #fff;
+  color: #2d6a4f;
+  border: 2px solid #52b788;
+}
+
+.camara__btn--ghost:hover:not(:disabled) {
+  background: #d8f3dc;
+}
+
+.camara__btn--danger {
+  background: #e63946;
+}
+
+.camara__btn--danger:hover:not(:disabled) {
+  background: #b23a48;
+}
+
+.camara__linkBtn {
+  background: none;
+  border: none;
+  color: #2d6a4f;
+  cursor: pointer;
+  font-weight: 600;
+  text-decoration: underline;
+  padding: 0;
+}
+
+/* ---------- mensajes ---------- */
+.camara__error {
+  background: #fde2e4;
+  color: #9d0208;
+  border-left: 5px solid #e63946;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.camara__aviso {
+  background: #d8f3dc;
+  color: #1b4332;
+  border-left: 5px solid #52b788;
+  padding: 0.7rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.camara__vacio,
+.camara__hint {
+  background: #ffffffcc;
+  border-radius: 14px;
+  padding: 1.2rem;
+  color: #374151;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.camara__vacio code,
+.camara__code {
+  background: #f1fdf5;
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 0.1rem 0.4rem;
+  font-family: 'Roboto Mono', monospace;
+  font-size: 0.85rem;
+  word-break: break-all;
+}
+
+/* ---------- zona principal ---------- */
+.camara__main {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(280px, 1fr);
+  gap: 1.2rem;
+  align-items: start;
+}
+
+.camara__video {
+  background: #ffffffcc;
+  border-radius: 16px;
+  padding: 1rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.camara__videoWrap {
+  position: relative;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  min-height: 240px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.camara__stream {
+  width: 100%;
+  max-height: 70vh;
+  object-fit: contain;
+  display: block;
+  background: #000;
+}
+
+.camara__pausa {
+  color: #d8f3dc;
+  font-weight: 600;
+  padding: 3rem;
+}
+
+.camara__overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+}
+
+.camara__overlay small {
+  color: #fca5a5;
+  font-size: 0.8rem;
+}
+
+.camara__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+
+.camara__nota {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.55rem 0.8rem;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-family: inherit;
+}
+
+.camara__nota:focus {
+  outline: none;
+  border-color: #52b788;
+}
+
+.camara__auto {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 0.8rem;
+  font-size: 0.9rem;
+  color: #374151;
+}
+
+.camara__auto label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  color: #1b4332;
+}
+
+.camara__auto select {
+  padding: 0.35rem 0.6rem;
+  border: 2px solid #52b788;
+  border-radius: 8px;
+  background: #fff;
+  font-family: inherit;
+}
+
+.camara__autoInfo {
+  color: #2d6a4f;
+}
+
+/* ---------- panel lateral ---------- */
+.camara__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.camara__snapshotBox {
+  background: #ffffffcc;
+  border-radius: 14px;
+  padding: 0.8rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.camara__snapshot {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 0.5rem;
+  display: block;
+  background: #000;
+}
+
+.camara__resultado {
+  background: #ffffff;
+  border-radius: 14px;
+  padding: 1rem;
+  border: 2px solid #d8f3dc;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.camara__resultadoHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #1b4332;
+  margin-bottom: 0.5rem;
+}
+
+.camara__resultadoPlaga {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #1b4332;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.camara__confianza {
+  position: relative;
+  height: 22px;
+  background: #f1fdf5;
+  border-radius: 999px;
+  overflow: hidden;
+  margin: 0.6rem 0;
+  border: 1px solid #d1d5db;
+}
+
+.camara__confianzaBar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: linear-gradient(90deg, #52b788, #2d6a4f);
+}
+
+.camara__confianza span {
+  position: relative;
+  display: block;
+  text-align: center;
+  font-size: 0.8rem;
+  line-height: 22px;
+  font-weight: 600;
+  color: #1b4332;
+}
+
+.camara__resumen {
+  margin: 0.5rem 0;
+  color: #374151;
+}
+
+.camara__recomendaciones {
+  margin: 0.5rem 0 0;
+  padding-left: 1.2rem;
+  color: #374151;
+}
+
+.camara__recomendaciones li {
+  margin-bottom: 0.25rem;
+}
+
+.camara__resultadoMeta {
+  margin-top: 0.7rem;
+  font-size: 0.8rem;
+  color: #6b7280;
+}
+
+/* ---------- chips ---------- */
+.camara__chip {
+  display: inline-block;
+  padding: 0.15rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #1b4332;
+  background: #d8f3dc;
+}
+
+.camara__chip--ninguna {
+  background: #d8f3dc;
+  color: #1b4332;
+}
+
+.camara__chip--baja {
+  background: #fefae0;
+  color: #7a5c00;
+}
+
+.camara__chip--media {
+  background: #f4a261;
+  color: #3d1308;
+}
+
+.camara__chip--alta {
+  background: #e63946;
+  color: #fff;
+}
+
+.camara__chip--accion {
+  background: #fff3cd;
+  color: #7a5c00;
+  text-transform: none;
+}
+
+/* ---------- detecciones ---------- */
+.camara__detecciones {
+  margin-top: 1.5rem;
+}
+
+.camara__detecciones h3 {
+  color: #1b4332;
+  margin-bottom: 0.8rem;
+}
+
+.camara__vacioLista {
+  color: #6b7280;
+}
+
+.camara__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 0.9rem;
+}
+
+.camara__card {
+  position: relative;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  border: 2px solid transparent;
+}
+
+.camara__card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+.camara__card--accion {
+  border-color: #f4a261;
+}
+
+.camara__card img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  background: #000;
+}
+
+.camara__cardBody {
+  padding: 0.6rem 0.7rem;
+}
+
+.camara__cardTitle {
+  font-weight: 700;
+  color: #1b4332;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.95rem;
+}
+
+.camara__cardMeta {
+  font-size: 0.78rem;
+  color: #6b7280;
+  margin-top: 0.25rem;
+}
+
+.camara__cardDelete {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: rgba(255, 255, 255, 0.85);
+  border: none;
+  border-radius: 8px;
+  padding: 0.2rem 0.4rem;
+  cursor: pointer;
+}
+
+/* ---------- formulario ---------- */
+.camara__form {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.camara__form h3 {
+  margin: 0;
+  color: #1b4332;
+}
+
+.camara__form label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-weight: 600;
+  color: #1b4332;
+  font-size: 0.9rem;
+  flex: 1;
+}
+
+.camara__form input[type="text"],
+.camara__form input:not([type]),
+.camara__form select {
+  padding: 0.55rem 0.8rem;
+  border: 2px solid #d1d5db;
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: 400;
+}
+
+.camara__form input:focus,
+.camara__form select:focus {
+  outline: none;
+  border-color: #52b788;
+}
+
+.camara__formRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.camara__radio,
+.camara__check {
+  flex-direction: row !important;
+  align-items: center;
+  gap: 0.5rem !important;
+  font-weight: 500 !important;
+}
+
+.camara__radio input,
+.camara__check input {
+  width: auto;
+}
+
+.camara__pushInfo {
+  background: #f1fdf5;
+  border-radius: 10px;
+  padding: 0.8rem;
+  font-size: 0.9rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.camara__pushToken {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.camara__formActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width: 900px) {
+  .camara__main {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .camara__toolbar .camara__btn,
+  .camara__nota {
+    width: 100%;
+  }
+}

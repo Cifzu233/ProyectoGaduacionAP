@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { apiUrl } from "../lib/api";
 import "../styles/nuevaPlaga.css";
 
-const API_URL = "http://localhost:4000/api/plagas";
-const UPLOAD_URL = "http://localhost:4000/api/upload";
+const API_URL = apiUrl("/api/plagas");
+const UPLOAD_URL = apiUrl("/api/upload");
 
 function NuevaPlaga() {
   const [nombre, setNombre] = useState("");

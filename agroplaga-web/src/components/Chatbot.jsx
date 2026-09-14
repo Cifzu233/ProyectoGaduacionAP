@@ -1,39 +1,71 @@
 // src/components/Chatbot.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { FiImage, FiSend, FiX } from "react-icons/fi";
+import { API_BASE } from "../lib/api";
 import "../styles/chat.css";
 
-const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
+const API = API_BASE;
+const IMAGE_URL_PATTERN =
+  /(https?:\/\/\S+\.(?:png|jpe?g|webp|gif)(?:\?\S*)?)/i;
+const MAX_IMAGE_SIZE_BYTES = 5 * 1024 * 1024;
+
+function renderLine(line, index) {
+  const normalized = line.replace(/\*\*(.*?)\*\*/g, "$1");
+  if (normalized.startsWith("### ")) {
+    return <h3 key={index}>{normalized.slice(4)}</h3>;
+  }
+  if (!normalized.trim()) {
+    return <br key={index} />;
+  }
+  return <p key={index}>{normalized}</p>;
+}
+
+function readFileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
+}
 
 export default function Chatbot({ initialPlotId = 4 }) {
   const [plotId, setPlotId] = useState(initialPlotId);
   const [message, setMessage] = useState("");
-  const [imageUrl, setImageUrl] = useState("");
+  const [attachedImage, setAttachedImage] = useState(null);
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [msgs, setMsgs] = useState([
     {
       role: "assistant",
       text:
-        "### Acciones Hoy\n" +
-        "1. **Riego inmediato**: Ajusta humedad del suelo según umbrales.\n" +
-        "2. **Sombra temporal** si hay radiación alta.\n" +
-        "3. **Monitoreo de plagas**: revisa hojas y tallos.\n\n" +
-        "### Observaciones en 24–48h\n" +
-        "- Revisa síntomas visibles y evolución.\n" +
-        "- Ajusta riego/ventilación si es necesario.\n" +
-        "- Si empeora, deriva a un técnico.",
+        "### Acciones hoy\n" +
+        "1. Riego inmediato: ajusta la humedad del suelo segun los umbrales.\n" +
+        "2. Sombra temporal si hay radiacion alta.\n" +
+        "3. Monitoreo de plagas: revisa hojas y tallos.\n\n" +
+        "### Observaciones en 24-48h\n" +
+        "- Revisa sintomas visibles y evolucion.\n" +
+        "- Ajusta riego o ventilacion si es necesario.\n" +
+        "- Si empeora, deriva a un tecnico.",
       ts: Date.now(),
     },
   ]);
 
   const endRef = useRef(null);
+  const fileInputRef = useRef(null);
+
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [msgs, busy]);
 
+  const pastedImageUrl = useMemo(() => {
+    const match = message.match(IMAGE_URL_PATTERN);
+    return match?.[1] || "";
+  }, [message]);
+
   const canSend = useMemo(
-    () => !!message.trim() || !!imageUrl.trim(),
-    [message, imageUrl]
+    () => !!message.trim() || !!attachedImage || !!pastedImageUrl,
+    [message, attachedImage, pastedImageUrl]
   );
 
   async function send() {
@@ -41,56 +73,67 @@ export default function Chatbot({ initialPlotId = 4 }) {
     setError("");
     setBusy(true);
 
-    const userMsg = message.trim();
-    const img = imageUrl.trim();
-    if (userMsg) {
-      setMsgs((m) => [...m, { role: "user", text: userMsg, ts: Date.now() }]);
-    }
-    if (img) {
-      setMsgs((m) => [
-        ...m,
-        {
-          role: "user",
-          text: `(Imagen para diagnóstico) ${img}`,
-          ts: Date.now(),
-        },
-      ]);
-    }
+    const snapshotMessage = message.trim();
+    const snapshotAttachment = attachedImage;
+    const snapshotImageUrl = snapshotAttachment?.previewUrl || pastedImageUrl;
+    const cleanMessage = pastedImageUrl
+      ? snapshotMessage.replace(pastedImageUrl, "").trim()
+      : snapshotMessage;
+    const promptText =
+      cleanMessage || (snapshotImageUrl ? "Diagnostico de imagen" : "");
+
+    setMessage("");
+    setAttachedImage(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+
+    setMsgs((current) => [
+      ...current,
+      {
+        role: "user",
+        text: promptText,
+        imageUrl: snapshotImageUrl,
+        ts: Date.now(),
+      },
+    ]);
 
     try {
       let answer = "";
-      if (img) {
-        const r = await fetch(`${API}/api/ai/vision-diagnose`, {
+      if (snapshotAttachment || pastedImageUrl) {
+        const imagePayload = snapshotAttachment
+          ? await readFileAsDataUrl(snapshotAttachment.file)
+          : pastedImageUrl;
+        const response = await fetch(`${API}/api/ai/vision-diagnose`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             plotId: Number(plotId),
-            imageUrl: img,
-            note: userMsg || "Diagnóstico de imagen",
+            imageUrl: imagePayload,
+            note: promptText,
           }),
         });
-        const j = await r.json();
-        if (!r.ok) throw new Error(j?.error || "Error de visión");
-        answer = j.diagnosis || "(sin respuesta)";
+        const data = await response.json();
+        if (!response.ok) throw new Error(data?.error || "Error de vision");
+        answer = data.diagnosis || "(sin respuesta)";
       } else {
-        const r = await fetch(`${API}/api/ai/chat`, {
+        const response = await fetch(`${API}/api/ai/chat`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             plotId: Number(plotId),
-            message: userMsg,
+            message: promptText,
           }),
         });
-        const j = await r.json();
-        if (!r.ok) throw new Error(j?.error || "Error de chat");
-        answer = j.answer || "(sin respuesta)";
+        const data = await response.json();
+        if (!response.ok) throw new Error(data?.error || "Error de chat");
+        answer = data.answer || "(sin respuesta)";
       }
 
-      setMsgs((m) => [...m, { role: "assistant", text: answer, ts: Date.now() }]);
-      setMessage("");
-      setImageUrl("");
-    } catch (e) {
-      setError(e?.message || "Fallo al contactar la API");
+      setMsgs((current) => [
+        ...current,
+        { role: "assistant", text: answer, ts: Date.now() },
+      ]);
+    } catch (err) {
+      setError(err?.message || "Fallo al contactar la API");
     } finally {
       setBusy(false);
     }
@@ -103,17 +146,54 @@ export default function Chatbot({ initialPlotId = 4 }) {
     }
   }
 
+  function handleFileChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    if (!file.type.startsWith("image/")) {
+      setError("Selecciona una imagen valida.");
+      return;
+    }
+
+    if (file.size > MAX_IMAGE_SIZE_BYTES) {
+      setError("La imagen debe pesar menos de 5 MB.");
+      return;
+    }
+
+    setError("");
+    setAttachedImage((current) => {
+      if (current?.previewUrl?.startsWith("blob:")) {
+        URL.revokeObjectURL(current.previewUrl);
+      }
+      return {
+        file,
+        name: file.name,
+        previewUrl: URL.createObjectURL(file),
+      };
+    });
+  }
+
+  function removeAttachment() {
+    setAttachedImage((current) => {
+      if (current?.previewUrl?.startsWith("blob:")) {
+        URL.revokeObjectURL(current.previewUrl);
+      }
+      return null;
+    });
+    if (fileInputRef.current) fileInputRef.current.value = "";
+  }
+
   return (
     <div className="chat">
       <header className="chat__header">
         <div className="chat__title">
-          <strong>Agroplaga AI — Chat</strong>
+          <strong>Agroplaga AI</strong>
           <span className="chat__subtitle">
-            Especializado en melocotón/durazno
+            Asistente agricola para melocoton y durazno
           </span>
         </div>
         <div className="chat__plot">
-          <label htmlFor="plotId">Parcela:</label>
+          <label htmlFor="plotId">Parcela</label>
           <input
             id="plotId"
             type="number"
@@ -126,57 +206,101 @@ export default function Chatbot({ initialPlotId = 4 }) {
       </header>
 
       <section className="chat__history" aria-live="polite">
-        {msgs.map((m, idx) => (
-          <article key={idx} className={`chat__bubble chat__bubble--${m.role}`}>
+        {msgs.map((msg, index) => (
+          <article
+            key={`${msg.ts}-${index}`}
+            className={`chat__bubble chat__bubble--${msg.role}`}
+          >
             <div className="chat__meta">
-              {m.role === "assistant" ? "Agroplaga AI" : "Tú"} ·{" "}
-              {new Date(m.ts).toLocaleTimeString()}
+              {msg.role === "assistant" ? "Agroplaga AI" : "Tu"} -{" "}
+              {new Date(msg.ts).toLocaleTimeString()}
             </div>
-            <div className="chat__text">
-              {m.text.split("\n").map((line, i) => (
-                <p key={i}>{line}</p>
-              ))}
-            </div>
+            {msg.text && (
+              <div className="chat__text">
+                {msg.text.split("\n").map((line, i) => renderLine(line, i))}
+              </div>
+            )}
+            {msg.imageUrl && (
+              <img
+                className="chat__bubbleImage"
+                src={msg.imageUrl}
+                alt="Imagen enviada para diagnostico"
+              />
+            )}
           </article>
         ))}
-        {busy && <div className="chat__typing">pensando…</div>}
+        {busy && <div className="chat__typing">Agroplaga AI esta pensando...</div>}
         <div ref={endRef} />
       </section>
 
       <footer className="chat__composer">
-        <textarea
-          className="chat__input"
-          placeholder="Escribe tu pregunta (manejo, plagas, podas, umbrales...)"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={handleKey}
-          rows={2}
-        />
-        <button
-          className="chat__btn"
-          onClick={send}
-          disabled={!canSend || busy}
-        >
-          {busy ? "Enviando…" : "Enviar"}
-        </button>
-      </footer>
+        {(attachedImage || pastedImageUrl) && (
+          <div className="chat__attachment">
+            <img
+              src={attachedImage?.previewUrl || pastedImageUrl}
+              alt="Vista previa"
+              className="chat__attachmentPreview"
+            />
+            <div className="chat__attachmentInfo">
+              <strong>
+                {attachedImage ? attachedImage.name : "Imagen desde enlace"}
+              </strong>
+              <span>
+                {attachedImage ? "Lista para diagnostico" : pastedImageUrl}
+              </span>
+            </div>
+            {attachedImage && (
+              <button
+                type="button"
+                className="chat__iconBtn"
+                onClick={removeAttachment}
+                title="Quitar imagen"
+                aria-label="Quitar imagen"
+              >
+                <FiX />
+              </button>
+            )}
+          </div>
+        )}
 
-      <div className="chat__vision">
-        <input
-          className="chat__input"
-          placeholder="URL de imagen para diagnóstico (opcional)"
-          value={imageUrl}
-          onChange={(e) => setImageUrl(e.target.value)}
-        />
-        <button
-          className="chat__btn chat__btn--ghost"
-          onClick={send}
-          disabled={!imageUrl.trim() || busy}
-          title="Enviar imagen a diagnóstico"
-        >
-          📷
-        </button>
-      </div>
+        <div className="chat__composerRow">
+          <input
+            ref={fileInputRef}
+            className="chat__fileInput"
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+          />
+          <button
+            type="button"
+            className="chat__iconBtn"
+            onClick={() => fileInputRef.current?.click()}
+            disabled={busy}
+            title="Adjuntar imagen"
+            aria-label="Adjuntar imagen"
+          >
+            <FiImage />
+          </button>
+          <textarea
+            className="chat__input"
+            placeholder="Escribe tu consulta o pega un enlace de imagen..."
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            onKeyDown={handleKey}
+            rows={2}
+          />
+          <button
+            className="chat__btn"
+            onClick={send}
+            disabled={!canSend || busy}
+            title="Enviar mensaje"
+            aria-label="Enviar mensaje"
+          >
+            <FiSend />
+            <span>{busy ? "Enviando..." : "Enviar"}</span>
+          </button>
+        </div>
+      </footer>
 
       {error && <div className="chat__error">Error: {error}</div>}
     </div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
+import { apiUrl } from "../lib/api";
 import "../styles/parcelas.css";
 
-const API_URL = "http://localhost:4000/api/parcelas";
+const API_URL = apiUrl("/api/parcelas");
 
 function Parcelas() {
   const [parcelas, setParcelas] = useState([]);
@@ -211,7 +212,7 @@ function Parcelas() {
                   <td>
                     {p.imagen ? (
                       <img
-                        src={`http://localhost:4000${p.imagen}`}
+                        src={apiUrl(p.imagen)}
                         alt="parcela"
                         className="parcelas-img"
                       />

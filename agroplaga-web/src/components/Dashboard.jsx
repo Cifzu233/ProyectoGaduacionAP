@@ -1,15 +1,18 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { Link } from "react-router-dom";
 import AlertaPlagas from "./AlertaPlagas";
-import { FaThermometerHalf, FaTint, FaSun } from "react-icons/fa";
-import "../styles/dashboard.css";
+import { FaThermometerHalf, FaTint } from "react-icons/fa";
+import { API_BASE, apiUrl, deteccionesApi } from "../lib/api";
+import "../styles/Dashboard.css";
 
-const API = import.meta.env.VITE_API_URL || "http://192.168.0.106:4000";
+const API = API_BASE;
 
+// Sensores del nodo de campo: ESP32-CAM + DHT22 (temperatura y humedad).
 const LABELS = {
   temp: { label: "Temperatura", unit: "°C", Icon: FaThermometerHalf },
   hum: { label: "Humedad", unit: "%", Icon: FaTint },
-  lux: { label: "Luminosidad", unit: "lux", Icon: FaSun },
 };
+const SENSOR_KEYS = Object.keys(LABELS);
 
 function Dashboard({ plotId: plotIdProp }) {
   const [plotId, setPlotId] = useState(plotIdProp ?? null);
@@ -18,6 +21,7 @@ function Dashboard({ plotId: plotIdProp }) {
   const [plotName, setPlotName] = useState("Parcela");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [deteccionesCamara, setDeteccionesCamara] = useState([]);
 
   // 🔹 Cargar lista de parcelas si no viene por props
   useEffect(() => {
@@ -54,7 +58,7 @@ function Dashboard({ plotId: plotIdProp }) {
         // 🧩 Mapeo para compatibilidad entre backend y frontend
         if (key === "temperature") key = "temp";
         if (key === "humidity") key = "hum";
-        if (key === "light") key = "lux";
+        if (!LABELS[key]) continue; // otros sensores (p. ej. luz) no se muestran
 
         map[key] = {
           v: m.last_value,
@@ -68,6 +72,14 @@ function Dashboard({ plotId: plotIdProp }) {
       setMetrics({});
     } finally {
       setLoading(false);
+    }
+
+    // 📹 Detecciones de camara (aisladas: si fallan no rompen el panel)
+    try {
+      const dets = await deteccionesApi.list({ plotId: id, limit: 5 });
+      setDeteccionesCamara(Array.isArray(dets) ? dets : []);
+    } catch {
+      setDeteccionesCamara([]);
     }
   }
 
@@ -88,7 +100,6 @@ function Dashboard({ plotId: plotIdProp }) {
   // 🔹 Variables de sensores
   const temperatura = metrics.temp?.v ?? 0;
   const humedad = metrics.hum?.v ?? 0;
-  const luz = metrics.lux?.v ?? 0;
 
   // 🔹 Última actualización
   const lastUpdate = useMemo(() => {
@@ -132,7 +143,7 @@ function Dashboard({ plotId: plotIdProp }) {
 
         {/* Tarjetas de sensores */}
         <div className="sensor-grid">
-          {["temp", "hum", "lux"].map((k, i) => {
+          {SENSOR_KEYS.map((k, i) => {
             const meta = LABELS[k];
             const val = metrics[k]?.v;
             const Icon = meta.Icon;
@@ -165,8 +176,54 @@ function Dashboard({ plotId: plotIdProp }) {
           🔄 Refrescar
         </button>
 
+        {/* Ultima deteccion de camara */}
+        <div className="deteccion-card">
+          <div className="deteccion-header">
+            <h3>📹 Última detección de cámara</h3>
+            <Link to="/camara" className="deteccion-link">
+              Ver cámara en vivo →
+            </Link>
+          </div>
+          {deteccionesCamara.length === 0 ? (
+            <p className="deteccion-vacio">Sin detecciones de cámara para esta parcela.</p>
+          ) : (
+            (() => {
+              const d = deteccionesCamara[0];
+              return (
+                <div className="deteccion-body">
+                  {d.imagen && (
+                    <img
+                      className="deteccion-thumb"
+                      src={apiUrl(d.imagen)}
+                      alt={d.plaga || "Sin plaga"}
+                    />
+                  )}
+                  <div className="deteccion-info">
+                    <div className="deteccion-plaga">
+                      {d.plaga || "Sin plaga evidente"}
+                      <span className={`deteccion-chip deteccion-chip--${d.severidad}`}>
+                        {d.severidad}
+                      </span>
+                    </div>
+                    {d.resumen && <p className="deteccion-resumen">{d.resumen}</p>}
+                    <p className="deteccion-meta">
+                      {d.camara_nombre ? `${d.camara_nombre} · ` : ""}
+                      {d.confianza != null ? `${Math.round(d.confianza)}% · ` : ""}
+                      {new Date(d.created_at).toLocaleString()}
+                    </p>
+                  </div>
+                </div>
+              );
+            })()
+          )}
+        </div>
+
         {/* Componente de alertas */}
-        <AlertaPlagas temperatura={temperatura} humedad={humedad} luz={luz} />
+        <AlertaPlagas
+          temperatura={temperatura}
+          humedad={humedad}
+          deteccionesCamara={deteccionesCamara}
+        />
       </div>
     </div>
   );

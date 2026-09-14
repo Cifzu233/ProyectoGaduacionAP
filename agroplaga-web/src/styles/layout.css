@@ -19,6 +19,29 @@
   transition: all 0.3s ease;
 }
 
+.notfound {
+  max-width: 480px;
+  margin: 4rem auto;
+  text-align: center;
+  background: #ffffffcc;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.notfound h2 {
+  font-size: 3rem;
+  margin: 0;
+  color: #2d6a4f;
+}
+
+.notfound a {
+  display: inline-block;
+  margin-top: 1rem;
+  color: #40916c;
+  font-weight: 600;
+}
+
 @media (max-width: 768px) {
   .layout-main {
     padding: 1rem;

@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import GraficaActividades from "./GraficaActividades";
+import { apiUrl } from "../lib/api";
 import "../styles/seguimiento.css";
 
-const API_URL = "http://localhost:4000/api/actividades";
-const API_PARCELAS = "http://localhost:4000/api/parcelas";
+const API_URL = apiUrl("/api/actividades");
+const API_PARCELAS = apiUrl("/api/parcelas");
 
 function Seguimiento() {
   const [actividad, setActividad] = useState("");
@@ -108,14 +109,21 @@ function Seguimiento() {
       return;
     }
 
+    const csvCell = (value) => {
+      const text = String(value ?? "");
+      return `"${text.replace(/"/g, '""')}"`;
+    };
+
     const encabezado = "Fecha,Parcela,Actividad,Observaciones\n";
     const filas = registros
       .map(
         (r) =>
-          `${r.fecha},${r.parcela_nombre},${r.actividad.replace(/,/g, " ")},${r.observaciones.replace(
-            /,/g,
-            " "
-          )}`
+          [
+            csvCell(r.fecha),
+            csvCell(r.parcela_nombre),
+            csvCell(r.actividad),
+            csvCell(r.observaciones),
+          ].join(",")
       )
       .join("\n");
 
@@ -242,7 +250,7 @@ function Seguimiento() {
                   <td>
                     {item.imagen ? (
                       <img
-                        src={`http://localhost:4000${item.imagen}`}
+                        src={apiUrl(item.imagen)}
                         alt="foto"
                         className="seguimiento-img"
                       />

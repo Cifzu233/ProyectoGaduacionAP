@@ -1,0 +1,40 @@
+// config.h.example — copia este archivo como config.h y rellena tus datos.
+// config.h esta ignorado por git para no subir contrasenas.
+#pragma once
+
+// ---------------- WiFi ----------------
+#define WIFI_SSID        "MI_RED_WIFI"
+#define WIFI_PASS        "MI_PASSWORD"
+
+// ---------------- Backend Agroplaga ----------------
+// IP o dominio donde corre PGAPAYBABACK (sin barra final)
+#define BACKEND_URL      "http://192.168.1.10:4000"
+// id de la camara registrada en la web (Camara -> Nueva -> modo push)
+#define CAMERA_ID        2
+// token generado en la web (boton "Generar token"); vacio si la camara no tiene token
+#define CAMERA_TOKEN     "demo-token-esp32"
+
+// ---------------- Modo de trabajo ----------------
+// false: solo servidor local (/stream en :81 y /capture en :80). El backend se conecta (modo pull).
+// true : ademas envia un JPEG al backend cada PUSH_INTERVAL_MS (modo push).
+#define PUSH_MODE        false
+#define PUSH_INTERVAL_MS 5000
+
+// ---------------- Sensor DHT22 (temperatura y humedad) ----------------
+// El mismo ESP32-CAM lee el DHT22 y envia las lecturas a POST /api/readings.
+#define DHT_ENABLED      true
+#define DHT_PIN          13          // GPIO libre en AI-Thinker (13, 14 o 15). Pull-up 10k a 3.3V
+#define DHT_TYPE         DHT22
+#define PLOT_ID          1           // id de la parcela de sensores ("plots") registrada en la web
+#define SENSOR_INTERVAL_MS 60000     // cada cuanto se envian temperatura y humedad
+
+// ---------------- Camara ----------------
+// FRAMESIZE_QVGA (320x240), FRAMESIZE_VGA (640x480), FRAMESIZE_SVGA (800x600), FRAMESIZE_XGA (1024x768)
+#define FRAME_SIZE       FRAMESIZE_VGA
+// 10 (mejor calidad, mas bytes) ... 63 (peor calidad)
+#define JPEG_QUALITY     12
+#define STREAM_PORT      81
+
+// LED flash integrado (GPIO 4 en AI-Thinker)
+#define LED_FLASH_PIN    4
+#define USE_FLASH        false

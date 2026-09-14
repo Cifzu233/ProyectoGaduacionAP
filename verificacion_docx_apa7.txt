@@ -1,0 +1,69 @@
+485: [Heading 1] Cap?tulo 6. Desarrollo de la soluci?n
+486: [Heading 2] 6.1 Desarrollo
+487: [normal] Para dar soluci?n al problema planteado se construy? Agroplaga AI, una aplicaci?n web orientada al monitoreo ambiental y al apoyo en el manejo de plagas en plantaciones de melocot?n. El sistema permite consultar lecturas recientes de sensor
+488: [normal] El prototipo se desarroll? y valid? inicialmente en ambiente local, utilizando un frontend en React con Vite, un backend en Node.js con Express y una base de datos MySQL. Esta arquitectura permiti? comprobar la comunicaci?n entre la interfa
+489: [normal] La aplicaci?n incluye m?dulos para el panel de monitoreo ambiental, gesti?n de plagas, registro de nuevas plagas, administraci?n de parcelas, seguimiento de actividades agr?colas, exportaci?n de historial a CSV y chatbot agron?mico. El pane
+490: [normal] A continuaci?n, se describen los elementos principales de la soluci?n implementada, las tecnolog?as empleadas y las pruebas realizadas para verificar el funcionamiento del prototipo.
+492: [Heading 3] 6.1.1 Tecnologías usadas para la aplicación
+493: [normal] ? Frontend: JavaScript, React y Vite.
+? Backend: Node.js con Express.
+? Base de datos: MySQL.
+? Acceso a datos: Sequelize mediante consultas SQL.
+? Interfaz de usuario: CSS por m?dulo y React Router.
+? Visualizaci?n: Recharts para gr?ficos 
+496: [Heading 2] 6.2 Desarrollo de la aplicaci?n
+498: [normal] Figura 15. L?gica de registro de actividades agr?colas en el m?dulo de seguimiento (elaboraci?n propia).
+502: [normal] Figura 16. M?dulo de seguimiento con historial de actividades y exportaci?n a CSV (elaboraci?n propia).
+503: [normal] La funci?n de exportaci?n genera un archivo CSV con fecha, parcela, actividad y observaciones. Para evitar errores de formato, los valores se escapan antes de crear el archivo descargable.
+504: [normal] Figura 17. Formulario de gesti?n de plagas con carga de imagen de referencia (elaboraci?n propia).
+507: [normal] Figura 18. Listado de plagas administrado desde el backend y presentado en la interfaz web (elaboraci?n propia).
+512: [normal] Figura 19. Estructura de base de datos MySQL para parcelas, plagas, actividades, sensores, lecturas, umbrales y alertas (elaboraci?n propia).
+517: [normal] Figura 20. Panel de monitoreo ambiental con tarjetas de temperatura, humedad y luminosidad (elaboraci?n propia).
+520: [normal] Figura 21. Registro de lectura de sensor enviado al backend mediante el endpoint POST /api/readings (elaboraci?n propia).
+524: [normal] Figura 22. Prueba HTTP del endpoint POST /api/readings para registrar lecturas ambientales (elaboraci?n propia).
+531: [normal] Figura 23. Endpoint /api/ai/chat en el backend, con contexto de parcela y restricci?n tem?tica para agronom?a del melocot?n (elaboraci?n propia).
+542: [normal] Figura 24. Interfaz del chatbot Agroplaga AI respondiendo una consulta sobre manejo del cultivo de melocot?n (elaboraci?n propia).
+558: [normal] Figura 25. Endpoint /api/ai/vision-diagnose para diagn?stico visual mediante imagen y contexto de parcela (elaboraci?n propia).
+560: [Heading 2] 6.3 Pruebas en Agroplaga AI
+561: [Heading 3] 6.3.1 Pruebas unitarias
+562: [normal] Validar que el registro de actividades no permita guardar datos sin parcela o sin fecha.
+563: [normal] Validar que una lectura de sensor se almacene correctamente en la tabla sensor_readings y que, cuando supera un umbral, pueda generar una alerta.
+568: [normal] Figura 26. Prueba unitaria de validaci?n del registro de actividades sin fecha ni parcela (elaboraci?n propia).
+569: [normal] Figura 27. Prueba unitaria de inserci?n de lectura ambiental en la tabla sensor_readings (elaboraci?n propia).
+574: [normal] Figura 28. Verificaci?n de datos almacenados en MySQL despu?s de registrar lecturas del sistema (elaboraci?n propia).
+575: [normal] 6.3.2 Pruebas de integraci?n
+576: [normal] Las pruebas de integraci?n comprobaron la comunicaci?n entre m?dulos del sistema. En particular, se valid? que el frontend pudiera consultar la API, que el backend almacenara datos en MySQL y que las respuestas se reflejaran correctamente e
+577: [normal] Flujo de sensores: el dispositivo o solicitud HTTP env?a datos al backend, el backend valida la informaci?n y la base de datos almacena la lectura.
+578: [normal] Flujo de plagas: el usuario registra una plaga con datos descriptivos e imagen, el backend almacena la informaci?n y la interfaz actualiza el listado.
+580: [normal] Figura 29. Prueba de integraci?n del flujo sensor, backend y base de datos (elaboraci?n propia).
+587: [normal] Figura 30. Prueba de integraci?n del m?dulo de plagas y carga de im?genes (elaboraci?n propia).
+592: [normal] Figura 31. Prueba de integraci?n del chatbot con contexto de parcela (elaboraci?n propia).
+594: [normal] Figura 32. Prueba de integraci?n de alerta generada a partir de condiciones ambientales (elaboraci?n propia).
+601: [Heading 3] 6.3.3 Pruebas de validaci?n
+602: [normal] Las pruebas de validaci?n se enfocaron en la experiencia final del agricultor y en la utilidad de las respuestas del sistema para apoyar decisiones de manejo del cultivo.
+603: [normal] Cuando una variable ambiental supera los valores esperados, la interfaz muestra informaci?n visual para facilitar la interpretaci?n del riesgo.
+604: [normal] El chatbot responde ?nicamente consultas relacionadas con agronom?a del melocot?n, tales como riego, clima, plagas, poda, suelo, enfermedades y manejo integrado.
+607: [normal] Figura 33. Prueba de validaci?n de alerta visual por condici?n ambiental de riesgo (elaboraci?n propia).
+609: [normal] Figura 34. Prueba de validaci?n del chatbot respondiendo una consulta agron?mica sobre el cultivo (elaboraci?n propia).
+613: [normal] Figura 35. Prueba de validaci?n del filtro tem?tico del chatbot ante consultas fuera del dominio agr?cola (elaboraci?n propia).
+
+REFERENCIAS:
+751: [Heading 1] Referencias
+752: [normal] ANAPDE . (2019). Informe técnico anual. Ciudad de Guatemala: Asociación Nacional del Programa de Desarrollo de Exportación.
+753: [normal] Arias, F. G. (2012). El proyecto de investigación: Introducción a la metodología científica. Caracas: Episteme.
+755: [normal] Arias, L. (2012). Innovación agrícola en Centroamérica. Ciudad de Guatemala: Editorial Agrotech.
+756: [normal] Burns, B., Grant, B., & Oppenheimer, D. (2016). Kubernetes: Up and Running. Sebastopol, CA: O’Reilly Media.
+757: [normal] corporativo"), I. d. (2020). Estudios sobre los pesticidas en las orcas de pecho en Guatemala. ICTA.
+758: [normal] Cruz, P., & López, M. (2017). Trampas feromónicas para Grapholita molesta. Revista de Fitopatología, 22(3), págs. 45–58.
+759: [normal] Delgado, R., & Morales, S. (2013). Trampas cromáticas para moscas de la fruta. Acta Agronómica, 60(2), págs. 101–110.
+760: [normal] FAO. (2020). Agricultura en cifras. Food and Agriculture Organization: Roma.
+761: [normal] Fernández, J. &. (2020). Aplicación de los sensores de IoT en la gestión de los pesticidas agrícolas. Agrarian Technology Magazine, 35(2), págs. 45-60.
+762: [normal] FRUTAGRU. (2021). Memoria institucional 2021. Quetzaltenango: Asociación de Fruticultores de Guatemala.
+763: [normal] García, J., & Rivera, L. (2015). Umbrales económicos en frutales. Estudios Agrícolas, 18(4), págs. 77–89.
+764: [normal] Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. Cambridge, MA: MIT press.
+765: [normal] Hernández, P., & Torres, G. (2016). Costos de producción de frutales en Guatemala. Revista Económica Agrícola, 8(2), págs. 33-47.
+766: [normal] INTECA. (2019). API de pronóstico del tiempo para Guatemala. Ciudad de Guatemala: Instituto Nacional de Tecnología Agropecuaria.
+767: [normal] Jiménez, R. e. (2018 ). Biología de Anastrepha spp. en Centroamérica. Entomología Tropical, 40(1), págs. 23–39.
+768: [normal] Kamilaris, A., & Prenafeta-Boldú, F. (2018). Deep learning en agricultura: una revisión.
+769: [normal] Computers and Electronics in Agriculture, 147, págs. 70–90.
+770: [normal] Kumar, S., & Lee, J. (2019). Evaluación de sensores DHT22 vs. SHT31. Sensors Journal, 19(3), págs. 567–575.

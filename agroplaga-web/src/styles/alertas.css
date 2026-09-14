@@ -77,6 +77,17 @@ body {
   transform: translateX(6px);
 }
 
+/* 📹 Alertas originadas por la camara */
+.alerta-container li.alerta-camara {
+  background: #fde8e8;
+  border-left-color: #e63946;
+  color: #6a040f;
+}
+
+.alerta-container li.alerta-camara:hover {
+  background: #fbd3d3;
+}
+
 /* 📱 Responsivo */
 @media (max-width: 768px) {
   .alerta-container {

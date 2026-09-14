@@ -1,0 +1,466 @@
+start=None end=None
+0: [normal] UNIVERSIDAD MARIANO GÁLVEZ DE GUATEMALA
+1: [normal] FACULTAD DE INGENÍERIA EN SISTEMAS DE INFORMACION Y CIENCIAS DE LA
+2: [normal] COMPUTACION
+10: [normal] DANIEL ANIBAL CIFUENTES RAMÍREZ
+11: [normal] QUETZALTENANGO, QUETZALTENANGO, 2025
+13: [normal] “AGROPLAGA AI”
+28: [normal] QUETZALTENANGO 2025
+30: [normal] Indice
+31: [normal] Indice de Figura
+32: [normal] Indice de Tablas
+36: [normal] Introducción
+37: [normal] Desde que inicié mis estudios en ingeniería en sistemas, siempre he sentido una gran curiosidad por cómo la tecnología puede mejorar la vida de las personas y hacer más eficientes distintos sectores. A lo largo de mi formación, he aprendido sobre el poder del análisis de datos, la inteligencia artificial y el Internet de las Cosas (IoT), pero siempre me pregunté cómo estas herramientas podrían aplicarse en un entorno más cercano y con impacto real en la economía de Guatemala.
+38: [normal] Fue así como, al investigar sobre la agricultura en el país, me di cuenta de un problema recurrente que afecta a muchos productores: las plagas. En el caso específico del melocotón, estas pueden arruinar cosechas enteras, reduciendo la calidad y cantidad de la producción, lo que genera grandes pérdidas económicas para los agricultores. Al ver esta situación y entender la importancia de la agricultura para la economía guatemalteca, surgió la idea de desarrollar un sistema inteligente para la detección y monitoreo de plagas, con el objetivo de brindar una herramienta efectiva a los productores de FRUTAGRU, la Asociación de Productores de
+39: [normal] Melocotón de Guatemala.
+40: [normal] La tecnología ha avanzado lo suficiente como para ofrecer soluciones accesibles a estos problemas. Con sensores IoT y modelos de inteligencia artificial, es posible monitorear en tiempo real las condiciones del cultivo y detectar plagas de manera oportuna. Mi meta con este proyecto es desarrollar una aplicación que les permita a los agricultores recibir alertas y recomendaciones sobre el estado de sus cultivos
+42: [normal] de una manera sencilla y fácil de usar. Esto no solo ayudará a reducir el uso indiscriminado de pesticidas, sino que también contribuirá a una gestión más eficiente y sostenible de los cultivos, optimizando los recursos y mejorando la producción.
+43: [normal] Más allá de ser un reto técnico, este proyecto representa una oportunidad única para mí como estudiante de ingeniería en sistemas. No solo podré aplicar mis conocimientos en desarrollo de software e inteligencia artificial, sino que también tendré la posibilidad de trabajar con personas reales, con agricultores que dependen de sus cosechas para su sustento. Poder diseñar una solución tecnológica con impacto tangible me motiva a dar lo mejor de mí en este proceso.
+44: [normal] El éxito de este sistema no solo beneficiará a los productores de melocotón en FRUTAGRU, sino que podría servir como un modelo replicable en otros sectores agrícolas que enfrentan desafíos similares. Con este estudio, quiero demostrar que la ingeniería en sistemas no es exclusiva de la industria tecnológica o corporativa, sino que tiene el potencial de transformar sectores tradicionales y aportar soluciones innovadoras a problemas reales.
+45: [normal] A lo largo de este trabajo, abordaré los fundamentos de la detección de plagas, el uso de tecnología en la agricultura y el diseño e implementación del sistema en FRUTAGRU. Estoy convencido de que la combinación de tecnología y conocimiento del sector agrícola puede generar cambios significativos y ayudar a los agricultores a enfrentar sus desafíos con herramientas innovadoras y accesibles
+50: [Heading 1] Capítulo 1 Marco Conceptual
+51: [Heading 2] 1.1 Antecedentes del proyecto:
+52: [normal] Problema de plagas de cultivo en Guatemala.
+53: [normal] Pero, muchos problemas dañan su producción y calidad porque las pesticidas siguen multiplicando. .s, un estudio en Quetzaltenango encontró muchos tipos de problemas que hacen que las plantas no crecen también (corporativo"), 2020) … pero no funciona bien. Por lo tanto, la adopción de soluciones tecnológicas más avanzadas se ha convertido en una necesidad.
+54: [normal] Implementación del sensor IoT en la agricultura.
+55: [normal] La Internet de las cosas (IoT) ha revolucionado varias industrias, incluyendo la agricultura. los gadgets de IoT ayudan a recopilar información sobre la granja de pie rápidamente. Esto nos ayuda a capturar errores temprano. (Rodríguez, 2021), el despliegue de instrumentos para calentar la humedad, el calor del ambiente y la actividad de los insectos ha mejorado las opciones en las estrategias de control de los artrópodos. En una investigación realizada en España, la aplicación de esta innovación ha reducido el uso de agro-pesticidas químicos por un tercio, aumentando la eficiencia agrícola (Fernández, 2020)La frase ha sido ligeramente reproducida, cambiando "estudio" a "investigación" y "uso/reducir" a
+56: [normal] Aplicación de la inteligencia artificial en la identificación de las plagas.
+57: [normal] En 2019, un equipo de investigadores creó un sistema de aprendizaje inteligente con partes especiales llamadas redes neurales para encontrar los errores con precisión, y se dio derecho a escogerlos 9 de cada 10 veces. Esta categoría de tecnología permite la detección rápida y precisa de las pesticidas, minimizando el involucro humano superfluo y mejorando la regulación de las amenazas agrícolas.
+58: [normal] Desarrollo de aplicaciones digitales para la gestión de cultivos.
+59: [normal] La utilización de instrumentos electrónicos ha facilitado a los cultivadores agrarios en la mejora de la administración de sus verduras. En Argentina, un ejemplo es la plataforma AgrosMart. Más de 2.000 agricultores lo utilizan para comprobar los errores en los árboles de fruta. Esto les ayuda a hacer un 15% más comida para las granjas (López A. &., 2022)"Estas aplicaciones combinan intel recogido de Internet of Things dispositivos con metodologías de pronóstico para crear notificaciones inmediatas y orientación personalizada sobre la regulación de la peste de ratón y ratón."
+60: [normal] Impacto de la tecnología en la agricultura sostenible.
+61: [normal] Esto también ayuda a mantener el mundo agrícola limpio y en marcha (Organización de las Naciones Unidas para la Alimentación y la Agricultura, 2021). la aplicación de técnicas digitales ha contribuido a reducir los impactos ambientales derivados del uso excesivo de productos químicos agrícolas. dispositivos de IoT, aprendizaje de máquina y interfaces digitales no sólo aumentan los beneficios financieros de los agricultores, sino que también fomentan métodos agrícolas más sostenibles en conjunto con el ecosistema.
+62: [Heading 2] 1.2 Justificación
+63: [normal] El cultivo de melocotón en Guatemala se enfrenta a un problema significativo debido a la propagación de insectos que afectan su rendimiento y calidad. métodos de control, principalmente utilizando agroquímicos, resultan en efectos ambientales negativos.
+64: [normal] Esta idea es esencial ya que ofrece un remedio de alta tecnología que se basa en los  detectores de IA y IoT para detectar y supervisar las pesticidas con precisión.Al utilizar este equipo, se esperan ahorros de costes en el uso de pesticidas, se proyecta
+65: [normal] una mejora de rendimiento, y los datos hasta el minuto serán accesibles a los cultivadores.
+66: [normal] El sistema mejorará la gestión de las pestes, fomentando una agricultura ecológica y eficiente. Este proyecto pretende ayudar a mejorar la agricultura guatemalteca, hacer dinero mejor y el medio ambiente más saludable (Organización de las Naciones Unidas para la
+67: [normal] Alimentación y la Agricultura, 2021)
+68: [Heading 2] 1.3 Planteamiento de problema:
+69: [normal] A lo largo de mis estudios en ingeniería en sistemas, he aprendido que la tecnología puede ofrecer soluciones prácticas a problemas del mundo real. Sin embargo, no fue hasta que conocí de cerca la situación de los productores de melocotón en Guatemala que comprendí la magnitud de los desafíos que enfrentan. Las plagas han sido una amenaza constante para la producción agrícola, afectando directamente la calidad de los cultivos y generando pérdidas económicas considerables.
+70: [normal] El principal problema que enfrentan los agricultores de FRUTAGRU es la dificultad para detectar las plagas a tiempo. En muchos casos, los métodos tradicionales de inspección manual resultan ineficaces, ya que dependen de la experiencia del agricultor y pueden pasar desapercibidas infestaciones en sus primeras etapas. Como resultado, el uso de pesticidas suele ser excesivo, lo que no solo incrementa los costos de producción, sino que también impacta negativamente el medio ambiente y la salud de los trabajadores del campo.
+71: [normal] La falta de herramientas tecnológicas adaptadas a este sector ha llevado a que los agricultores enfrenten un dilema constante: reaccionar cuando el daño ya está hecho o prevenir con tratamientos costosos y, muchas veces, innecesarios. Ante esta problemática, me propuse desarrollar un sistema inteligente que permita el monitoreo en tiempo real de los cultivos mediante sensores IoT e inteligencia artificial, ofreciendo a los productores información precisa sobre la presencia de plagas y recomendaciones personalizadas para su control.
+72: [normal] Este proyecto busca no solo mejorar la productividad de los cultivos de melocotón, sino también optimizar el uso de insumos agrícolas y reducir el impacto ambiental de la producción. Al automatizar la detección de plagas y brindar datos en tiempo real, los agricultores podrán tomar decisiones más informadas, aplicando tratamientos solo cuando sea necesario y reduciendo los costos asociados a la fumigación masiva.
+73: [normal] Si bien la implementación de tecnología en la agricultura puede presentar retos, considero que la accesibilidad de los sensores IoT y el desarrollo de aplicaciones móviles intuitivas pueden hacer que esta solución sea viable para los productores de FRUTAGRU. Mi objetivo es demostrar que la integración de sistemas inteligentes en la agricultura no solo es posible, sino que es una estrategia clave para mejorar la eficiencia y la rentabilidad del sector agrícola en Guatemala.
+74: [Heading 2] 1.4 Objetivos de la investigación.
+75: [Heading 3] 1.4.1 Objetivo general:
+76: [normal] Desarrollar un sistema inteligente de orientación para la identificación y control de plagas en cultivos de melocotón en Guatemala, utilizando sensores IoT e inteligencia artificial, con el fin de reducir el impacto de plagas y mejorar la producción agrícola.
+77: [Heading 3] 1.4.2 Objetivos específicos
+78: [normal] Identificar a través de fuentes documentales y trabajo de campo cuáles son las plagas endémicas y cuarentenarias predominantes en los cultivos de melocotón en Guatemala.
+79: [normal] Aquí, se incluirá revisiones y bases de datos científicas como FAO, MAGA y Google
+80: [normal] Scholar, por otro lado el uso de Google Forms para las encuestas agrícolas.
+81: [normal] Implementar sensores IoT para monitorear las condiciones ambientales y detectar momento la presencia de plagas.. Por su parte, los sensores que se emplearían serían de la; temperatura y la humedad DHT22, los sensores de luz BH1750 y la unidad de procesamiento ESP32.para el procesamiento de datos, integrados con plataformas como Arduino y Raspberry Pi, utilizando protocolos de comunicación como LoRaWAN o WiFi.
+82: [normal] Desarrollar un modelo de inteligencia artificial para la identificación automática de plagas a partir de imágenes y datos de campo utilizando algoritmos avanzados de machine learning . al emplear redes neuronales utilizarán redes neuronales convolucionales con TensorFlow y Keras para reconocimiento de imágenes junto con Google AutoML Vision y PyTorch para el almacenamiento en bases de datos de imágenes y el procesamiento en la nube bajo Google Cloud, AWS o Microsoft Azure este enfoque permitirá un análisis preciso y en tiempo real brindando a los agricultores una herramienta eficaz para mejorar sus rendimientos y reducir las pérdidas. (OpenAI , 2024)
+83: [normal] Diseñar una aplicación web que proporcione a los agricultores un entendimiento detallado sobre el estado de sus cultivos y recomendaciones de manejo contra las plagas. La solución será accesible desde cualquier navegador web y se desarrollará utilizando React para la interfaz y Node.js con Express para la gestión del servidor. La base de datos se implementará en MySQL, y para ofrecer notificaciones en tiempo real y autenticación de usuarios se integrará Firebase. El diseño de la interfaz se realizará en Figma, priorizando la usabilidad y una experiencia visual clara para los agricultores.
+84: [normal] Evaluar la efectividad del sistema en campo mediante pruebas piloto en plantaciones de melocotón de FRUTAGRU, analizando su impacto en la detección temprana de plagas y mejora del manejo agrícola. Se realizarán pruebas utilizando los sensores y la aplicación web Agroplaga AI en cultivos seleccionados, observando los resultados obtenidos en el control de plagas y el rendimiento de los cultivos.
+85: [Heading 2] 1.5 Preguntas de investigación
+86: [normal] ¿Cuáles son las principales plagas que afectan los cultivos de melocotón en Guatemala?
+87: [normal] ¿Qué impacto tienen estas plagas en la producción y calidad del melocotón?
+88: [normal] ¿Cuáles son los métodos tradicionales de control de plagas en estos cultivos y cuáles son sus limitaciones?
+89: [normal] ¿Cómo pueden los sensores IoT contribuir a la identificación temprana de plagas en los cultivos de melocotón?
+90: [normal] ¿Qué ventajas ofrece el uso de inteligencia artificial en la identificación y control de plagas en comparación con métodos tradicionales?
+91: [normal] ¿Cuál sería el impacto económico de reducir la presencia de plagas en los cultivos de melocotón mediante el uso de esta tecnología?
+92: [normal] ¿Cómo puede esta tecnología mejorar la sostenibilidad ambiental del manejo de plagas?
+93: [normal] ¿Cómo puede diseñarse la aplicación móvil para que sea accesible y útil para los agricultores?
+94: [normal] ¿Cuáles serían los indicadores clave para medir la efectividad del sistema en la reducción de plagas?
+95: [normal] ¿Cómo se puede validar la precisión del modelo de inteligencia artificial en la identificación de plagas?
+97: [Heading 2] 1.6 Viabilidad
+98: [normal] Desde que comencé a desarrollar este proyecto en FRUTAGRU, la Asociación de Productores de Melocotón de Guatemala, he comprendido la importancia de integrar soluciones tecnológicas que permitan mejorar la productividad y la calidad de los cultivos. Mi enfoque principal la implementación de sensores IoT e inteligencia artificial para la detección temprana y el monitoreo de plagas, un problema recurrente que afecta a los agricultores locales. Evaluando las distintas áreas de viabilidad del proyecto, he identificado los siguientes puntos clave:
+99: [Heading 3] 1.6.1 Tecnica:
+100: [normal] La tecnología necesaria para este proyecto es accesible y factible de implementar en el contexto de FRUTAGRU. Actualmente, existen sensores capaces de medir temperatura, humedad y la presencia de plagas, los cuales se pueden integrar con algoritmos de inteligencia artificial que analicen patrones en tiempo real. Además, mediante una aplicación móvil, los agricultores podrán recibir alertas y recomendaciones de acción de manera sencilla y rápida. La compatibilidad de estos sensores con plataformas en la nube facilitará el almacenamiento y procesamiento de datos, asegurando un sistema robusto y escalable.
+101: [Heading 3] 1.6.2 Financiera
+102: [normal] Como responsable de este proyecto, he considerado únicamente los costos relacionados con la adquisición de los sensores IoT, ya que representan el componente esencial para el monitoreo de plagas. Actualmente, los sensores de temperatura y humedad pueden adquirirse por un costo aproximado de Q300 – Q500 por unidad, mientras que los sensores especializados para detección de plagas mediante imágenes o análisis de suelo tienen un precio estimado de Q800 – Q1,200 cada uno, dependiendo de la tecnología empleada. En total, se estima una inversión inicial de Q5,000 – Q7,000, considerando la instalación en distintas zonas de cultivo dentro de FRUTAGRU. A largo plazo, este costo se compensará con la reducción en pérdidas por plagas y el menor uso de pesticidas.
+103: [normal] Operativa: Uno de los retos principales es asegurar que el sistema sea fácil de utilizar por los agricultores. Por esta razón, la aplicación móvil se diseñará con una interfaz intuitiva y notificaciones en tiempo real, de manera que los productores puedan recibir información clara sobre la detección de plagas y las acciones recomendadas. Además, se impartirán capacitaciones dentro de FRUTAGRU para garantizar que los agricultores se familiaricen con el uso del sistema y puedan integrarlo en su rutina de trabajo sin dificultades
+104: [Heading 3] 1.6.3 Ambiental
+105: [normal] Este proyecto contribuye directamente a la sostenibilidad agrícola, ya que permite reducir el uso excesivo de pesticidas al aplicar tratamientos solo cuando es realmente necesario. Al identificar la presencia de plagas en etapas tempranas, los agricultores podrán tomar decisiones más informadas y evitar fumigaciones innecesarias, lo que beneficiará tanto al ecosistema como a la calidad del suelo y los productos cosechados.
+106: [Heading 3] 1.6.4 Social
+107: [normal] La implementación de esta tecnología en FRUTAGRU no solo beneficiará a los agricultores individualmente, sino que también fortalecerá la comunidad agrícola en su conjunto. Al mejorar la eficiencia en el manejo de plagas, se podrá aumentar la rentabilidad de los cultivos y garantizar una mayor estabilidad económica para las familias dedicadas a la producción de melocotón. Además, este proyecto puede servir como un modelo para otras asociaciones agrícolas que busquen integrar tecnología en sus procesos productivos.
+108: [Heading 2] 1.7 Alcances y límites de la investigación
+109: [Heading 3] 1.7.1 Alcance
+110: [normal] Desde mi formación en ingeniería en sistemas, comprendo que la integración de tecnología en la agricultura es clave para mejorar los procesos productivos. Este proyecto busca sentar las bases de un sistema inteligente de monitoreo de plagas que permita a los agricultores de FRUTAGRU optimizar sus cultivos con herramientas innovadoras. Mis principales alcances incluyen:
+111: [normal] Desarrollo de una solución tecnológica accesible: Diseñaré e implementaré un sistema que combine sensores IoT y modelos de inteligencia artificial para monitorear plagas en cultivos de melocotón en tiempo real, asegurando que sea escalable y adaptable a diferentes entornos agrícolas.
+112: [normal] Implementación en FRUTAGRU: La prueba inicial del sistema se llevará a cabo en plantaciones de melocotón dentro de FRUTAGRU. Esto permitirá evaluar su efectividad en un entorno de producción real y obtener retroalimentación directa de los agricultores.
+113: [normal] Medición del impacto en la productividad agrícola: Analizaré cómo la implementación del sistema contribuye a la reducción de pérdidas económicas, el uso eficiente de agroquímicos y la mejora de los rendimientos de cosecha.
+114: [normal] Capacitación de agricultores: No basta con diseñar una herramienta tecnológica avanzada, sino que es fundamental que los agricultores puedan usarla de manera efectiva. Para ello, desarrollaré estrategias de capacitación y materiales didácticos para garantizar una adopción sencilla y práctica del sistema.
+115: [Heading 3] 1.7.2 Limites
+116: [normal] A pesar de la viabilidad del proyecto, como cualquier iniciativa tecnológica, existen ciertos límites que debo considerar. Estas limitaciones no significan que el sistema no sea funcional, sino que hay factores que deben abordarse progresivamente a medida que la implementación avance:
+117: [normal] Dependencia de infraestructura tecnológica: Para que el sistema funcione correctamente, es necesario contar con acceso a internet y dispositivos móviles. En algunas zonas rurales de Guatemala, la conectividad es limitada, lo que podría afectar la transmisión de datos en tiempo real.
+118: [normal] Disponibilidad y calidad de los datos: La precisión de los modelos de inteligencia artificial dependerá de la cantidad y calidad de datos recopilados sobre las plagas en los cultivos de melocotón. Si la muestra de datos inicial no es suficiente, el modelo requerirá ajustes continuos hasta lograr una predicción confiable.
+119: [normal] Costos iniciales de implementación: Aunque los sensores que utilizaré tienen un costo accesible, la instalación y calibración del sistema en una gran cantidad de hectáreas podría representar un reto financiero si se busca escalarlo en un futuro.
+120: [normal] Factores externos no controlables: La proliferación de plagas puede verse afectada por condiciones climáticas, estacionales y otros factores ambientales que no pueden ser controlados directamente por el sistema. Esto implica que los algoritmos deben actualizarse continuamente para adaptarse a estos cambios.
+124: [Heading 1] Capítulo 2 - Marco Metodológico
+125: [Heading 2] 2.1 Definición de la muestra
+126: [normal] La población objetivo de este estudio está conformada por 25 agricultores miembros de la asociación FRUTAGRU (Productores de Melocotón de Occidente, Guatemala). Para asegurar que los hallazgos sean estadísticamente válidos y representativos de esta población, se estableció la necesidad de trabajar con una muestra probabilística aleatoria simple. Todos los agricultores tuvieron así la misma probabilidad de ser seleccionados, dado que la población es relativamente pequeña y homogénea en cuanto a su actividad agrícola, lo que refuerza la representatividad de la muestra.
+127: [normal] En la determinación del tamaño muestral se consideró un nivel de confianza del 95% y un margen de error del 5%. Un nivel de confianza del 95% (correspondiente a Z = 1.96) indica que, si se repitiera el muestreo numerosas veces bajo las mismas condiciones, en el 95% de los casos los resultados obtenidos se encontrarían dentro de ±5 puntos porcentuales del valor real en la población. El margen de error del 5% significa que se tolera una variación máxima del 5% entre las estimaciones de la muestra y los parámetros verdaderos del universo. Con estos parámetros, se utiliza la fórmula estadística para el cálculo del tamaño de muestra en poblaciones finitas
+128: [normal] 𝑍2 ∗ 𝑁 ∗ 𝑝 ∗ 𝑞
+130: [normal] 𝑁 = 𝑒2 ∗ (𝑁 − 1) + 𝑍2 ∗ 𝑝 ∗ 𝑞
+133: [normal] donde las variables se definen de la siguiente manera:
+134: [normal] N: Tamaño de la población (total de individuos en el universo del estudio). En este caso, N=25 agricultores.
+135: [normal] Z: Valor crítico de la distribución normal correspondiente al nivel de confianza deseado.
+136: [normal] Para un 95% de confianza Z=1.96.
+137: [normal] p: Proporción esperada de individuos que poseen la característica de estudio en la población. Cuando no se conoce este dato, se asume p=0.5 (50%) como valor conservador, pues maximiza la variabilidad y por ende el tamaño muestral requerido
+138: [normal] q: Complemento de p, dado por q=1−. Si p=0.5, entonces q=0.5
+139: [normal] e: Margen de error tolerado (precisión deseada) expresado en proporción. Un 5% de error se representa como e=0.05.
+140: [normal] Aplicando estos valores a la fórmula, se procede a calcular el tamaño de la muestra necesaria. Dado que no se conoce con certeza la proporción de agricultores que presentarían la característica o respuesta de interés (por ejemplo, adopción de la aplicación o incidencia de cierto problema), se adopta p=0.5 (y por tanto q=0.5) para garantizar el enfoque más exigente en cuanto a tamaño muestral. Con un nivel de confianza del 95%, el valor de Z es 1.96, y el error máximo permitido es e=0.05. Sustituyendo estos parámetros en la fórmula se obtiene:
+142: [normal] 𝑛
+143: [normal] A continuación, se realiza el desarrollo matemático paso a paso para mayor claridad. En el numerador de la expresión, ≈ 3; al multiplicarlo por N p  q
+144: [normal] =25 0.5 0.5=6.25 resulta un valor de aproximadamente 24.01. Por su parte, el denominador se calcula como 0.24 equivale a 0.06 y sumado al producto 3.84160.25≈0.9604, da un denominador de 1.0204 aproximadamente. Dividiendo el numerador entre el denominador, se obtiene:
+145: [normal] 𝑛
+146: [normal] El cálculo indica que serían necesarios ≈24 agricultores como tamaño de muestra. En otras palabras, prácticamente toda la población (24 de los 25 agricultores) debería ser incluida para lograr un error máximo del 5% con 95% de confianza. Este resultado es consistente con la literatura estadística, ya que cuando la población es muy pequeña y se exige un error tan reducido, la fórmula tiende a sugerir tomar casi la totalidad del universo.
+147: [normal] No obstante, considerando las limitaciones prácticas del proyecto (tiempo disponible, recursos humanos y logísticos, y la posible no disponibilidad de todos los agricultores), se definió un tamaño de muestra de 15 agricultores como máximo. Esta cifra representa el 60% de la población total, lo cual se estima suficiente para obtener información significativa y tendencias confiables dentro del contexto del estudio. Si bien 15 encuestados es un número menor al ideal estadístico calculado (24), se trata de un compromiso razonable entre rigor estadístico y viabilidad operacional. Con una muestra de 15 agricultores (seleccionados aleatoriamente de entre los 25), se espera cubrir una porción mayoritaria del universo, manteniendo una precisión aceptable en los resultados. En resumen, la muestra quedó conformada por 15 agricultores de FRUTAGRU, elegidos mediante muestreo aleatorio simple, garantizando con ello una representación balanceada de la población en el estudio. Las conclusiones derivadas de esta muestra deberán interpretarse con cierto cuidado debido al ajuste en el tamaño muestral, pero aun así proporcionarán una base sólida para evaluar el sistema de monitoreo de plagas propuesto en condiciones.
+151: [Heading 2] 2.2 Hipótesis:
+152: [normal] El desarrollo e implementación de una aplicación web inteligente para el monitoreo y detección de plagas en cultivos de melocotón en FRUTAGRU permitirá a los agricultores mejorar la toma de decisiones mediante información en tiempo real, optimizando el manejo de plagas, reduciendo el uso innecesario de pesticidas y aumentando la eficiencia y sostenibilidad de la producción agrícola en el lugar de implementación.
+154: [Heading 3] 2.3 Diseño o tipo de la investigación
+155: [normal] La presente investigación se clasifica como correlacional y documental, debido a que responde a dos enfoques metodológicos que permiten abordar de forma integral tanto la fundamentación teórica como la evaluación práctica del sistema propuesto.
+156: [normal] Desde el enfoque correlacional, el estudio pretende analizar la relación existente entre el uso de un sistema inteligente de monitoreo basado en sensores IoT e inteligencia artificial y la mejora en el control de plagas en cultivos de melocotón. De acuerdo con (Arias F. G., 2012), la investigación correlacional se enfoca en determinar el grado de relación entre dos o más variables, utilizando herramientas estadísticas y pruebas de hipótesis que permiten estimar la correlación entre ellas. En este caso, se busca establecer si la implementación del sistema desarrollado guarda una asociación significativa con variables como la reducción en la incidencia de plagas, el uso más eficiente de pesticidas y el incremento en la productividad agrícola.
+157: [normal] Este diseño no experimental se justifica porque no se manipularán intencionalmente las variables, sino que se observarán en su entorno natural. La información se recopilará en un tiempo definido, haciendo del estudio también una investigación transversal.
+158: [normal] Adicionalmente, el proyecto adopta un enfoque documental, ya que fue necesario realizar una revisión profunda de fuentes bibliográficas, técnicas y científicas relacionadas con el tema.
+159: [normal] Según Arias (2012), la investigación documental consiste en el análisis, crítica e interpretación de datos secundarios obtenidos de materiales impresos, digitales o audiovisuales, con el fin de construir nuevo conocimiento. Esta fase permitió identificar las principales plagas que afectan al cultivo de melocotón en Guatemala, las condiciones climáticas que influyen en su aparición, las características de los sensores IoT más adecuados para el entorno agrícola y los modelos de inteligencia artificial aplicables al reconocimiento de imágenes en entornos rurales.
+160: [normal] En resumen, el diseño metodológico de esta investigación responde a un enfoque mixto, donde la parte correlacional permite analizar la relación entre variables medidas en campo, y la parte documental sustenta técnicamente el desarrollo del sistema inteligente. Esta combinación permite no solo construir una solución funcional, sino también evaluarla de manera objetiva y fundamentada.
+161: [Heading 2] 2.4 Variables e Indicadores
+162: [Heading 3] 2.4.1 Variables
+163: [normal] Variable independiente: La falta de un sistema automatizado para el monitoreo y detección de plagas en cultivos de melocotón genera dificultades para identificar a tiempo los brotes, lo que lleva a un manejo ineficiente de los tratamientos agrícolas. Esto, a su vez, provoca pérdidas económicas significativas, disminución de la calidad de la cosecha y un uso en ocasiones inadecuado de pesticidas, ya que las decisiones se toman de manera reactiva y sin datos preciso.
+165: [normal] Variables Dependientes
+166: [normal] Optimización en la detección temprana de plagas, permitiendo un control más eficiente de los cultivos.
+167: [normal] Mejora en la toma de decisiones de los agricultores, gracias a la disponibilidad de información en tiempo real.
+168: [normal] Uso más eficiente de pesticidas, aplicándolos solo cuando sea realmente necesario.
+169: [normal] Reducción de pérdidas económicas, al evitar daños graves en la producción por plagas no detectadas a tiempo.
+170: [normal] Mayor sostenibilidad agrícola, minimizando el impacto ambiental del manejo de plagas.
+171: [normal] Accesibilidad a información relevante sobre los cultivos, a través de una plataforma web de monitoreo.
+173: [Heading 3] 2.4.2 Indicadores :
+174: [normal] Tabla 1 Indicadores Elaboración propia con base en (Fuente (Sampieri R. H., 2014))
+177: [Heading 2] 2.5 Supuestos y Expectativas del Tema
+178: [Heading 3] 2.5.1 Supuestos
+179: [normal] Se considera que en la región donde opera la Asociación FRUTAGRU existe disponibilidad de información clave relacionada con el comportamiento de plagas en cultivos de melocotón, así como antecedentes climáticos y registros productivos. Se parte del supuesto de que los agricultores de esta asociación cuentan con conocimientos básicos del uso de dispositivos móviles y acceso a internet, lo cual permitirá la interacción con la plataforma web desarrollada. Asimismo, se supone que los sensores ambientales IoT pueden instalarse y funcionar correctamente en el entorno agrícola de campo abierto, recolectando datos de manera constante. Se presume que, al tener estos datos organizados y disponibles en tiempo real, será factible entrenar y utilizar un modelo de inteligencia artificial capaz de emitir alertas confiables sobre la presencia de plagas en los cultivos.
+180: [Heading 3] 2.5.2 Expectativas
+181: [normal] Al implementar esta propuesta tecnológica en la asociación FRUTAGRU, se espera lograr avances significativos en el manejo agrícola, orientados a la digitalización del monitoreo de plagas. Las expectativas generales incluyen:
+182: [normal] Disminución en los tiempos de respuesta ante la detección de plagas mediante alertas automáticas.
+183: [normal] Uso eficiente y reducido de pesticidas, gracias a la aplicación únicamente cuando el sistema lo recomiende.
+184: [normal] Acceso constante a información relevante sobre el estado de los cultivos desde cualquier dispositivo con internet.
+185: [normal] Participación activa de los agricultores en el uso de herramientas digitales como apoyo en la toma de decisiones.
+186: [normal] Reducción de pérdidas económicas provocadas por infestaciones no detectadas a tiempo.
+187: [normal] Promoción de prácticas agrícolas sostenibles y responsables con el medio ambiente.
+189: [Heading 2] 2.6 Métodos, Técnicas e instrumentos
+190: [Heading 3] 2.6.1 Métodos
+191: [normal] El método aplicado en esta investigación es el analítico, ya que permite descomponer el fenómeno de estudio la problemática del control de plagas en cultivos de melocotón en sus distintas partes, con el fin de entender su funcionamiento individual y su relación con la posible solución tecnológica. Este enfoque cognoscitivo permite analizar de forma detallada tanto el comportamiento de las plagas, como las condiciones ambientales del cultivo y las herramientas tecnológicas disponibles para abordarlas.
+192: [normal] Con base en ello, se trabajará por etapas en los siguientes procesos: levantamiento de requerimientos, planeación del sistema, modelado del funcionamiento, desarrollo del prototipo web, implementación en campo y validación mediante resultados obtenidos. Cada uno de estos pasos se enfocará individualmente, pero estará vinculado a la problemática central del proyecto:
+193: [normal] la necesidad de un sistema inteligente para la detección temprana de plagas.
+194: [Heading 3] 2.6.2 Técnicas
+195: [normal] Para aplicar correctamente el método analítico, se emplearán las siguientes técnicas adaptadas al contexto del estudio:
+196: [normal] Observación directa: Se llevará a cabo en las parcelas de melocotón afiliadas a FRUTAGRU, con el fin de registrar la presencia de plagas, métodos actuales de detección y condiciones del entorno que influyen en el cultivo.
+197: [normal] Formulación de preguntas: A partir de la observación, se diseñarán preguntas que orienten la comprensión del problema y la búsqueda de soluciones. Esto incluirá preguntas dirigidas a agricultores y también a nivel técnico sobre el sistema.
+198: [normal] Hipótesis: Se establecerá una hipótesis basada en la relación entre el uso de tecnología y la mejora en el control de plagas, la cual será puesta a prueba a través de los resultados del sistema implementado.
+199: [normal] Experimentación: Se aplicará en la fase de prueba del sistema, donde se compararán resultados antes y después de su uso, para validar el impacto en la reducción de plagas, uso de pesticidas e incremento en la productividad.
+200: [normal] Conclusiones: Se analizarán los datos recopilados para comprobar si la hipótesis se cumple y si el sistema realmente contribuye a resolver el problema identificado.
+201: [Heading 3] 2.6.3 Instrumentos
+202: [normal] Entrevista no estructurada: Se utilizará con agricultores de FRUTAGRU para conocer de forma flexible y abierta su experiencia con plagas, prácticas de cultivo, conocimientos tecnológicos y disposición para usar nuevas herramientas. Este tipo de entrevista permite al investigador adaptar el contenido según la respuesta del entrevistado.
+203: [normal] Cuestionario: Será presentado de forma digital a través de la misma plataforma web o correo electrónico, y buscará recopilar información específica sobre la percepción del agricultor respecto al sistema, su utilidad, accesibilidad y resultados obtenidos.
+204: [normal] Registro del sistema web: Como instrumento de medición tecnológica, se utilizarán los registros automáticos generados por la aplicación (alertas emitidas, imágenes analizadas, tiempos de respuesta, etc.) para validar el comportamiento del modelo y su adopción en campo.
+205: [Heading 2] 2.7. Planificación
+207: [normal] Figura 1: Cronograma previo de actividades (Fuente: elaboración propia)
+210: [normal] Se puede visualizar el cronograma en detalle en el siguiente enlace:
+211: [normal] https://docs.google.com/spreadsheets/d/1Nsp_Rs15HRwcR4FLYAJ7PL9P6qJGpOwv/edit?usp= sharing&ouid=100128180682494214205&rtpof=true&sd=true
+212: [Heading 2] 2.8. Recursos
+213: [Heading 3] 2.8.1. Humanos
+214: [normal] • 	Asesor Académico: Ing. Omar Arreaga , encargado de brindar guía metodológica y técnica durante la elaboración del proyecto. o 	Asesor Técnico Externo:  Edgar Ramírez Ingeniero Agrónomo encargado de brindar orientación en prácticas agrícolas y control de plagas, en el contexto de la aplicación del sistema propuesto.
+215: [normal] o 	Representante de FRUTAGRU: ING. Armando Hernández, responsable de
+216: [normal] facilitar el acceso a los agricultores y zonas de cultivo. o 	Estudiante Investigador: Daniel Aníbal Cifuentes Ramírez, responsable del desarrollo del sistema web, integración de sensores IoT y aplicación de modelos de inteligencia artificial. o 	Agricultores participantes: Agricultores miembros de FRUTAGRU que apoyarán con la validación del sistema en campo.
+217: [Heading 3] 2.8.2. Financieros y Materiales
+218: [Heading 4] 2.8.2.1 Implementacion del proyecto
+219: [normal] Tabla 2 Implementación del proyecto (Fuente: elaboración Propia)
+221: [Heading 4] 2.8.2.2. Costo del Desarrollo del Proyecto
+222: [normal] Tabla 3 Costo del Desarrollo del Proyecto (Fuente: elaboración Propia)
+247: [Heading 1] Capítulo 3. Marco Teórico
+249: [Heading 2] 3.1. Contexto Agrícola de Guatemala
+250: [normal] La agricultura ha sido históricamente el pilar de la economía guatemalteca. En las últimas dos décadas, la superficie cultivada ha crecido en un 12 %, manteniéndose por encima del 20 % del PIB nacional (FAO, 2020) (MAGA, 2021). Durante este periodo, la diversificación ha sido clave: junto a los cultivos tradicionales de café y caña de azúcar, los frutales han emergido como una alternativa rentable para pequeños y medianos productores (López & Gómez, 2018). La variabilidad de climas—from templado a frío en altitudes superiores a 1 800 m—y la heterogeneidad de suelos en regiones como el altiplano occidental permiten el desarrollo exitoso de una amplia gama de especies frutales.
+252: [Heading 3] 3.1.1. Relevancia del Cultivo de Melocotón
+253: [normal] El melocotón (Prunus persica) se ha consolidado como uno de los frutales de mayor potencial en los departamentos de Chimaltenango, Sololá, Quetzaltenango y Totonicapán. Los rendimientos promedio alcanzan 12 ton/ha, superando en un 15 % los promedios reportados en países vecinos (Pérez, Ramírez, & Méndez, 2019)Los costos de producción oscilan entre USD 4 000 y USD 6 000 por hectárea, con márgenes brutos de hasta 35 % para pequeños productores (Hernández & Torres, 2016). La demanda local, potenciada por ferias agrícolas y canales de comercialización organizados por asociaciones, ha permitido estabilizar precios y mejorar la rentabilidad (Martínez & Salazar, 2020).
+255: [Heading 3] 3.1.2. Historia de FRUTAGRU y ANAPDE
+256: [normal] La Asociación de Fruticultores de Guatemala (FRUTAGRU) nació en 2010 con el objetivo de fortalecer las capacidades técnicas y comerciales de los productores del altiplano occidental. Entre sus hitos destacan la implementación de estaciones demostrativas en 2013 y la firma de un convenio con la Unión Europea en 2017 para transferencia tecnológica
+257: [normal] (FRUTAGRU, 2021)En 2012 se creó la Asociación Nacional del Programa de Desarrollo de Exportación (ANAPDE), cuyo énfasis ha sido el acompañamiento en buenas prácticas agrícolas y la apertura de mercados internacionales (ANAPDE , 2019)Ambas organizaciones estructuran su trabajo en comités de investigación, extensión y comercialización, promoviendo actividades de capacitación, investigación conjunta con el MAGA y acceso a préstamos blandos.
+259: [Heading 2] 3.2. Plagas en el Cultivo de Melocotón
+260: [Heading 3] 3.2.1. Clasificación de Plagas
+261: [normal] Las plagas que amenazan el melocotón se dividen en endémicas siempre presentes en la zona y cuarentenarias aún ausentes, pero de alto riesgo de introducción (OIRSA, 2017). Para cada tipo se definen umbrales de daño económico; por ejemplo, en pulgones se considera crítico superar 10 individuos por hoja antes de intervenir (García & Rivera, 2015).
+262: [Heading 3] 3.2.2. Plagas Relevantes Identificadas
+263: [normal] Ácaros rojos (Panonychus ulmi): de ciclo corto (7–14 días), favorecidos por bajas lluvias y temperaturas de 20–25 °C.
+265: [normal] Figura 2: ácaros Rojos (Fuente: Google imágenes)
+266: [normal] Pulgones verdes (Myzus persicae): reproducción vivípara en primavera, con picos poblacionales que pueden duplicarse en 3–4 días.
+268: [normal] Figura 3: pulgones verdes (Fuente: Google imágenes)
+270: [normal] Mosca de la fruta (Anastrepha spp.): puesta de 200–400 huevos, detectada mediante trampas McPhail y análisis molecular de larvas (Jiménez, 2018 )
+272: [normal] Figura 4: Mosca de la Fruta (Fuente: Google imágenes)
+273: [normal] Gusano barrenador del fruto (Grapholita molesta): exclusiva infestación interna, monitoreo con trampas feromónicas y disrupción sexual (Cruz & López, 2017).
+275: [normal] Figura 5: Gusano Barrenador del fruto (Fuente: Google imágenes)
+277: [Heading 3] 3.2.3. Consecuencias del Mal Manejo de Plagas
+278: [normal] El uso indiscriminado de insecticidas ha generado resistencia en poblaciones de ácaros y pulgones, con reportes de hasta 60 % de falla en productos órgano sintéticos (Ramírez & Chávez, 2016). Además, se documenta la contaminación de fuentes hídricas cercanas a parcelas tratadas, con niveles de residuos por encima de los límites permisibles (Soto et al., 2014). El desequilibrio afecta también a insectos benéficos y polinizadores, reduciendo la resiliencia del agroecosistema.
+279: [Heading 2] 3.3. Manejo Integrado de Plagas (MIP)
+280: [Heading 3] 3.3.1. Principios del MIP
+281: [normal] El MIP surge a fines de los años cincuenta como alternativa al control químico exclusivo (Stern et al., 1959). Su premisa es mantener las poblaciones de plaga por debajo del umbral de daño económico, integrando múltiples tácticas (Kogan, 1998).
+282: [Heading 3] 3.3.2. Técnicas Utilizadas en el MIP
+283: [normal] Control cultural: rotación con leguminosas para reducir la densidad de inóculo y eliminación de restos de poda.
+284: [normal] Control físico: uso de trampas cromáticas amarillas para moscas de la fruta (Delgado &
+285: [normal] Morales, 2013).
+286: [normal] Control biológico: liberación de depredadores como Amblyseius swirskii para ácaros y parasitoides de pulgones (Vargas et al., 2015).
+287: [normal] Control químico racional: aplicación selectiva basada en muestreos de población y fenómenos meteorológicos.
+290: [Heading 3] 3.3.3. Aplicabilidad del MIP en Guatemala
+291: [normal] El MAGA publicó en 2020 una “Guía de MIP para frutales” que ha sido adoptada por más de 1 200 productores en Quetzaltenango y Totonicapán, mostrando una reducción del 40 % en el uso de pesticidas (MAGA, 2020). ANACAFÉ complementa con programas de capacitación y monitoreo de campo semestral (ANACAFÉ, 2018).
+292: [Heading 2] 3.4. Tecnología Agrícola Basada en IoT
+293: [Heading 3] 3.4.1. Concepto de IoT en la Agricultura
+294: [normal] El Internet de las Cosas (IoT) conecta sensores, actuadores y plataformas de análisis en la nube para brindar datos en tiempo real. En el contexto rural, se exploran arquitecturas LPWAN y
+295: [normal] LoRaWAN para cubrir hasta 10 km sin necesidad de infraestructura celular (Wolfert et al., 2017;
+296: [normal] ITU, 2020).
+297: [Heading 3] 3.4.2. Sensores Relevantes para el Proyecto
+298: [normal] DHT22: temperatura y humedad del aire con precisión de ±0,5 °C y ±2 % HR (Kumar &
+299: [normal] Lee, 2019).
+300: [normal] YL-69: sensor capacitivo de humedad de suelo; menos susceptible a corrosión que sondas resistivas (Zhang et al., 2020).
+301: [normal] ESP32: microcontrolador con Wi-Fi/Bluetooth incorporados y capacidad de procesamiento para pre-filtrar datos.
+302: [Heading 3] 3.4.3. Ventajas del IoT en el Campo
+303: [normal] Permite monitoreo continuo sin presencia permanente, decisiones basadas en datos históricos y alertas tempranas que previenen enfermedades y plagas. Modelos de negocio de
+304: [normal] “Agricultura como Servicio” (AaaS) han demostrado disminuir costos de implementación inicial en un 30 % para pequeños productores (Ruiz et al., 2021; Silva & Ferreira, 2019).
+305: [Heading 2] 3.5. Inteligencia Artificial Aplicada al Agro
+306: [Heading 3] 3.5.1. Definición y Tipos
+307: [normal] La IA agrupa métodos basados en reglas (sistemas expertos) y basados en datos (aprendizaje automático) para interpretar información compleja (Russell & Norvig, 2016;
+308: [normal] Goodfellow, Bengio & Courville, 2016).
+309: [Heading 3] 3.5.2. Modelos Utilizados
+310: [normal] Las Redes Neuronales Convolucionales (CNN) son la base para análisis de imágenes de hojas y frutos. Arquitecturas como ResNet-50 o MobileNet, entrenadas con transfer learning, han logrado precisiones superiores al 92 % en detección de plagas en manzano, resultados transferibles al melocotón (Zhang et al., 2019; Kamilaris & Prenafeta-Boldú, 2018).
+311: [Heading 3] 3.5.3. Beneficios de la IA en la Detección de Plagas
+312: [normal] La clasificación automática reduce errores humanos y acelera la respuesta. Sistemas embebidos con TensorFlow Lite permiten inferencia offline con latencias menores a 200 ms, frente a soluciones en la nube que tardan hasta 1 s (Li et al., 2020; Bah & Chandler, 2019).
+313: [Heading 2] 3.6. Desarrollo de Aplicaciones Web Agrícolas
+314: [Heading 3] 3.6.1. Ventajas de una Aplicación Web sobre Móvil
+315: [normal] Las Progressive Web Apps (PWA) funcionan sin instalación, pueden sincronizar datos en segundo plano y ofrecen compatibilidad en zonas de baja conectividad (Lehrig, 2021). Su actualización centralizada facilita la gestión de versiones en campo (Ferreira & Costa, 2020).
+316: [Heading 3] 3.6.2. Funcionalidades Clave para Agricultores
+317: [normal] Registro georreferenciado de parcelas y lotes.
+318: [normal] Alertas automáticas de riesgo fitosanitario basadas en umbrales definidos.
+319: [normal] Panel de control con visualización de datos históricos de sensores.
+320: [normal] Sección educativa y foro comunitario para compartir experiencias.
+321: [normal] Integración con API de pronóstico meteorológico del INTECA para alertas de lluvia o heladas (INTECA, 2019; Ramírez et al., 2021).
+322: [Heading 3] 3.6.3. Tecnologías y Herramientas de Programación Utilizadas
+323: [normal] El frontend se construye con React.js y PWA, comunicándose con un backend en Node.js desplegado en contenedores Kubernetes para asegurar escalabilidad (Newman, 2015; Burns, Grant & Oppenheimer, 2016). Firebase ofrece almacenamiento en tiempo real y autenticación, mientras que TensorFlow.js ejecuta modelos CNN directamente en el navegador.
+325: [Heading 2] 3.7. Proyectos de Referencia
+326: [normal] MYIPM (EE. UU.): plataforma educativa para identificación de plagas sin IA. Tras cinco años de operación, logró reducir el uso de plaguicidas en un 25 % y capacitar a más de 10 000 productores (Smith & Jones, 2020).
+327: [normal] AgroIA (Colombia): integra datos climáticos, sensores IoT y modelos predictivos. Reportó un ahorro de 18 % en aplicaciones químicas y aumento de 22 % en rentabilidad de plantaciones frutales (Ramírez & Gómez, 2021).
+328: [normal] Estos casos muestran que la integración de tecnologías puede adaptarse al contexto guatemalteco, ajustando costos, alcances y capacitación a la realidad de pequeños productores.
+330: [Heading 2] 3.8. Justificación Científica y Social del Proyecto
+331: [normal] La convergencia de IoT, IA y desarrollo web en una plataforma única para monitoreo de melocotón es innovadora en Guatemala. Si bien cada tecnología ha sido probada por separado, su integración específica para melocotón y pequeña agricultura local otorga originalidad. Se espera reducir pérdidas económicas hasta en un 30 % y disminuir el uso de pesticidas en un 40 %, además de empoderar a los agricultores con herramientas accesibles y escalables.
+332: [Heading 1] Capítulo 4 – Metodología de Requerimientos
+333: [Heading 2] 4.1 Metodología utilizada
+334: [normal] Para el desarrollo del sistema "Agroplaga AI" orientado al monitoreo y control inteligente de plagas en cultivos de melocotón, se utilizó la metodología RUP (Rational Unified Process).
+335: [normal] Este enfoque estructurado permite dividir el desarrollo en fases iterativas: Inicio, Elaboración, Construcción y Transición. Cada una de estas fases facilita una evaluación constante de requerimientos, validación de funcionalidades y adaptación según las necesidades reales de los agricultores de FRUTAGRU.
+336: [Heading 2] 4.2 Requerimientos del sistema
+337: [Heading 3] 4.2.1 Requerimientos funcionales
+338: [normal] RF1. Registro de usuarios: El sistema debe permitir a los agricultores registrarse y crear una cuenta personalizada.
+339: [normal] RF2. Inicio de sesión: El sistema debe autenticar a los usuarios mediante correo y contraseña.
+340: [normal] RF3. Visualización de condiciones ambientales: El sistema debe mostrar temperatura, humedad y humedad del suelo en tiempo real.
+341: [normal] RF4. Subida y análisis de imágenes: El usuario debe poder subir fotos de la plaga, que serán procesadas por la IA para identificar posibles plagas.
+342: [normal] RF5. Diagnóstico asistido: El sistema debe ofrecer diagnóstico por síntomas ingresados si no se puede subir una imagen.
+343: [normal] RF6. Base de datos de plagas: El sistema debe mostrar fichas de plagas locales con nombre, ciclo de vida, síntomas y tratamientos recomendados.
+344: [normal] RF7. Alertas inteligentes: El sistema debe enviar alertas si los sensores detectan condiciones que favorecen el brote de plagas.
+345: [normal] RF8. Módulo de seguimiento: El usuario debe poder registrar eventos de fumigación, poda o aparición de plagas por fecha y lote.
+346: [normal] RF9. Reportes: El sistema debe generar reportes PDF con datos climáticos, plagas detectadas y acciones realizadas.
+347: [Heading 3] 4.2.2 Requerimientos no funcionales
+348: [normal] RNF1. Usabilidad: La interfaz debe ser clara y sencilla, accesible desde computadora o celular.
+349: [normal] RNF2. Rendimiento: El tiempo de respuesta del sistema al analizar una imagen no debe exceder los 5 segundos.
+350: [normal] RNF3. Seguridad: Las credenciales deben ser encriptadas y el acceso a datos sensibles restringido.
+351: [normal] RNF4. Escalabilidad: El sistema debe permitir en el futuro la incorporación de más sensores o cultivos.
+352: [normal] RNF5. Compatibilidad: La app web debe ser compatible con los principales navegadores
+353: [normal] (Chrome, Firefox, Edge).
+355: [Heading 2] 4.3 Herramientas utilizadas
+356: [normal] Para el análisis, modelado y diseño del sistema, se emplearon las siguientes herramientas:
+357: [normal] Lucidchart: Diagramas UML (casos de uso, clases, secuencia, arquitectura).
+358: [normal] Figma: Diseño de prototipos de interfaz web y móvil.
+359: [normal] Trello: Gestión de tareas bajo metodología ágil.
+360: [normal] MySQL: Base de datos relacional para almacenar reportes, plagas y usuarios.
+361: [normal] Python + TensorFlow: Modelado y entrenamiento de IA para análisis de imágenes.
+362: [normal] React: Desarrollo del frontend de la plataforma.
+363: [normal] Docker: Contenerización para asegurar compatibilidad en distintos entornos.
+364: [Heading 2] 4.4 Recomendaciones presentación final
+365: [normal] La manera en la que se sabrá que hay una plaga será gracias a la cámara en tiempo real y también los datos de los sensores de humedad y temperatura. Implementare cámaras en cierta cantidad de pruebas por cuestión de presupuesto, también tendré otra entrevista donde implementare mi proyecto para preguntarles si me apoyaran en el ámbito económico o algo por el estilo
+366: [Heading 2] 4.5 ENLACE ERS
+367: [normal] https://docs.google.com/document/d/1S7aLPEbU6C4wUOGJRgs2bloTciVT9lng/edit?usp=drive_link&ouid=100128180682494214205&rtpof=true&sd=true
+387: [Heading 1] CAPÍTULO 5 – Diagramación UML
+388: [Heading 2] 5.1 Diagrams de Comportamiento
+389: [Heading 3] 5.1.1 Diagrama de Casos de Uso
+392: [normal] Figura 6. Este diagrama representa las interacciones principales entre los actores y el sistema Agroplaga AI. (Fuente: Elaboración propia)
+398: [Heading 3] 5.1.2 Escenarios de Casos de Uso
+400: [normal] Tabla 4. Caso de Uso 1: Capturar imagen de cultivo. (Fuente: Elaboración propia)
+402: [normal] Tabla 5. Caso de Uso 2: Registrar datos de sensores. (Fuente: Elaboración propia)
+407: [normal] Tabla 6. Caso de Uso 3: Visualizar alertas de plagas. (Fuente: Elaboración propia)
+409: [normal] Tabla 7. Caso de Uso 4: Registrar tratamiento aplicado. (Fuente: Elaboración propia)
+411: [normal] Tabla 8. Caso de Uso 5: Generar reporte automático. (Fuente: Elaboración propia)
+413: [Heading 3] 5.1.3 Diagramas de Actividades
+414: [normal] Se presentan los diagramas que ilustran el flujo de acciones para cada actor.
+415: [normal] Actividad del agricultor: Captura de imagen, envío, espera de resultado, visualización de diagnóstico.
+416: [normal] Actividad del administrador: Revisión de alertas, gestión de usuarios, supervisión de registros.
+418: [normal] Figura 7. Diagrama de actividades. Muestra las actividades del agricultor. (Fuente: Elaboración propia)
+422: [normal] Figura 8. Diagrama de actividades de administrador. Muestras todas las actividades que debe de hacer el administrador. (Fuente: Elaboración propia)
+425: [Heading 3] 5.1.4 Diagramas de Secuencia
+426: [normal] Representan el orden de interacción entre el agricultor, la aplicación web, el servidor IA y la base de datos.
+427: [normal] Secuencia: Captura y análisis de imagen
+428: [normal] Secuencia: Registro de datos de sensores
+431: [normal] Figura 9. Diagrama de secuencia. Captura y análisis de imagen con alerta. (Fuente: Elaboración propia)
+433: [normal] Figura 10. Diagrama de secuencia. Registro de datos de sensores. (Fuente: Elaboración propia)
+437: [normal] Figura 11. Diagrama de secuencia. Generación de reporte automatico. (Fuente: Elaboración propia)
+439: [Heading 3] 5.1.5 Diagrama de Estados
+440: [normal] Muestra los estados por los que pasa una imagen desde que se captura hasta que es diagnosticada.
+443: [normal] Figura 12. Diagrama de estado. Muestra los estados de la imagen al ser capturada. (Fuente: Elaboración propia
+444: [Heading 2] 5.2 Diagramas Estructurales
+445: [Heading 3] 5.2.1 Diagrama de Clases
+447: [normal] Figura 13. Diagrama de clase. Refleja las entidades del sistema, sus atributos y relaciones: Usuario, Parcela, Imagen, Sensor, Historial. (Fuente: Elaboración propia)
+450: [Heading 3] 5.2.2 Diagrama de Componentes
+451: [normal] Componentes principales:
+452: [normal] Frontend React Web
+453: [normal] Backend API
+454: [normal] Módulo IA
+455: [normal] Base de Datos Firebase
+458: [normal] Figura 14. Diagrama de componentes. Muestra los componentes principales. (Fuente: Elaboración propia)
+485: [Heading 1] CAPÍTULO 6 – Desarrollo de la solución.
+486: [Heading 2] 6.1 Desarrollo
+487: [normal] Para dar solución al problema planteado se construyó Agroplaga AI, una aplicación web que ayuda a los agricultores de melocotón a monitorear sus cultivos y detectar a tiempo la presencia de plagas o condiciones ambientales adversas.
+488: [normal] El sistema se desarrolló inicialmente en modo local (localhost) para probar la comunicación entre frontend, backend y base de datos. Posteriormente se proyecta que funcione tanto offline como online, de manera que el agricultor pueda registrar y visualizar datos incluso sin conexión a internet, y que al restablecerse la red estos se sincronicen automáticamente con el servidor.
+489: [normal] La aplicación incluye módulos principales como el registro y consulta de lecturas de sensores (temperatura, humedad y luminosidad), la gestión de plagas con imágenes de referencia, el historial con exportación a CSV y la configuración de umbrales de alerta que generan notificaciones visuales.
+490: [normal] A continuación, se presentan capturas de pantalla del código y de la interfaz gráfica que muestran los elementos clave de la aplicación, así como las pruebas realizadas para verificar su correcto funcionamiento.
+492: [Heading 3] 6.1.1 Tecnologías usadas para la aplicación
+493: [normal] • Lenguaje de programación frontend: JavaScript
+• Framework: React (Vite)
+• Backend: Node.js con Express
+• Base de datos: MySQL 
+• ORM: Sequelize
+• Gestión de datos locales: localStorage e IndexedDB (para modo offline)
+• Microcontrolador: ESP32 (lectura de sensores)
+• Sensores: DHT22 (temperatura y humedad), BH1750 (luminosidad)
+• Herramientas de desarrollo: Visual Studio Code, Postman
+496: [Heading 2] 6.2 Desarrollo de la aplicación
+498: [normal] Figura 15. Método guardarRegistro para crear y validar registros de actividades en Agroplaga AI (Elaboración propia).
+502: [normal] Figura 16. Módulo de Seguimiento con historial y exportación a CSV (Elaboración propia).
+503: [normal] (Captura de tu componente Seguimiento.jsx donde está la lógica de exportar CSV).
+504: [normal] Figura 17. Formulario de plagas con subida de imagen de referencia (Elaboración propia).
+(Captura de Plagas.jsx mostrando el formulario con input de imagen).
+507: [normal] Figura 18. Inicialización de plagas combinando plagas.json y localStorage (Elaboración propia).
+512: [normal] Figura 19. Migración de MySQL con tablas de lecturas y umbrales (Elaboración propia).
+(Captura de tu archivo de migración en Sequelize).
+517: [normal] Figura 20. Captura de la UI mostrando alerta cuando se supera el umbral (Elaboración propia).
+(Screenshot del navegador con la alerta roja o badge).
+520: [normal] Figura 21. Código del ESP32 enviando lectura al backend en localhost (Elaboración propia).
+(Captura de firmware.ino, la parte de HTTP POST).
+524: [normal] Figura 22. Prueba en Postman: POST /api/readings (Elaboración propia).
+(Captura de Postman mostrando el request y el response 200 OK).
+531: [normal] Figura 23 Endpoint /api/ai/chat en server.js (Elaboración propia).
+(captura del código que construye el contexto de parcela y llama a OpenAI).
+542: [normal] Figura 24. Interfaz del chatbot de Agroplaga AI respondiendo consulta (Elaboración propia).
+(captura con UI mostrando la pregunta y la respuesta del asistente).
+558: [normal] Figura 25. Endpoint /api/ai/vision-diagnose en server.js (Elaboración propia).
+(captura del código que construye el contexto de parcela y llama a OpenAI).
+560: [Heading 2] 6.3 Pruebas en Agroplaga AI
+561: [Heading 3] 6.3.1 Pruebas unitarias
+562: [normal] Validar que guardarRegistro no permite guardar sin parcela o sin fecha.
+563: [normal] Validar que un valor de sensor se guarda correctamente en la tabla sensor_readings.
+568: [normal] Figura 26. Prueba unitaria: validación de guardarRegistro sin fecha ni parcela (Elaboración propia).
+569: [normal] Figura 27. Prueba unitaria: inserción de lectura de sensor en la tabla sensor_readings (Elaboración propia).
+574: [normal] Figura 28. Prueba unitaria: datos almacenados en Mysql (Elaboración propia).
+575: [normal] 6.3.2 Pruebas de integración
+576: [normal] Comprueban que los módulos trabajen en conjunto.
+Ejemplos en Agroplaga AI:
+577: [normal] ESP32 envía datos → backend recibe → DB guarda.
+578: [normal] Registro de plaga con imagen → UI la muestra en listado.
+580: [normal] Figura 29. Prueba de integración: flujo ESP32 → Backend → Base de datos (Elaboración propia).
+587: [normal] Figura 30.
+592: [normal] Figura 31.
+594: [normal] Figura 32. Prueba de validación: alerta generada cuando la temperatura supera el umbral (Elaboración propia).
+601: [Heading 3] 6.3.3 Pruebas de validación
+602: [normal] Se enfocan en la experiencia final del agricultor.
+Ejemplos en Agroplaga AI:
+603: [normal] Si la temperatura supera el umbral, la UI muestra alerta roja.
+604: [normal] Chatbot responde recomendaciones sobre la última alerta de plaga o clima.
+607: [normal] Figura 33. Prueba de validación: alerta generada cuando la temperatura supera el umbral (Elaboración propia).
+609: [normal] Figura 34. Prueba de validación: chatbot respondiendo a la última alerta registrada (Elaboración propia)
+613: [normal] Figura 35. Prueba de validación: chatbot respondiendo a la última alerta registrada (Elaboración propia)
+628: [Heading 1] Anexos
+631: [normal] Figura 36: Firma de documento de requerimientos (Fuente: Elaboración Propia)
+633: [normal] Figura 37: Carta de autorización ANAPDE (Fuente: Elaboración propia)
+634: [Heading 1] Conclusiones
+674: [Heading 1] Recomendaciones
+714: [Heading 1] Glosario
+715: [normal] A
+717: [normal] Algoritmo: Conjunto de reglas o instrucciones precisas definidas para realizar una tarea específica en el procesamiento de datos.
+718: [normal] Análisis de Datos: Proceso de inspección, limpieza y modelado de datos con el objetivo de encontrar información útil para la toma de decisiones.
+719: [normal] B
+720: [normal] Base de Datos: Conjunto estructurado de información que permite el almacenamiento, acceso y manipulación eficiente de datos, en este caso, para almacenar información sobre plagas detectadas.
+721: [normal] C
+722: [normal] Cloud Computing: Modelo de prestación de servicios tecnológicos a través de internet, permitiendo almacenamiento, procesamiento y análisis de datos sin depender de infraestructura local.
+723: [normal] Conectividad IoT: Capacidad de los dispositivos de Internet de las Cosas para intercambiar datos y comunicarse a través de redes como Wi-Fi, LoRaWAN o Bluetooth.
+724: [normal] D
+725: [normal] Deep Learning: Subcampo del aprendizaje automático que utiliza redes neuronales profundas para el análisis avanzado de datos, como la detección de plagas a través de imágenes.
+726: [normal] F
+727: [normal] Firebase: Plataforma de desarrollo de aplicaciones en la nube que ofrece bases de datos en tiempo real, autenticación y notificaciones, útil para la aplicación móvil del sistema de monitoreo de plagas.
+728: [normal] I
+729: [normal] Inteligencia Artificial (IA): Área de la informática que desarrolla sistemas capaces de realizar tareas que normalmente requieren inteligencia humana, como la identificación automática de plagas a partir de imágenes.
+730: [normal] Internet de las Cosas (IoT): Interconexión de dispositivos inteligentes para recopilar y analizar datos en tiempo real, clave para el monitoreo de condiciones agrícolas.
+731: [normal] Interfaz de Usuario (UI): Medio a través del cual el usuario interactúa con un software o sistema, en este caso, la aplicación móvil que mostrará los datos de monitoreo de plagas.
+732: [normal] L
+733: [normal] LoRaWAN: Protocolo de comunicación de baja potencia utilizado en IoT para transmitir datos a largas distancias sin necesidad de internet convencional.
+734: [normal] M
+735: [normal] Machine Learning: Rama de la inteligencia artificial que permite a los sistemas aprender de los datos y mejorar su rendimiento sin programación explícita, clave para el reconocimiento automático de plagas.
+736: [normal] Manejo Integrado de Plagas (MIP): Estrategia que combina diversas prácticas para minimizar el impacto de plagas en la agricultura de manera sostenible.
+737: [normal] P
+738: [normal] Plataforma Digital: Conjunto de herramientas digitales que permiten la gestión de información, en este caso, utilizada para la recolección y análisis de datos agrícolas.
+739: [normal] Procesamiento en la Nube: Uso de servidores remotos para almacenar y procesar datos, permitiendo la escalabilidad del sistema de monitoreo de plagas.
+740: [normal] R
+741: [normal] Raspberry Pi: Computadora de bajo costo utilizada en proyectos IoT para recopilar y procesar datos de sensores.
+742: [normal] Red Neuronal Convolucional (CNN): Tipo de red neuronal utilizada para el reconocimiento de imágenes, esencial en la identificación automática de plagas.
+743: [normal] S
+744: [normal] Sensor IoT: Dispositivo que recopila datos del entorno, como temperatura, humedad o imágenes, para su análisis en un sistema de monitoreo.
+745: [normal] Sistema de Monitoreo: Conjunto de tecnologías que permiten la supervisión y detección de variables críticas en la producción agrícola.
+746: [normal] T
+747: [normal] TensorFlow: Biblioteca de código abierto desarrollada por Google para el aprendizaje automático, usada en el entrenamiento de modelos de inteligencia artificial para la detección de plagas.
+748: [normal] U
+749: [normal] UX (User Experience): Experiencia del usuario al interactuar con un sistema o aplicación, clave para garantizar que la plataforma sea fácil de usar para los agricul
+751: [normal] Bibliografía
+752: [normal] ANAPDE . (2019). Informe técnico anual. Ciudad de Guatemala: Asociación Nacional del Programa de Desarrollo de Exportación.
+753: [normal] Arias, F. G. (2012). El proyecto de investigación: Introducción a la metodología científica. Caracas: Episteme.
+755: [normal] Arias, L. (2012). Innovación agrícola en Centroamérica. Ciudad de Guatemala: Editorial Agrotech.
+756: [normal] Burns, B., Grant, B., & Oppenheimer, D. (2016). Kubernetes: Up and Running. Sebastopol, CA: O’Reilly Media.
+757: [normal] corporativo"), I. d. (2020). Estudios sobre los pesticidas en las orcas de pecho en Guatemala. ICTA.
+758: [normal] Cruz, P., & López, M. (2017). Trampas feromónicas para Grapholita molesta. Revista de Fitopatología, 22(3), págs. 45–58.
+759: [normal] Delgado, R., & Morales, S. (2013). Trampas cromáticas para moscas de la fruta. Acta Agronómica, 60(2), págs. 101–110.
+760: [normal] FAO. (2020). Agricultura en cifras. Food and Agriculture Organization: Roma.
+761: [normal] Fernández, J. &. (2020). Aplicación de los sensores de IoT en la gestión de los pesticidas agrícolas. Agrarian Technology Magazine, 35(2), págs. 45-60.
+762: [normal] FRUTAGRU. (2021). Memoria institucional 2021. Quetzaltenango: Asociación de Fruticultores de Guatemala.
+763: [normal] García, J., & Rivera, L. (2015). Umbrales económicos en frutales. Estudios Agrícolas, 18(4), págs. 77–89.
+764: [normal] Goodfellow, I., Bengio, Y., & Courville, A. (2016). Deep Learning. Cambridge, MA: MIT press.
+765: [normal] Hernández, P., & Torres, G. (2016). Costos de producción de frutales en Guatemala. Revista Económica Agrícola, 8(2), págs. 33-47.
+766: [normal] INTECA. (2019). API de pronóstico del tiempo para Guatemala. Ciudad de Guatemala: Instituto Nacional de Tecnología Agropecuaria.
+767: [normal] Jiménez, R. e. (2018 ). Biología de Anastrepha spp. en Centroamérica. Entomología Tropical, 40(1), págs. 23–39.
+768: [normal] Kamilaris, A., & Prenafeta-Boldú, F. (2018). Deep learning en agricultura: una revisión.
+769: [normal] Computers and Electronics in Agriculture, 147, págs. 70–90.
+770: [normal] Kumar, S., & Lee, J. (2019). Evaluación de sensores DHT22 vs. SHT31. Sensors Journal, 19(3), págs. 567–575.
+771: [normal] Lehrig, S. (2021). Progressive Web Apps en comunidades rurales. Digital Agriculture Review, 3(1), págs. 34-48.
+772: [normal] Li, X. e. (2020). Sistemas embebidos con TensorFlow Lite. Embedded Systems Journal, 8(4), págs. 120-130.
+773: [normal] López, A. &. (2022). Uso de plataformas digitales en gestión agrícola. Journal of Precision Agriculture, 40(1), págs. 15-30.
+774: [normal] López, A., & Gómez, B. (2018). Tendencias de diversificación agrícola en Centroamérica.
+775: [normal] Revista Centroamericana de Desarrollo Rural, 12(1), págs. 5-22.
+776: [normal] MAGA. (2020). Guía de MIP para frutales. Ciudad de Guatemala: Ministerio de Agricultura, Ganadería y Alimentación.
+777: [normal] MAGA. (2021). Informe anual de productividad agrícola. Ciudad de Guatemala: MAGA.
+778: [normal] Martínez, F., & Salazar, D. (2020). Mercado y cadenas de valor del melocotón. Economía y Desarrollo Rural, 15(3), págs. 110-128.
+779: [normal] Newman, S. (2015). Building Microservices. Sebastopol, CA: O’Reilly Media.
+780: [normal] OIRSA. (2017). Manual de muestreo de plagas cuarentenarias. Turrialba, Costa Rica:
+781: [normal] Organismo Internacional Regional de Sanidad Agropecuaria.
+782: [normal] OpenAI . (2024). ChatGPT: Modelo de lenguaje de inteligencia artificial. Obtenido de OpenAI:
+783: [normal] https://openai.com/
+784: [normal] Organización de las Naciones Unidas para la Alimentación y la Agricultura. (2021).
+785: [normal] Innovaciones digitales para la agricultura sostenible. FAO.
+786: [normal] Pérez, L., Ramírez, A., & Méndez, J. (2019). Rendimiento y rentabilidad del melocotón. Revista Agrícola de Guatemala, 25(2), págs. 59-75.
+787: [normal] Ramírez, E., & Chávez, V. (2016). Resistencia de plagas a acaricidas en Guatemala. Revista Fitotécnica, 28(1), págs. 15-27.
+788: [normal] Ramírez, H., & Gómez, P. (2021). Lecciones aprendidas de AgroIA en Colombia. Revista Colombiana de Tecnología Agrícola, 12(2), págs. 89-104.
+789: [normal] Ramírez, J. e. (2021). Sistemas de alerta temprana en web. Journal of Agricultural Informatics, 11(1), págs. 67-82.
+790: [normal] Rodríguez, P. P. (2021). El impacto de Internet de las cosas en la prevención de las plagas. Agrotech Magazine, 28(4), págs. 78-95.
+791: [normal] Ruiz, M. e. (2021). IoT como servicio para pequeños productores. Agritech Business, 6(2), págs. 45-60.
+792: [normal] Russell, S., & Norvig, P. (2016). Artificial Intelligence: A Modern Approach (3ª ed.). Upper Saddle River, NJ: Pearson.
+793: [normal] Sampieri, R. H. (2014). Metodología de la investigación. México: McGraw-Hill.
+794: [normal] Sampieri, R., Collado, C., & Lucio, P. (2014). Metodología de la investigación (6ª ed.). Ciudad de México: McGraw-Hill.
+795: [normal] Silva, M., & Ferreira, J. (2019). Análisis costo-beneficio de IoT en frutales. International Journal of Agricultural Technology, 10(4), págs. 200-217.
+796: [normal] Smith, D., & Jones, E. (2020). Cinco años de MYIPM: lecciones aprendidas. Journal of Extension, 58(6).
+797: [normal] Soto, R. e. (2014). Contaminación de fuentes hídricas por pesticidas. Hidrogeoquímica, 9(2), págs. 101–115.
+798: [normal] Stern, V. e. (1959). The integration of chemical and biological control of the spotted alfalfa aphid. Journal of Economic Entomology, 52(2), págs. 269–273.
+799: [normal] Vargas, E. e. (2015). Control biológico de pulgones en frutales. Revista Colombiana de Entomología, 41(2), págs. 89–98.
+800: [normal] Wolfert, S. e. (2017). Industry 4.0 in agriculture. Computers in Industry, 81, págs. 125–139.
+801: [normal] Zhang, Q. e. (2019). CNN para detección de plagas en manzano. Computers and Electronics in Agriculture, 162, págs. 434–442.
+802: [normal] Zhang, Y. e. (2020). Sensores capacitivos de humedad de suelo. Sensors, 20(5), pág. 1407.

@@ -1,0 +1,61 @@
+485: [Heading 1] CAPÍTULO 6 – Desarrollo de la solución.
+486: [Heading 2] 6.1 Desarrollo
+487: [normal] Para dar solución al problema planteado se construyó Agroplaga AI, una aplicación web que ayuda a los agricultores de melocotón a monitorear sus cultivos y detectar a tiempo la presencia de plagas o condiciones ambientales adversas.
+488: [normal] El sistema se desarrolló inicialmente en modo local (localhost) para probar la comunicación entre frontend, backend y base de datos. Posteriormente se proyecta que funcione tanto offline como online, de manera que el agricultor pueda registrar y visualizar datos incluso sin conexión a internet, y que al restablecerse la red estos se sincronicen automáticamente con el servidor.
+489: [normal] La aplicación incluye módulos principales como el registro y consulta de lecturas de sensores (temperatura, humedad y luminosidad), la gestión de plagas con imágenes de referencia, el historial con exportación a CSV y la configuración de umbrales de alerta que generan notificaciones visuales.
+490: [normal] A continuación, se presentan capturas de pantalla del código y de la interfaz gráfica que muestran los elementos clave de la aplicación, así como las pruebas realizadas para verificar su correcto funcionamiento.
+492: [Heading 3] 6.1.1 Tecnologías usadas para la aplicación
+493: [normal] • Lenguaje de programación frontend: JavaScript
+• Framework: React (Vite)
+• Backend: Node.js con Express
+• Base de datos: MySQL 
+• ORM: Sequelize
+• Gestión de datos locales: localStorage e IndexedDB (para modo offline)
+• Microcontrolador: ESP32 (lectura de sensores)
+• Sensores: DHT22 (temperatura y humedad), BH1750 (luminosidad)
+• Herramientas de desarrollo: Visual Studio Code, Postman
+496: [Heading 2] 6.2 Desarrollo de la aplicación
+498: [normal] Figura 15. Método guardarRegistro para crear y validar registros de actividades en Agroplaga AI (Elaboración propia).
+502: [normal] Figura 16. Módulo de Seguimiento con historial y exportación a CSV (Elaboración propia).
+503: [normal] (Captura de tu componente Seguimiento.jsx donde está la lógica de exportar CSV).
+504: [normal] Figura 17. Formulario de plagas con subida de imagen de referencia (Elaboración propia).
+(Captura de Plagas.jsx mostrando el formulario con input de imagen).
+507: [normal] Figura 18. Inicialización de plagas combinando plagas.json y localStorage (Elaboración propia).
+512: [normal] Figura 19. Migración de MySQL con tablas de lecturas y umbrales (Elaboración propia).
+(Captura de tu archivo de migración en Sequelize).
+517: [normal] Figura 20. Captura de la UI mostrando alerta cuando se supera el umbral (Elaboración propia).
+(Screenshot del navegador con la alerta roja o badge).
+520: [normal] Figura 21. Código del ESP32 enviando lectura al backend en localhost (Elaboración propia).
+(Captura de firmware.ino, la parte de HTTP POST).
+524: [normal] Figura 22. Prueba en Postman: POST /api/readings (Elaboración propia).
+(Captura de Postman mostrando el request y el response 200 OK).
+531: [normal] Figura 23 Endpoint /api/ai/chat en server.js (Elaboración propia).
+(captura del código que construye el contexto de parcela y llama a OpenAI).
+542: [normal] Figura 24. Interfaz del chatbot de Agroplaga AI respondiendo consulta (Elaboración propia).
+(captura con UI mostrando la pregunta y la respuesta del asistente).
+558: [normal] Figura 25. Endpoint /api/ai/vision-diagnose en server.js (Elaboración propia).
+(captura del código que construye el contexto de parcela y llama a OpenAI).
+560: [Heading 2] 6.3 Pruebas en Agroplaga AI
+561: [Heading 3] 6.3.1 Pruebas unitarias
+562: [normal] Validar que guardarRegistro no permite guardar sin parcela o sin fecha.
+563: [normal] Validar que un valor de sensor se guarda correctamente en la tabla sensor_readings.
+568: [normal] Figura 26. Prueba unitaria: validación de guardarRegistro sin fecha ni parcela (Elaboración propia).
+569: [normal] Figura 27. Prueba unitaria: inserción de lectura de sensor en la tabla sensor_readings (Elaboración propia).
+574: [normal] Figura 28. Prueba unitaria: datos almacenados en Mysql (Elaboración propia).
+575: [normal] 6.3.2 Pruebas de integración
+576: [normal] Comprueban que los módulos trabajen en conjunto.
+Ejemplos en Agroplaga AI:
+577: [normal] ESP32 envía datos → backend recibe → DB guarda.
+578: [normal] Registro de plaga con imagen → UI la muestra en listado.
+580: [normal] Figura 29. Prueba de integración: flujo ESP32 → Backend → Base de datos (Elaboración propia).
+587: [normal] Figura 30.
+592: [normal] Figura 31.
+594: [normal] Figura 32. Prueba de validación: alerta generada cuando la temperatura supera el umbral (Elaboración propia).
+601: [Heading 3] 6.3.3 Pruebas de validación
+602: [normal] Se enfocan en la experiencia final del agricultor.
+Ejemplos en Agroplaga AI:
+603: [normal] Si la temperatura supera el umbral, la UI muestra alerta roja.
+604: [normal] Chatbot responde recomendaciones sobre la última alerta de plaga o clima.
+607: [normal] Figura 33. Prueba de validación: alerta generada cuando la temperatura supera el umbral (Elaboración propia).
+609: [normal] Figura 34. Prueba de validación: chatbot respondiendo a la última alerta registrada (Elaboración propia)
+613: [normal] Figura 35. Prueba de validación: chatbot respondiendo a la última alerta registrada (Elaboración propia)

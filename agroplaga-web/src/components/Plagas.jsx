@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // 👈 para navegación
 import "../styles/plagas.css";
+import { apiUrl } from "../lib/api";
 
-const API_URL = "http://localhost:4000/api/plagas";
-const UPLOAD_URL = "http://localhost:4000/api/upload";
+const API_URL = apiUrl("/api/plagas");
+const UPLOAD_URL = apiUrl("/api/upload");
 
 export default function Plagas() {
   const navigate = useNavigate();

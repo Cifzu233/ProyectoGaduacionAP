@@ -5,12 +5,12 @@ import Layout from './components/Layout';
 import Dashboard from './components/Dashboard';
 import Plagas from './components/Plagas';
 import Seguimiento from './components/Seguimiento';
-import NuevaPlaga from './components/NuevaPlaga'; // ⚠️ Esta línea faltaba
+import NuevaPlaga from './components/NuevaPlaga';
 import Parcelas from './components/Parcelas';
 import Chatbot from './components/Chatbot';
+import CamaraEnVivo from './components/CamaraEnVivo';
+import NotFound from './components/NotFound';
 import './App.css';
-
-
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -20,9 +20,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Route index element={<Dashboard />} />
           <Route path="plagas" element={<Plagas />} />
           <Route path="seguimiento" element={<Seguimiento />} />
-          <Route path="nueva-plaga" element={<NuevaPlaga />} /> {/* ✅ CORREGIDO */}
+          <Route path="nueva-plaga" element={<NuevaPlaga />} />
           <Route path="parcelas" element={<Parcelas />} />
-          <Route path="/chat" element={<Chatbot plotId={4} />} /> {/* 👈 nueva ruta */}
+          <Route path="camara" element={<CamaraEnVivo />} />
+          <Route path="chat" element={<Chatbot initialPlotId={4} />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </BrowserRouter>

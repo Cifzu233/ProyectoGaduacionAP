@@ -1,0 +1,19 @@
+# Repositorio principal: frontend (agroplaga-web), docs y firmware.
+# El backend PGAPAYBABACK es su propio repositorio (github.com/Cifzu233/PGAPAYBABACK).
+PGAPAYBABACK/
+
+node_modules/
+dist/
+*.log
+.DS_Store
+.vscode/
+.idea/
+
+# variables de entorno y sus copias (contienen claves); el ejemplo si se versiona
+.env
+.env.*
+!.env.example
+
+# archivos temporales de Word y documentos de la tesis (no son codigo)
+~$*
+*.docx
