@@ -34,7 +34,7 @@ Hay dos repositorios, ambos de la cuenta `Cifzu233`:
 | Repositorio | Contenido | Lo despliega |
 |---|---|---|
 | `PGAPAYBABACK` | backend Express (carpeta `PGAPAYBABACK/`, tiene su propio `.git`) | Railway |
-| `agroplaga-ai` | frontend `agroplaga-web/`, `docs/`, `firmware/`, esta guia | Vercel |
+| `ProyectoGaduacionAP` | frontend `agroplaga-web/`, `docs/`, `firmware/`, esta guia | Vercel |
 
 `.env` y sus copias estan en `.gitignore` en los dos, asi que la clave de OpenAI
 no se sube. Para publicar cambios:
