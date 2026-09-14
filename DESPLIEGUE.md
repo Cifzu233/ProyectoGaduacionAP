@@ -198,6 +198,11 @@ real, `CAMERA_DEMO=off` y redesplegar.
   y **el documento de tesis debe declarar que la camara y los sensores estan
   simulados**: ocultarlo en pantalla es una decision de presentacion, no una
   afirmacion de que los datos vengan de hardware real.
+- Catalogo de plagas y bitacora: `PGAPAYBABACK/database/plagas_guatemala.sql`
+  carga las diez plagas del duraznero en el altiplano guatemalteco (la mosca de
+  la fruta primero, por ser la principal y cuarentenaria) y trece actividades de
+  campo de agosto y septiembre. El listado de plagas se ordena por id ascendente
+  para respetar ese orden.
 - Para volver a datos de hardware real: `CLIMA_DEMO=off` y `CAMERA_DEMO=off`.
 
 ## Limitaciones a tener en cuenta
