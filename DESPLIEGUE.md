@@ -128,12 +128,31 @@ cd PGAPAYBABACK
 node scripts\simular-camara.js --dir scripts\frames-trampa --push https://TU-BACKEND.up.railway.app/api/camaras/2/frame --token TU_TOKEN --every 5
 ```
 
+## Imagenes subidas por los usuarios (fotos de plagas, parcelas, actividades, detecciones)
+
+Se guardan en `uploads/` del backend. En Railway el disco del contenedor se
+borra en cada despliegue, por eso hay un **volumen persistente**
+`agroplaga-backend-volume` montado en `/app/uploads` (creado el 2026-09-13 con
+`railway volume add --mount-path /app/uploads`). Todo lo que se suba desde la
+web queda ahi aunque se redespliegue.
+
+Para copiar imagenes desde tu PC al volumen (por ejemplo las de `uploads/` local)
+hace falta una llave SSH registrada (`railway ssh keys add`) y luego:
+
+```bat
+railway volume files -v agroplaga-backend-volume upload uploads\archivo.jpg /archivo.jpg --overwrite
+railway volume files -v agroplaga-backend-volume list /
+```
+
+Las rutas de imagen se guardan **relativas** (`/uploads/x.jpg`) y el frontend
+las resuelve con `apiUrl()` contra `VITE_API_URL`. Si alguna fila antigua tiene
+`http://localhost:4000/...`, ejecuta `database/corregir_urls_imagenes.sql`
+(en la nube, con el mecanismo `IMPORTAR_SQL` de la seccion 2).
+
 ## Limitaciones a tener en cuenta
 
-- **Disco efimero**: Railway borra `uploads/` en cada despliegue. Las fotos de
-  detecciones antiguas desaparecen; la fila en la base queda. Si necesitas que
-  persistan, anade un **Volume** montado en `/app/uploads` (Railway lo permite
-  en el plan Hobby).
+- **Volumen**: 500 MB en la prueba gratuita; suficiente para miles de fotos de
+  camara comprimidas. El limite `CAMERA_SNAPSHOT_MAX_FILES` borra las mas viejas.
 - **Costo de OpenAI**: cada analisis de imagen con gpt-4o cuesta alrededor de
   un centavo de dolar. El analisis automatico por camara esta limitado por
   `CAMERA_AUTO_MIN_INTERVAL`.
