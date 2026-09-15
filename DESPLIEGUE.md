@@ -156,7 +156,7 @@ Toda la web y toda la API (`/api/*`) exigen sesion. Hay dos roles:
 | Rol | Puede |
 |---|---|
 | `admin` | Todo: crear/editar/borrar plagas, parcelas, actividades, camaras, detecciones; gestionar usuarios (pantalla **Usuarios**). |
-| `lector` | Solo consultar. Ademas puede usar el chat, el diagnostico por imagen y "Analizar con IA" en camara, y cambiar su propia contrasena. |
+| `lector` | Consultar, **registrar actividades en la bitacora** (no borrarlas), usar el chat, el diagnostico por imagen y "Analizar con IA" en camara, y cambiar su propia contrasena. No crea ni edita parcelas, plagas, camaras ni usuarios. |
 
 - Sesion: JWT (12 h) en `Authorization: Bearer`; el frontend lo guarda en localStorage y
   lo anade como `?token=` solo al stream y snapshot de camara (los carga un `<img>`).

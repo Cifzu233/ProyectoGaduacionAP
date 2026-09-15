@@ -135,8 +135,9 @@ function Seguimiento() {
     <div className="seguimiento-container">
       <h2 className="seguimiento-title">📘 Registro de Actividades</h2>
 
-      {esAdmin && (
-        <form onSubmit={guardarRegistro} className="seguimiento-form">
+      {/* Registrar actividades lo puede hacer cualquier usuario con sesión;
+          borrarlas sigue siendo cosa del administrador. */}
+      <form onSubmit={guardarRegistro} className="seguimiento-form">
           <div className="form-group">
             <label>📅 Fecha:</label>
             <input
@@ -192,8 +193,7 @@ function Seguimiento() {
           <button type="submit" className="btn btn-primary">
             Guardar Registro
           </button>
-        </form>
-      )}
+      </form>
 
       <h3 className="seguimiento-subtitle">📋 Historial</h3>
 
