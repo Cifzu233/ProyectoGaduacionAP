@@ -157,11 +157,16 @@
 .login__campoIcono {
   position: absolute;
   left: 13px;
+  top: 50%;
+  transform: translateY(-50%);
   color: var(--ap-texto-tenue);
   pointer-events: none;
 }
 
-.login__input {
+/* Se escribe como ".login__campo .login__input" a propósito: el estilo general
+   de formularios de App.css usa selectores de atributo (input[type="email"]),
+   que pesan más que una sola clase y devolvían el texto debajo del icono. */
+.login__campo .login__input {
   width: 100%;
   margin: 0;
   padding: 13px 14px 13px 42px;
@@ -170,15 +175,16 @@
   background: #fbfdfc;
   font-family: inherit;
   font-size: 1rem;
+  line-height: 1.3;
   color: var(--ap-texto);
   transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 
-.login__input::placeholder {
+.login__campo .login__input::placeholder {
   color: #a9b8b0;
 }
 
-.login__input:focus {
+.login__campo .login__input:focus {
   outline: none;
   background: #ffffff;
   border-color: var(--ap-verde-500);
@@ -194,6 +200,8 @@
 .login__ojo {
   position: absolute;
   right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
   width: 36px;
   height: 36px;
   margin: 0;
