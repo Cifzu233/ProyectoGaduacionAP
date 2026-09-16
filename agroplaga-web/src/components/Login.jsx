@@ -67,6 +67,17 @@ export default function Login() {
             </li>
           </ul>
 
+          <div className="login__alianza">
+            <img src="/anapde.jpg" alt="Logotipo de ANAPDE" className="login__aliadoLogo" />
+            <div className="login__aliadoTexto">
+              <span className="login__aliadoEtiqueta">En colaboración con</span>
+              <strong>ANAPDE</strong>
+              <span className="login__aliadoNombre">
+                Asociación Nacional de Productores de Frutales Deciduos
+              </span>
+            </div>
+          </div>
+
           <p className="login__pie">Lote El Durazno · Sumpango, Sacatepéquez</p>
         </aside>
 

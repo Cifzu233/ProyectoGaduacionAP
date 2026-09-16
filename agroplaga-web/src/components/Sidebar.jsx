@@ -45,6 +45,20 @@ export default function Sidebar({ onNavegar }) {
         ))}
       </nav>
 
+      <a
+        className="barra__alianza"
+        href="https://anapde.com"
+        target="_blank"
+        rel="noreferrer"
+        title="Asociación Nacional de Productores de Frutales Deciduos"
+      >
+        <img src="/anapde.jpg" alt="Logotipo de ANAPDE" />
+        <span>
+          <em>En colaboración con</em>
+          <strong>ANAPDE</strong>
+        </span>
+      </a>
+
       {user && (
         <div className="barra__usuario">
           <span className="barra__avatar">{iniciales(user.nombre)}</span>
