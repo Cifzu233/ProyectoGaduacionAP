@@ -1,127 +1,323 @@
-/* ==============================
-   🔐 Login – Agroplaga AI
-   ============================== */
+/* ==========================================================================
+   Inicio de sesión · Agroplaga AI
+   Dos paneles: identidad del sistema a la izquierda, formulario a la derecha.
+   ========================================================================== */
+
 .login {
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1.5rem;
-  background: linear-gradient(120deg, #064e3b, #2d6a4f, #3ea46a, #52b788);
+  padding: 24px;
+  background:
+    radial-gradient(900px 500px at 12% -10%, rgba(82, 183, 136, 0.35), transparent 60%),
+    radial-gradient(700px 420px at 105% 110%, rgba(255, 186, 8, 0.28), transparent 55%),
+    linear-gradient(140deg, #0f3325 0%, #1b4332 45%, #2d6a4f 100%);
 }
 
-.login__card {
+.login__marco {
   width: 100%;
-  max-width: 400px;
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 2rem 1.8rem;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.28);
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-  animation: loginIn 0.45s ease-out;
+  max-width: 940px;
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  background: var(--ap-superficie);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.35);
+  animation: login-entra 0.45s ease-out both;
 }
 
-@keyframes loginIn {
-  from { opacity: 0; transform: translateY(12px); }
+@keyframes login-entra {
+  from { opacity: 0; transform: translateY(14px); }
   to { opacity: 1; transform: translateY(0); }
 }
 
-.login__logo {
-  font-weight: 800;
+/* ------------------------------ panel verde ------------------------------ */
+
+.login__lado {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  padding: 38px 34px;
+  color: #ffffff;
+  background: linear-gradient(160deg, #1b4332 0%, #2d6a4f 60%, #40916c 100%);
+  overflow: hidden;
+}
+
+/* Hoja grande de fondo, apenas insinuada */
+.login__lado::after {
+  content: "";
+  position: absolute;
+  right: -90px;
+  bottom: -90px;
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 65%);
+  border-radius: 50%;
+}
+
+.login__marca {
+  display: flex;
+  align-items: center;
+  gap: 12px;
   font-size: 1.3rem;
-  color: #2d6a4f;
-  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.2px;
+  color: #ffffff;
+}
+
+.login__marca svg {
+  color: var(--ap-verde-200);
+  flex-shrink: 0;
+}
+
+.login__claim {
+  margin: 0;
+  font-size: 1.32rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: #ffffff;
+  max-width: 19ch;
+}
+
+.login__puntos {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+.login__puntos li {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  font-size: 0.86rem;
+  line-height: 1.45;
+  color: #e8f6ed;
+}
+
+.login__puntos svg {
+  color: var(--ap-ambar);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.login__pie {
+  margin: auto 0 0;
+  font-size: 0.76rem;
+  color: var(--ap-verde-200);
+  position: relative;
+  z-index: 1;
+}
+
+/* ------------------------------ formulario ------------------------------- */
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  padding: 38px 34px;
+  gap: 4px;
 }
 
 .login__titulo {
-  margin: 0.2rem 0 0;
-  text-align: center;
-  font-size: 1.45rem;
-  color: #1b4332;
+  margin: 0;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: var(--ap-verde-900);
 }
 
 .login__sub {
-  margin: 0 0 0.8rem;
-  text-align: center;
-  color: #5c6b62;
-  font-size: 0.9rem;
+  margin: 4px 0 18px;
+  font-size: 0.87rem;
+  color: var(--ap-texto-suave);
 }
 
 .login__label {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #2d6a4f;
-  margin-top: 0.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--ap-verde-700);
+  margin-top: 12px;
+}
+
+/* Campo con icono a la izquierda y, en la clave, el ojo a la derecha */
+.login__campo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.login__campoIcono {
+  position: absolute;
+  left: 13px;
+  color: var(--ap-texto-tenue);
+  pointer-events: none;
 }
 
 .login__input {
-  padding: 0.7rem 0.85rem;
-  border: 1px solid #cfe3d6;
-  border-radius: 10px;
+  width: 100%;
+  margin: 0;
+  padding: 13px 14px 13px 42px;
+  border: 1px solid var(--ap-borde);
+  border-radius: var(--ap-radio);
+  background: #fbfdfc;
+  font-family: inherit;
   font-size: 1rem;
-  outline: none;
-  transition: border-color 0.2s, box-shadow 0.2s;
+  color: var(--ap-texto);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.login__input::placeholder {
+  color: #a9b8b0;
 }
 
 .login__input:focus {
-  border-color: #52b788;
-  box-shadow: 0 0 0 3px rgba(82, 183, 136, 0.25);
+  outline: none;
+  background: #ffffff;
+  border-color: var(--ap-verde-500);
+  box-shadow: 0 0 0 4px rgba(82, 183, 136, 0.2);
+}
+
+/* Solo la contraseña deja hueco para el ojo */
+.login__campo--clave .login__input {
+  padding-right: 46px;
+}
+
+/* Botón del ojo: revela mientras se mantiene pulsado */
+.login__ojo {
+  position: absolute;
+  right: 6px;
+  width: 36px;
+  height: 36px;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: var(--ap-texto-suave);
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.login__ojo:hover {
+  background: var(--ap-verde-50);
+  color: var(--ap-verde-700);
+}
+
+.login__ojo:active {
+  background: var(--ap-verde-100);
+  color: var(--ap-verde-900);
+}
+
+.login__ayuda {
+  margin-top: 7px;
+  font-size: 0.74rem;
+  color: var(--ap-texto-tenue);
 }
 
 .login__btn {
-  margin-top: 0.9rem;
-  padding: 0.8rem;
+  margin: 22px 0 0;
+  padding: 14px;
   border: none;
-  border-radius: 10px;
-  background: linear-gradient(90deg, #2d6a4f, #40916c);
+  border-radius: var(--ap-radio);
+  background: linear-gradient(90deg, #1b4332, #2d6a4f 55%, #40916c);
   color: #fff;
+  font-family: inherit;
   font-weight: 700;
   font-size: 1rem;
+  letter-spacing: 0.01em;
   cursor: pointer;
-  transition: transform 0.15s, filter 0.15s;
+  transition: filter 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+  box-shadow: 0 10px 24px rgba(27, 67, 50, 0.25);
 }
 
 .login__btn:hover:not(:disabled) {
-  filter: brightness(1.08);
+  filter: brightness(1.1);
   transform: translateY(-1px);
+  box-shadow: 0 14px 30px rgba(27, 67, 50, 0.3);
 }
 
 .login__btn:disabled {
   opacity: 0.7;
   cursor: wait;
+  transform: none;
 }
 
 .login__error,
 .login__aviso {
-  padding: 0.6rem 0.8rem;
-  border-radius: 8px;
-  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 11px 13px;
+  border-radius: var(--ap-radio);
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin-bottom: 4px;
 }
 
 .login__error {
-  background: #fdecea;
-  color: #9b2226;
+  background: var(--ap-rojo-50);
+  color: var(--ap-rojo-texto);
   border: 1px solid #f5c2c0;
 }
 
 .login__aviso {
-  background: #fff8e1;
-  color: #7a5b00;
+  background: var(--ap-ambar-50);
+  color: var(--ap-ambar-texto);
   border: 1px solid #f3e0a0;
 }
 
 .login__nota {
-  margin: 0.8rem 0 0;
+  margin: 16px 0 0;
   text-align: center;
-  font-size: 0.8rem;
-  color: #7a877f;
+  font-size: 0.78rem;
+  color: var(--ap-texto-tenue);
 }
 
 .auth-cargando {
   padding: 3rem;
   text-align: center;
-  color: #2d6a4f;
+  color: var(--ap-verde-700);
   font-weight: 600;
+}
+
+/* ------------------------------ responsive ------------------------------- */
+
+@media (max-width: 800px) {
+  .login__marco {
+    grid-template-columns: minmax(0, 1fr);
+    max-width: 440px;
+  }
+
+  /* En móvil el panel verde se reduce a la marca y el claim */
+  .login__lado {
+    padding: 26px 26px 22px;
+    gap: 14px;
+  }
+
+  .login__puntos,
+  .login__pie {
+    display: none;
+  }
+
+  .login__claim {
+    font-size: 1.1rem;
+    max-width: none;
+  }
+
+  .login__form {
+    padding: 26px;
+  }
 }

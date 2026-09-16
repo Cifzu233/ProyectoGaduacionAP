@@ -233,6 +233,11 @@
   border-radius: 8px;
   cursor: pointer;
   font: inherit;
+  /* El estilo global de button trae relleno y margen: dentro de un cuadro de
+     44 px eso recortaba el icono. */
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
   transition:
     transform 0.15s ease,
     background 0.15s ease,

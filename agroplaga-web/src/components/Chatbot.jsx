@@ -1,6 +1,6 @@
 // src/components/Chatbot.jsx
 import React, { useEffect, useMemo, useRef, useState } from "react";
-import { FiImage, FiSend, FiX } from "react-icons/fi";
+import Icono from "./Icono";
 import { post } from "../lib/api";
 import "../styles/chat.css";
 
@@ -245,7 +245,7 @@ export default function Chatbot({ initialPlotId = 4 }) {
                 title="Quitar imagen"
                 aria-label="Quitar imagen"
               >
-                <FiX />
+                <Icono nombre="cerrar" size={18} />
               </button>
             )}
           </div>
@@ -267,7 +267,7 @@ export default function Chatbot({ initialPlotId = 4 }) {
             title="Adjuntar imagen"
             aria-label="Adjuntar imagen"
           >
-            <FiImage />
+            <Icono nombre="imagen" size={19} />
           </button>
           <textarea
             className="chat__input"
@@ -284,7 +284,7 @@ export default function Chatbot({ initialPlotId = 4 }) {
             title="Enviar mensaje"
             aria-label="Enviar mensaje"
           >
-            <FiSend />
+            <Icono nombre="enviar" size={18} />
             <span>{busy ? "Enviando..." : "Enviar"}</span>
           </button>
         </div>
