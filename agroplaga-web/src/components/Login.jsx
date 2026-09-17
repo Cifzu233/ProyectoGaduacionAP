@@ -78,7 +78,7 @@ export default function Login() {
             </div>
           </div>
 
-          <p className="login__pie">Lote El Durazno · Sumpango, Sacatepéquez</p>
+          <p className="login__pie">Lote El Durazno · Tecpán Guatemala, Chimaltenango</p>
         </aside>
 
         {/* ------------------------------ formulario ---------------------------- */}

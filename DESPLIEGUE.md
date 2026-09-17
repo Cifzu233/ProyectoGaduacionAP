@@ -186,12 +186,19 @@ real, `CAMERA_DEMO=off` y redesplegar.
 
 ## Datos de la instalacion (2026-09-14)
 
-- Parcela `Lote El Durazno, Sumpango`, cultivo melocoton, camara
-  `ESP32-CAM Trampa H-5`. Nombres en `PGAPAYBABACK/database/datos_sumpango.sql`.
+- Parcela `Lote El Durazno, Tecpan` (Tecpan Guatemala, Chimaltenango, ~2300 m),
+  cultivo melocoton, camara `ESP32-CAM Trampa H-5`. Nombres en
+  `PGAPAYBABACK/database/datos_tecpan.sql`.
 - Con `CLIMA_DEMO=on` el backend registra temperatura y humedad cada minuto
-  siguiendo el patron diario real del altiplano (14-23 grados y 62-92 % de
-  humedad, minimo al amanecer y maximo a media tarde). Codigo en
-  `src/sensores/climaDemo.js`. Umbrales de la parcela: 12-26 grados y 55-90 %.
+  siguiendo el patron diario de Tecpan: temperatura de septiembre segun el
+  modelo climatico ERA5T 1996-2026 para las coordenadas del municipio (minima
+  media 12.6 y maxima media 21.4 grados, 270 mm de lluvia) y humedad de 70 a
+  95 %, propia del altiplano en epoca lluviosa (no hay serie publica de la
+  estacion local). Codigo en `src/sensores/climaDemo.js`. Umbrales de la
+  parcela: 10-25 grados y 55-90 %.
+- La camara simulada emite en modo `CAMERA_DEMO_MOVIMIENTO=estatica`: encuadre
+  fijo, como una camara amarrada a un poste; solo cambian el grano del sensor y
+  los saltos de exposicion. `suave` y `viento` anaden balanceo.
 - La interfaz no muestra el proveedor ni el modelo de IA que analiza las fotos,
   ni detalles del transporte de video: el visor dice "Captura en vivo". El
   origen simulado sigue anotado en estas guias y en los registros del servidor,
