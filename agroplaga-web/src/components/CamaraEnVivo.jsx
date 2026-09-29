@@ -5,6 +5,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { apiUrl, get, camarasApi, deteccionesApi } from "../lib/api";
+import { sinPlaga, tituloDeteccion, SIN_PLAGA_CHIP, SIN_PLAGA_DETALLE } from "../lib/detecciones";
+import Icono from "./Icono";
 import { useAuth } from "../context/auth";
 import "../styles/camara.css";
 
@@ -53,17 +55,18 @@ function fechaCorta(value) {
 
 /* ------------------------------ subcomponentes ------------------------------ */
 
-function SeveridadChip({ severidad }) {
-  return (
-    <span className={`camara__chip camara__chip--${severidad || "ninguna"}`}>
-      {severidad || "ninguna"}
-    </span>
-  );
+function SeveridadChip({ deteccion }) {
+  if (sinPlaga(deteccion)) {
+    return <span className="camara__chip camara__chip--ninguna">{SIN_PLAGA_CHIP}</span>;
+  }
+  const severidad = deteccion?.severidad || "ninguna";
+  return <span className={`camara__chip camara__chip--${severidad}`}>{severidad}</span>;
 }
 
 function ResultadoCard({ deteccion, onCerrar }) {
   if (!deteccion) return null;
   const conf = deteccion.confianza != null ? Math.round(deteccion.confianza) : null;
+  const limpia = sinPlaga(deteccion);
   return (
     <div className="camara__resultado">
       <div className="camara__resultadoHead">
@@ -74,14 +77,18 @@ function ResultadoCard({ deteccion, onCerrar }) {
           </button>
         )}
       </div>
-      <div className="camara__resultadoPlaga">
-        {deteccion.plaga ? deteccion.plaga : "Sin plaga evidente"}
-        <SeveridadChip severidad={deteccion.severidad} />
+      <div
+        className={`camara__resultadoPlaga${limpia ? " camara__resultadoPlaga--limpia" : ""}`}
+      >
+        {limpia && <Icono nombre="check" size={19} strokeWidth={2.6} />}
+        {tituloDeteccion(deteccion)}
+        <SeveridadChip deteccion={deteccion} />
         {deteccion.requiere_accion && (
           <span className="camara__chip camara__chip--accion">⚠️ Requiere acción</span>
         )}
       </div>
-      {conf != null && (
+      {limpia && !deteccion.resumen && <p className="camara__resumen">{SIN_PLAGA_DETALLE}</p>}
+      {!limpia && conf != null && (
         <div className="camara__confianza" title={`Confianza ${conf}%`}>
           <div className="camara__confianzaBar" style={{ width: `${conf}%` }} />
           <span>{conf}% de confianza</span>
@@ -699,11 +706,11 @@ export default function CamaraEnVivo() {
                     setSnapshotUrl(d.imagen ? apiUrl(d.imagen) : null);
                   }}
                 >
-                  {d.imagen && <img src={apiUrl(d.imagen)} alt={d.plaga || "Sin plaga"} loading="lazy" />}
+                  {d.imagen && <img src={apiUrl(d.imagen)} alt={tituloDeteccion(d)} loading="lazy" />}
                   <div className="camara__cardBody">
                     <div className="camara__cardTitle">
-                      {d.plaga || "Sin plaga"}
-                      <SeveridadChip severidad={d.severidad} />
+                      {tituloDeteccion(d)}
+                      <SeveridadChip deteccion={d} />
                     </div>
                     <div className="camara__cardMeta">
                       {ORIGEN_ICONO[d.origen] || ""} {d.confianza != null ? `${Math.round(d.confianza)}%` : "—"} ·{" "}

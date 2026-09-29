@@ -383,6 +383,15 @@
   color: #1b4332;
 }
 
+/* Revisión sin plaga: título en verde y con visto bueno */
+.camara__resultadoPlaga--limpia {
+  color: #2d6a4f;
+}
+
+.camara__resultadoPlaga--limpia svg {
+  color: #40916c;
+}
+
 .camara__chip--baja {
   background: #fefae0;
   color: #7a5c00;

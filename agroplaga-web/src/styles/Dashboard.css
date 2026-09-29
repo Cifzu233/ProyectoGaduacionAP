@@ -245,6 +245,15 @@
   color: var(--ap-verde-900);
 }
 
+/* Revisión sin plaga: el título va en verde y con visto bueno */
+.destacada__titulo--limpia {
+  color: var(--ap-verde-700);
+}
+
+.destacada__titulo--limpia svg {
+  color: var(--ap-verde-600);
+}
+
 .destacada__resumen {
   margin: 0;
   font-size: 0.85rem;

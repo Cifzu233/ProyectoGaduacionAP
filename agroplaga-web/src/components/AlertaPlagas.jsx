@@ -4,6 +4,7 @@
 // son las mismas de siempre; solo cambia como se presentan.
 import React from "react";
 import Icono from "./Icono";
+import { sinPlaga } from "../lib/detecciones";
 import "../styles/alertas.css";
 
 const VENTANA_CAMARA_MS = 24 * 60 * 60 * 1000;
@@ -38,7 +39,9 @@ function AlertaPlagas({ temperatura, humedad, deteccionesCamara = [] }) {
   // 📹 Detecciones de camara recientes que requieren accion
   const ahora = Date.now();
   for (const d of deteccionesCamara) {
-    if (!d?.requiere_accion) continue;
+    // Si la revisión salió limpia no se alerta, aunque el modelo haya nombrado
+    // la especie a la que apunta la trampa.
+    if (!d?.requiere_accion || sinPlaga(d)) continue;
     const t = d.created_at ? new Date(d.created_at).getTime() : NaN;
     if (Number.isFinite(t) && ahora - t > VENTANA_CAMARA_MS) continue;
     const conf = d.confianza != null ? ` · ${Math.round(d.confianza)} % de confianza` : "";

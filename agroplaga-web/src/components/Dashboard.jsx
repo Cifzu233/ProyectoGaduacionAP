@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AlertaPlagas from "./AlertaPlagas";
 import Icono from "./Icono";
 import { get, apiUrl, deteccionesApi } from "../lib/api";
+import { sinPlaga, tituloDeteccion, chipDeteccion } from "../lib/detecciones";
 import "../styles/Dashboard.css";
 
 // Sensores del nodo de campo: ESP32-CAM + DHT22 (temperatura y humedad).
@@ -12,13 +13,6 @@ const LABELS = {
   hum: { label: "Humedad", unit: "%", icono: "humedad", eje: [0, 100] },
 };
 const SENSOR_KEYS = Object.keys(LABELS);
-
-const SEVERIDAD_CHIP = {
-  alta: "ap-chip--alerta",
-  media: "ap-chip--aviso",
-  baja: "ap-chip--neutro",
-  ninguna: "ap-chip--ok",
-};
 
 /* ------------------------------ subcomponentes ----------------------------- */
 
@@ -132,21 +126,22 @@ function Medidor({ clave, metrica, hora }) {
 
 function FichaDeteccion({ deteccion }) {
   const d = deteccion;
+  const limpia = sinPlaga(d);
+  const chip = chipDeteccion(d);
   return (
     <div className="destacada">
       {d.imagen ? (
-        <img className="destacada__foto" src={apiUrl(d.imagen)} alt={d.plaga || "Sin plaga"} />
+        <img className="destacada__foto" src={apiUrl(d.imagen)} alt={tituloDeteccion(d)} />
       ) : (
         <div className="destacada__foto destacada__foto--vacia">
           <Icono nombre="camara" size={28} />
         </div>
       )}
       <div className="destacada__info">
-        <div className="destacada__titulo">
-          {d.plaga || "Sin plaga evidente"}
-          <span className={`ap-chip ${SEVERIDAD_CHIP[d.severidad] || "ap-chip--neutro"}`}>
-            {d.severidad}
-          </span>
+        <div className={`destacada__titulo${limpia ? " destacada__titulo--limpia" : ""}`}>
+          {limpia && <Icono nombre="check" size={18} strokeWidth={2.6} />}
+          {tituloDeteccion(d)}
+          <span className={`ap-chip ${chip.clase}`}>{chip.texto}</span>
         </div>
         {d.resumen && <p className="destacada__resumen">{d.resumen}</p>}
         <p className="destacada__meta">
@@ -362,13 +357,16 @@ function Dashboard({ plotId: plotIdProp }) {
           ) : (
             <ol className="linea">
               {deteccionesCamara.map((d) => (
-                <li key={d.id} className={`linea__item linea__item--${d.severidad}`}>
+                <li
+                  key={d.id}
+                  className={`linea__item linea__item--${sinPlaga(d) ? "ninguna" : d.severidad}`}
+                >
                   <span className="linea__punto" />
                   <div className="linea__texto">
                     <span className="linea__titulo">
-                      {d.plaga || "Sin plaga"}
-                      <span className={`ap-chip ${SEVERIDAD_CHIP[d.severidad] || "ap-chip--neutro"}`}>
-                        {d.severidad}
+                      {tituloDeteccion(d)}
+                      <span className={`ap-chip ${chipDeteccion(d).clase}`}>
+                        {chipDeteccion(d).texto}
                       </span>
                     </span>
                     {d.resumen && <span className="linea__resumen">{d.resumen}</span>}
